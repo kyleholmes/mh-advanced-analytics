@@ -21,3 +21,15 @@ button.primary {
   color: white;
   border-radius: 8px;
 }
+
+.header{
+  width: 100%;
+  text-align: center;
+}
+
+.body{
+  clear: both;
+  padding-top: 10px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

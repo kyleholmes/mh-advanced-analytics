@@ -1,40 +1,50 @@
-.results {
-  display: grid;
-  column-gap: 14px;
-  row-gap: 14px;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
-  margin-top: 50px;
-  justify-content: space-around;
+.header{
+  width: 100%;
+  text-align: center;
 }
 
-input[type="text"] {
-  border: solid 1px var(--primary-color);
-  padding: 10px;
-  border-radius: 8px;
-  margin-right: 4px;
+.body{
+  clear: both;
+  padding-top: 10px;
+}
+
+.card{
+  margin: 1%;
+  padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 29%;
+  height: 300px;
   display: inline-block;
-  width: 30%;
+  text-align: center;
 }
 
-button {
-  padding: 10px;
-  border: solid 1px var(--primary-color);
-  background: var(--primary-color);
-  color: white;
-  border-radius: 8px;
+.card-full{
+  margin: 1%;
+  padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  height: 200px;
+  display: inline-block;
+  text-align: center;
 }
 
-@media (min-width: 500px) and (max-width: 768px) {
-  .results {
-      grid-template-columns: repeat(2, 1fr);
-  }
-  input[type="text"] {
-      width: 70%;
-  }   
+.card-header{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 499px) {
-  .results {
-      grid-template-columns: 1fr;
-  }    
+.card-body{
+  display: flex;
+  justify-content: space-between;
+}
+
+.canvas-holder{
+  width: 80%;
+  height: 80%;
+  margin: auto;
 }

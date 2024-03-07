@@ -1,27 +1,49 @@
 import { Component } from '@angular/core';
 import { HomeComponent } from './home/home.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     HomeComponent,
     RouterModule,
+    MatIconModule,
+    CommonModule
   ],
-  template: `
-    <main>
-      <a [routerLink]="['/']">
-        <header class="brand-name">
-          <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">
-        </header>
-      </a>
-      <section class="content">
-        <router-outlet></router-outlet>
-      </section>
-    </main>
-  `,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'homes';
+  showMenu = false;
+
+  constructor(private router: Router) {
+    
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
+    this.toggleMenu();
+  }
+
+  openPages() {
+    this.router.navigate(['/pages']);
+    this.toggleMenu();
+  }
+
+  openUsers() {
+    this.router.navigate(['/users']);
+    this.toggleMenu();
+  }
+
+  openErrors() {
+    this.router.navigate(['/errors']);
+    this.toggleMenu();
+  }
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
 }

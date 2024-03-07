@@ -1,0 +1,31 @@
+<div>
+    <div class="header">Analytics Dashboard</div>
+    
+    <div class="body">
+        <div class="card" (click)="openPages()">
+            <div class="card-header">Pages</div>
+            <div class="canvas-holder">
+                <canvas id="pages"></canvas>
+            </div>
+        </div>
+
+        <div class="card" (click)="openUsers()">
+            <div class="card-header">Users</div>
+            <canvas id="users"></canvas>
+        </div>
+
+        <div class="card" (click)="openErrors()">
+            <div class="card-header">Errors</div>
+            <canvas id="errors"></canvas>
+        </div>
+
+        <div class="card-full">
+            <div class="card-header">Suggestions</div>
+            <div>
+                <span>Recurring Error: </span><span style="color: #DC3545;">Stack Overflow</span><span> - Frequent on </span><span style="color: #005489;">340B Monitor</span><br>
+                <span>Slow running page: </span><span style="color: #DC3545;">Order Builder</span><br>
+                <span>Unusual Activity: </span><span style="color: #DC3545;">John Doe</span>
+            </div>
+        </div>
+    </div>
+</div>

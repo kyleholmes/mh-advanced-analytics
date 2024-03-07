@@ -5,11 +5,11 @@ import Chart from 'chart.js/auto';
 @Component({
   selector: 'app-home',
   standalone: true,
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  templateUrl: './pages.component.html',
+  styleUrls: ['./pages.component.css'],
 })
 
-export class HomeComponent {
+export class PagesComponent {
   pagesData = [
     { page: '340B Monitor', count: 10 },
     { page: 'Qualification Filters', count: 20 },
@@ -109,15 +109,15 @@ export class HomeComponent {
   }
 
   openPages() {
-    this.router.navigate(['/pages']);
+    
   }
 
   openUsers() {
-    this.router.navigate(['/users']);
+    
   }
 
   openErrors() {
-    this.router.navigate(['/errors']);
+    
   }
   
 }
