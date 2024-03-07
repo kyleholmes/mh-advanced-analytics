@@ -1,4 +1,5 @@
-﻿using Azure;
+﻿using AdvancedAnalyticsAPI.Models;
+using Azure;
 using Azure.Identity;
 using Azure.Monitor.Query;
 using Azure.Monitor.Query.Models;
@@ -12,7 +13,7 @@ namespace AdvancedAnalyticsAPI.Controllers
     {
         [HttpGet]
         [Route("GetDeviceTypes")]
-        public IEnumerable<LogsTableRow> GetDeviceTypes()
+        public IEnumerable<DeviceType> GetDeviceTypes()
         {
             string workspaceId = "787c7598-ec4d-443a-9f1c-47534eccb0a2";
             var client = new LogsQueryClient(new DefaultAzureCredential());
@@ -28,7 +29,18 @@ namespace AdvancedAnalyticsAPI.Controllers
                 "| summarize DeviceCount = count() by Device",
                 new QueryTimeRange(TimeSpan.FromDays(7)));
 
-            return result.Value.Table.Rows;
+            List<DeviceType> deviceTypes = new List<DeviceType>();
+            foreach (var row in result.Value.Table.Rows)
+            {
+                DeviceType deviceType = new DeviceType
+                {
+                    DeviceName = row[0].ToString(),
+                    Count = Convert.ToInt32(row[1])
+                };
+                deviceTypes.Add(deviceType);
+            }
+
+            return deviceTypes;
         }
     }
 }
