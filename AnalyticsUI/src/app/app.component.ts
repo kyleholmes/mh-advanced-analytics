@@ -1,21 +1,12 @@
 import { Component } from '@angular/core';
-import { HomeComponent } from './home/home.component';
-import { Router, RouterModule } from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [
-    HomeComponent,
-    RouterModule,
-    MatIconModule,
-    CommonModule
-  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
+  
 export class AppComponent {
   showMenu = false;
 
@@ -25,22 +16,22 @@ export class AppComponent {
 
   goHome() {
     this.router.navigate(['/']);
-    this.toggleMenu();
+    this.showMenu = false;
   }
 
   openPages() {
     this.router.navigate(['/pages']);
-    this.toggleMenu();
+    this.showMenu = false;
   }
 
   openUsers() {
     this.router.navigate(['/users']);
-    this.toggleMenu();
+    this.showMenu = false;
   }
 
   openErrors() {
     this.router.navigate(['/errors']);
-    this.toggleMenu();
+    this.showMenu = false;
   }
 
   toggleMenu() {

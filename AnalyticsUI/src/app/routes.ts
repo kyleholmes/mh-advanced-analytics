@@ -1,8 +1,9 @@
-import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { PagesComponent } from './pages/pages.component';
-import { UsersComponent } from './users/users.component';
-import { ErrorsComponent } from './errors/errors.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './modules/home/home.component';
+import { PagesComponent } from './modules/pages/pages.component';
+import { UsersComponent } from './modules/users/users.component';
+import { ErrorsComponent } from './modules/errors/errors.component';
+import { NgModule } from '@angular/core';
 const routeConfig: Routes = [
   {
     path: '',
@@ -26,4 +27,11 @@ const routeConfig: Routes = [
   },
 ];
 
-export default routeConfig;
+@NgModule({
+  imports: [RouterModule.forRoot(routeConfig,
+    {
+      useHash: true
+    , onSameUrlNavigation: 'reload'})],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

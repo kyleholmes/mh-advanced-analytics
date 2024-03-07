@@ -4,7 +4,6 @@ import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css'],
 })
