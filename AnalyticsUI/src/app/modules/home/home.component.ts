@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import Chart from 'chart.js/auto';
+import { Subscription, filter } from 'rxjs';
+import { ErrorByDay } from 'src/app/models/exceptions-models';
+import { PageLoads } from 'src/app/models/page-view-models';
+import { GetDeviceTypes, GetLastWeekErrors, GetPageLoads } from 'src/app/store/analytics.actions';
+import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +15,6 @@ import Chart from 'chart.js/auto';
 })
 
 export class HomeComponent {
-  pagesData = [
-    { page: '340B Monitor', count: 10 },
-    { page: 'Qualification Filters', count: 20 },
-    { page: 'Dispense Fee Management', count: 15 },
-    { page: 'Order Builder', count: 25 },
-    { page: 'Dashboard', count: 22 },
-    { page: 'Prescriber List', count: 30 },
-  ];
-
   usersData = [
     { day: 'Monday', count: 10 },
     { day: 'Tuesday', count: 20 },
@@ -28,24 +25,42 @@ export class HomeComponent {
     { day: 'Sunday', count: 30 },
   ];
 
-  errorData = [
-    { day: 'Monday', count: 10 },
-    { day: 'Tuesday', count: 20 },
-    { day: 'Wednesday', count: 15 },
-    { day: 'Thursday', count: 25 },
-    { day: 'Friday', count: 22 },
-    { day: 'Saturday', count: 30 },
-    { day: 'Sunday', count: 10 },
-  ];
+  private subscriptions = new Subscription();
+  errorByDayList: ErrorByDay[] = [];
+  pageLoadsList: PageLoads[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public store: Store<{ analyticsState: AnalyticsState }>) {
     
   }
 
   ngOnInit(): void {
-    this.loadPagesChart();
     this.loadUsersChart();
-    this.loadErrorChart();
+
+    this.store.dispatch(GetLastWeekErrors());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.errorByDayList)
+        .pipe(filter((errorByDayList) => errorByDayList !== null))
+        .subscribe((errorByDayList) => {
+          if (errorByDayList.length > 0) {
+            this.errorByDayList = errorByDayList;
+            this.loadErrorChart();
+          }
+        })
+    );
+
+    this.store.dispatch(GetPageLoads());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.pageLoadsList)
+        .pipe(filter((pageLoadsList) => pageLoadsList !== null))
+        .subscribe((pageLoadsList) => {
+          if (pageLoadsList.length > 0) {
+            this.pageLoadsList = pageLoadsList;
+            this.loadPagesChart();
+          }
+        })
+    );
   }
 
   loadPagesChart() {
@@ -54,11 +69,11 @@ export class HomeComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.pagesData.map(row => row.page),
+          labels: this.pageLoadsList.map(row => row.pageName),
           datasets: [
             {
               label: 'Page Views',
-              data: this.pagesData.map(row => row.count)
+              data: this.pageLoadsList.map(row => row.count)
             }
           ]
         },
@@ -94,11 +109,11 @@ export class HomeComponent {
       {
         type: 'bar',
         data: {
-          labels: this.errorData.map(row => row.day),
+          labels: this.errorByDayList.map(row => row.day),
           datasets: [
             {
               label: 'Error Count',
-              data: this.errorData.map(row => row.count),
+              data: this.errorByDayList.map(row => row.count),
               backgroundColor: '#DC3545',
             }
           ]

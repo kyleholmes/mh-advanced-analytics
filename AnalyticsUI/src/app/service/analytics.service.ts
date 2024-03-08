@@ -14,10 +14,22 @@ export class AnalyticsService {
   }
 
   public getDeviceTypeList() {
-    return this.http
-      .get('https://localhost:44397/Analytics/GetDeviceTypes')
-      .pipe(
-        map((response: any) => response)
-      );
+    return this.http.get('https://localhost:44397/PageViews/GetDeviceTypes').pipe(map((response: any) => response));
+  }
+
+  public getScreenSizesList() {
+    return this.http.get('https://localhost:44397/PageViews/GetScreenSizes').pipe(map((response: any) => response));
+  }
+
+  public getPowerUsers() {
+    return this.http.get('https://localhost:44397/Events/GetPowerUsers').pipe(map((response: any) => response));
+  }
+
+  public getLastWeekErrors() {
+    return this.http.get('https://localhost:44397/Exceptions/GetLastWeekErrors').pipe(map((response: any) => response));
+  }
+
+  public getPageLoadsList() {
+    return this.http.get('https://localhost:44397/PageViews/GetPageLoads').pipe(map((response: any) => response));
   }
 }

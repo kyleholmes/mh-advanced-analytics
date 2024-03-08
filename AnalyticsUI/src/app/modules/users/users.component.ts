@@ -3,8 +3,9 @@ import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
-import { DeviceType } from 'src/app/models/device-type';
-import { GetDeviceTypes } from 'src/app/store/analytics.actions';
+import { PowerUser } from 'src/app/models/events-models';
+import { DeviceType, ScreenSize } from 'src/app/models/page-view-models';
+import { GetDeviceTypes, GetPowerUsers, GetScreenSizes } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
@@ -15,9 +16,10 @@ import { AnalyticsState } from 'src/app/store/analytics.reducer';
 export class UsersComponent {
   private subscriptions = new Subscription();
   deviceTypesList: DeviceType[] = [];
+  screenSizeList: ScreenSize[] = [];
+  powerUserList: PowerUser[] = [];
   
   constructor(
-    private actions$: Actions,
     public store: Store<{ analyticsState: AnalyticsState }>
   ) { }
   
@@ -34,6 +36,32 @@ export class UsersComponent {
           }
         })
     );
+
+    this.store.dispatch(GetScreenSizes());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.screenSizeList)
+        .pipe(filter((screenSizeList) => screenSizeList !== null))
+        .subscribe((screenSizeList) => {
+          if (screenSizeList.length > 0) {
+            this.screenSizeList = screenSizeList;
+            this.loadScreenSizeChart();
+          }
+        })
+    );
+
+    this.store.dispatch(GetPowerUsers());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.powerUserList)
+        .pipe(filter((powerUserList) => powerUserList !== null))
+        .subscribe((powerUserList) => {
+          if (powerUserList.length > 0) {
+            this.powerUserList = powerUserList;
+            this.loadPowerUserChart();
+          }
+        })
+    );
   }
 
   loadDeviceTypeChart() {
@@ -47,6 +75,50 @@ export class UsersComponent {
             {
               label: 'Device Types',
               data: this.deviceTypesList.map(row => row.count)
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      }
+    );
+  }
+
+  loadScreenSizeChart() {
+    new Chart(
+      <HTMLCanvasElement>document.getElementById('screenSizes'),
+      {
+        type: 'doughnut',
+        data: {
+          labels: this.screenSizeList.map(row => row.deviceName),
+          datasets: [
+            {
+              label: 'Page Loads',
+              data: this.screenSizeList.map(row => row.count)
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      }
+    );
+  }
+
+  loadPowerUserChart() {
+    new Chart(
+      <HTMLCanvasElement>document.getElementById('powerUsers'),
+      {
+        type: 'doughnut',
+        data: {
+          labels: this.powerUserList.map(row => row.userId),
+          datasets: [
+            {
+              label: 'User Actions',
+              data: this.powerUserList.map(row => row.count)
             }
           ]
         },

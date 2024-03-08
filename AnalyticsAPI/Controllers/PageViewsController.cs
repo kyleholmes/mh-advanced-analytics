@@ -1,38 +1,33 @@
 ﻿using AdvancedAnalyticsAPI.Models;
-using Azure;
-using Azure.Identity;
-using Azure.Monitor.Query;
-using Azure.Monitor.Query.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.ApplicationInsights.Query;
 
 namespace AdvancedAnalyticsAPI.Controllers
 {
-    [Route("Analytics")]
+    [Route("PageViews")]
     [ApiController]
     public class PageViewsController : ControllerBase
     {
+        string apiKey = "";
+        string appId = "6dbf6d2a-104f-44d2-b549-a8e7f150100c";
+
         [HttpGet]
         [Route("GetDeviceTypes")]
-        public IEnumerable<DeviceType> GetDeviceTypes()
+        public async Task<IEnumerable<DeviceType>> GetDeviceTypes()
         {
-            string workspaceId = "787c7598-ec4d-443a-9f1c-47534eccb0a2";
-            var client = new LogsQueryClient(new DefaultAzureCredential());
+            var credentials = new ApiKeyClientCredentials(apiKey);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var query = "pageViews "
+                + "| where notempty(customDimensions.ScreenSize) "
+                + "| project Device = case(toint(split(customDimensions.ScreenSize, 'x')[0]) < 768, 'Phone', "
+                + "toint(split(customDimensions.ScreenSize, 'x')[0]) between (768 .. 992),'Tablet', 'Computer') "
+                + "| summarize DeviceCount = count() by Device";
+            var response = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(appId, query);
 
-            Response<LogsQueryResult> result = client.QueryWorkspace(
-                workspaceId,
-                "AppPageViews " +
-                "| extend AppName = tostring(split(_ResourceId, '/')[-1]) " +
-                "| where AppName == 'ain-1pr-webanalytics-01' " +
-                "| extend ScreenSize = tostring(Properties.ScreenSize) " +
-                "| where notempty(ScreenSize) " +
-                "| project Device = case(toint(split(ScreenSize, 'x')[0]) < 768, 'Phone', toint(split(ScreenSize, 'x')[0]) between (768 .. 992),'Tablet', 'Computer') " +
-                "| summarize DeviceCount = count() by Device",
-                new QueryTimeRange(TimeSpan.FromDays(7)));
-
-            List<DeviceType> deviceTypes = new List<DeviceType>();
-            foreach (var row in result.Value.Table.Rows)
+            var deviceTypes = new List<DeviceType>();
+            foreach (var row in response.Body.Tables[0].Rows)
             {
-                DeviceType deviceType = new DeviceType
+                var deviceType = new DeviceType
                 {
                     DeviceName = row[0].ToString(),
                     Count = Convert.ToInt32(row[1])
@@ -41,6 +36,67 @@ namespace AdvancedAnalyticsAPI.Controllers
             }
 
             return deviceTypes;
+        }
+
+        [HttpGet]
+        [Route("GetScreenSizes")]
+        public async Task<IEnumerable<ScreenSize>> GetScreenSizes()
+        {
+            var credentials = new ApiKeyClientCredentials(apiKey);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var query = @"
+                pageViews
+                    | where notempty(customDimensions.ScreenSize)
+                    | project ScreenSize = customDimensions.ScreenSize, Device = case(toint(split(customDimensions.ScreenSize, 'x')[0]) between(992 .. 1200),
+                    'Small Computer 992px-1200px', toint(split(customDimensions.ScreenSize, 'x')[0]) between (1200 .. 1800),
+                    'Large Computer 1200px-1800px', 'Extra Large Computer 1800px+')
+                    | where toint(split(ScreenSize, 'x')[0]) > 992
+                    | summarize DeviceCount = count() by Device
+                ";
+            var response = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(appId, query);
+
+            var screenSizes = new List<ScreenSize>();
+            foreach (var row in response.Body.Tables[0].Rows)
+            {
+                var deviceType = new ScreenSize
+                {
+                    DeviceName = row[0].ToString(),
+                    Count = Convert.ToInt32(row[1])
+                };
+                screenSizes.Add(deviceType);
+            }
+
+            return screenSizes;
+        }
+
+        [HttpGet]
+        [Route("GetPageLoads")]
+        public async Task<IEnumerable<PageLoads>> GetPageLoads()
+        {
+            var credentials = new ApiKeyClientCredentials(apiKey);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var query = @"
+                pageViews
+                    | where timestamp >= startofday(ago(7d))
+                    | project operation_Name
+                    | summarize Count = count() by operation_Name
+                    | top 5 by Count
+                    | order by Count desc
+                ";
+            var response = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(appId, query);
+
+            var returnList = new List<PageLoads>();
+            foreach (var row in response.Body.Tables[0].Rows)
+            {
+                var responseItem = new PageLoads
+                {
+                    PageName = row[0].ToString().Split("/#/")[1],
+                    Count = Convert.ToInt32(row[1])
+                };
+                returnList.Add(responseItem);
+            }
+
+            return returnList;
         }
     }
 }

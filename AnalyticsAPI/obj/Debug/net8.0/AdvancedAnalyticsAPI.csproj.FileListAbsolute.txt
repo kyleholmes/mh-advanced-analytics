@@ -83,3 +83,7 @@ C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\refint\AdvancedAna
 C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.pdb
 C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.genruntimeconfig.cache
 C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\ref\AdvancedAnalyticsAPI.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.Azure.ApplicationInsights.Query.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.Rest.ClientRuntime.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.Rest.ClientRuntime.Azure.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
