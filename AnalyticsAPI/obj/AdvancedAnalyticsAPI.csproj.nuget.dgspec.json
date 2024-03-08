@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\eq1i5y5\\OneDrive - McKesson Corporation\\AdvancedAnalyticsAPI\\AdvancedAnalyticsAPI.csproj": {}
+    "C:\\Github\\mh-advanced-analytics\\AnalyticsAPI\\AdvancedAnalyticsAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\eq1i5y5\\OneDrive - McKesson Corporation\\AdvancedAnalyticsAPI\\AdvancedAnalyticsAPI.csproj": {
+    "C:\\Github\\mh-advanced-analytics\\AnalyticsAPI\\AdvancedAnalyticsAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\eq1i5y5\\OneDrive - McKesson Corporation\\AdvancedAnalyticsAPI\\AdvancedAnalyticsAPI.csproj",
+        "projectUniqueName": "C:\\Github\\mh-advanced-analytics\\AnalyticsAPI\\AdvancedAnalyticsAPI.csproj",
         "projectName": "AdvancedAnalyticsAPI",
-        "projectPath": "C:\\Users\\eq1i5y5\\OneDrive - McKesson Corporation\\AdvancedAnalyticsAPI\\AdvancedAnalyticsAPI.csproj",
+        "projectPath": "C:\\Github\\mh-advanced-analytics\\AnalyticsAPI\\AdvancedAnalyticsAPI.csproj",
         "packagesPath": "C:\\Users\\eq1i5y5\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\eq1i5y5\\OneDrive - McKesson Corporation\\AdvancedAnalyticsAPI\\obj\\",
+        "outputPath": "C:\\Github\\mh-advanced-analytics\\AnalyticsAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\eq1i5y5\\AppData\\Roaming\\NuGet\\NuGet.Config",

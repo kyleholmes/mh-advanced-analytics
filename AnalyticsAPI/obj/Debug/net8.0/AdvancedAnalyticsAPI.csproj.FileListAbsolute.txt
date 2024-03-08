@@ -40,3 +40,46 @@ C:\Users\eq1i5y5\OneDrive - McKesson Corporation\AdvancedAnalyticsAPI\obj\Debug\
 C:\Users\eq1i5y5\OneDrive - McKesson Corporation\AdvancedAnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.pdb
 C:\Users\eq1i5y5\OneDrive - McKesson Corporation\AdvancedAnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.genruntimeconfig.cache
 C:\Users\eq1i5y5\OneDrive - McKesson Corporation\AdvancedAnalyticsAPI\obj\Debug\net8.0\ref\AdvancedAnalyticsAPI.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\appsettings.Development.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\appsettings.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\AdvancedAnalyticsAPI.exe
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\AdvancedAnalyticsAPI.deps.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\AdvancedAnalyticsAPI.runtimeconfig.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\AdvancedAnalyticsAPI.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\AdvancedAnalyticsAPI.pdb
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Azure.Core.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Azure.Identity.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Azure.Monitor.Query.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\bin\Debug\net8.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.csproj.AssemblyReference.cache
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.AssemblyInfoInputs.cache
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.AssemblyInfo.cs
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.csproj.CoreCompileInputs.cache
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.sourcelink.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\staticwebassets.development.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\staticwebassets\msbuild.AdvancedAnalyticsAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\staticwebassets\msbuild.build.AdvancedAnalyticsAPI.props
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.AdvancedAnalyticsAPI.props
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AdvancedAnalyticsAPI.props
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\scopedcss\bundle\AdvancedAnalyticsAPI.styles.css
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.csproj.CopyComplete
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\refint\AdvancedAnalyticsAPI.dll
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.pdb
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\AdvancedAnalyticsAPI.genruntimeconfig.cache
+C:\Github\mh-advanced-analytics\AnalyticsAPI\obj\Debug\net8.0\ref\AdvancedAnalyticsAPI.dll

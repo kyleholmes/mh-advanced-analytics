@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HKopK56txRtUBU1dqAb8Lb8zY6Rf9wBoWftGom1UXAhjA0l4t/32TfhNUhy3ayLy2G7/rv2ibYhYmz2ZKUKs2g==",
+  "dgSpecHash": "zCWs2aV9cQi+AVK75prlzuqjlGJTS07o6ph//3pPtm673Eq+BOUY/QgJpALjcy4+9yrgq8iNTq496rYrJwGlYQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\eq1i5y5\\OneDrive - McKesson Corporation\\AdvancedAnalyticsAPI\\AdvancedAnalyticsAPI.csproj",
+  "projectFilePath": "C:\\Github\\mh-advanced-analytics\\AnalyticsAPI\\AdvancedAnalyticsAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\eq1i5y5\\.nuget\\packages\\azure.core\\1.36.0\\azure.core.1.36.0.nupkg.sha512",
     "C:\\Users\\eq1i5y5\\.nuget\\packages\\azure.identity\\1.10.4\\azure.identity.1.10.4.nupkg.sha512",
