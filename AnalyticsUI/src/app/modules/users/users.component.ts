@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
-import { PowerUser } from 'src/app/models/events-models';
-import { DeviceType, ScreenSize } from 'src/app/models/page-view-models';
+import { SimpleCount } from 'src/app/models/simple-count';
 import { GetDeviceTypes, GetPowerUsers, GetScreenSizes } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
@@ -15,9 +13,9 @@ import { AnalyticsState } from 'src/app/store/analytics.reducer';
 })
 export class UsersComponent {
   private subscriptions = new Subscription();
-  deviceTypesList: DeviceType[] = [];
-  screenSizeList: ScreenSize[] = [];
-  powerUserList: PowerUser[] = [];
+  deviceTypesList: SimpleCount[] = [];
+  screenSizeList: SimpleCount[] = [];
+  powerUserList: SimpleCount[] = [];
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>
@@ -70,7 +68,7 @@ export class UsersComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.deviceTypesList.map(row => row.deviceName),
+          labels: this.deviceTypesList.map(row => row.variable),
           datasets: [
             {
               label: 'Device Types',
@@ -92,7 +90,7 @@ export class UsersComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.screenSizeList.map(row => row.deviceName),
+          labels: this.screenSizeList.map(row => row.variable),
           datasets: [
             {
               label: 'Page Loads',
@@ -114,7 +112,7 @@ export class UsersComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.powerUserList.map(row => row.userId),
+          labels: this.powerUserList.map(row => row.variable),
           datasets: [
             {
               label: 'User Actions',

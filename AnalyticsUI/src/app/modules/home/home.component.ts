@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import Chart from 'chart.js/auto';
 import { Subscription, filter } from 'rxjs';
-import { ErrorByDay } from 'src/app/models/exceptions-models';
-import { PageLoads } from 'src/app/models/page-view-models';
-import { GetDeviceTypes, GetLastWeekErrors, GetPageLoads } from 'src/app/store/analytics.actions';
+import { SimpleCount } from 'src/app/models/simple-count';
+import { GetLastWeekErrors, GetPageLoads } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
@@ -26,8 +25,8 @@ export class HomeComponent {
   ];
 
   private subscriptions = new Subscription();
-  errorByDayList: ErrorByDay[] = [];
-  pageLoadsList: PageLoads[] = [];
+  errorByDayList: SimpleCount[] = [];
+  pageLoadsList: SimpleCount[] = [];
 
   constructor(private router: Router, public store: Store<{ analyticsState: AnalyticsState }>) {
     
@@ -69,7 +68,7 @@ export class HomeComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.pageLoadsList.map(row => row.pageName),
+          labels: this.pageLoadsList.map(row => row.variable),
           datasets: [
             {
               label: 'Page Views',
@@ -109,7 +108,7 @@ export class HomeComponent {
       {
         type: 'bar',
         data: {
-          labels: this.errorByDayList.map(row => row.day),
+          labels: this.errorByDayList.map(row => row.variable),
           datasets: [
             {
               label: 'Error Count',

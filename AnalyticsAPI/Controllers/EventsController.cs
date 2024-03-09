@@ -1,4 +1,5 @@
 ﻿using AdvancedAnalyticsAPI.Models;
+using AdvancedAnalyticsAPI.Services;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.ApplicationInsights.Query;
@@ -9,21 +10,17 @@ namespace AdvancedAnalyticsAPI.Controllers
     [ApiController]
     public class EventsController : ControllerBase
     {
-        string apiKey = "";
-        string appId = "";
+        private readonly AppInsightsService _appInsightsService;
 
-        public EventsController(IConfiguration configuration)
+        public EventsController(AppInsightsService appInsightsService)
         {
-            apiKey = configuration["apiKey"];
-            appId = configuration["appId"];
+            _appInsightsService = appInsightsService;
         }
 
         [HttpGet]
         [Route("GetPowerUsers")]
-        public async Task<IEnumerable<PowerUser>> GetPowerUsers()
+        public async Task<IEnumerable<SimpleCount>> GetPowerUsers()
         {
-            var credentials = new ApiKeyClientCredentials(apiKey);
-            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
             var query = @"
                     customEvents
                     | where name == 'ClickEvent'
@@ -32,20 +29,8 @@ namespace AdvancedAnalyticsAPI.Controllers
                     | top 5 by UserCount
                     | order by UserCount desc
                 ";
-            var response = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(appId, query);
 
-            var responseList = new List<PowerUser>();
-            foreach (var row in response.Body.Tables[0].Rows)
-            {
-                var responseItem = new PowerUser
-                {
-                    UserId = row[0].ToString(),
-                    Count = Convert.ToInt32(row[1])
-                };
-                responseList.Add(responseItem);
-            }
-
-            return responseList;
+            return await _appInsightsService.GetSimpleCountAsync(query);
         }
     }
 }

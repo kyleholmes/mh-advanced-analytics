@@ -1,7 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { DeviceType, PageLoads, ScreenSize } from "../models/page-view-models";
-import { PowerUser } from "../models/events-models";
-import { ErrorByDay } from "../models/exceptions-models";
+import { SimpleCount } from "../models/simple-count";
 
 export enum AnalyticsStateActionTypes {
   GET_DEVICE_TYPES = '[Analytics] Get Device Types',
@@ -26,21 +24,21 @@ export enum AnalyticsStateActionTypes {
 }
 
 export const GetDeviceTypes = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES);
-export const GetDeviceTypesResults = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES_RES, props<{ deviceTypeList: DeviceType[] }>());
+export const GetDeviceTypesResults = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES_RES, props<{ deviceTypeList: SimpleCount[] }>());
 export const GetDeviceTypesError = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES_ERR, props<{ message: string }>());
 
 export const GetScreenSizes = createAction(AnalyticsStateActionTypes.GET_SCREEN_SIZES);
-export const GetScreenSizesResults = createAction(AnalyticsStateActionTypes.GET_SCREEN_SIZES_RES, props<{ screenSizesList: ScreenSize[] }>());
+export const GetScreenSizesResults = createAction(AnalyticsStateActionTypes.GET_SCREEN_SIZES_RES, props<{ screenSizesList: SimpleCount[] }>());
 export const GetScreenSizesError = createAction(AnalyticsStateActionTypes.GET_SCREEN_SIZES_ERR, props<{ message: string }>());
 
 export const GetPowerUsers = createAction(AnalyticsStateActionTypes.GET_POWER_USERS);
-export const GetPowerUsersResults = createAction(AnalyticsStateActionTypes.GET_POWER_USERS_RES, props<{ powerUsers: PowerUser[] }>());
+export const GetPowerUsersResults = createAction(AnalyticsStateActionTypes.GET_POWER_USERS_RES, props<{ powerUsers: SimpleCount[] }>());
 export const GetPowerUsersError = createAction(AnalyticsStateActionTypes.GET_POWER_USERS_ERR, props<{ message: string }>());
 
 export const GetLastWeekErrors = createAction(AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS);
-export const GetLastWeekErrorsResults = createAction(AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS_RES, props<{ lastWeekErrors: ErrorByDay[] }>());
+export const GetLastWeekErrorsResults = createAction(AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS_RES, props<{ lastWeekErrors: SimpleCount[] }>());
 export const GetLastWeekErrorsError = createAction(AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS_ERR, props<{ message: string }>());
 
 export const GetPageLoads = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS);
-export const GetPageLoadsResults = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS_RES, props<{ pageLoads: PageLoads[] }>());
+export const GetPageLoadsResults = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS_RES, props<{ pageLoads: SimpleCount[] }>());
 export const GetPageLoadsError = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS_ERR, props<{ message: string }>());

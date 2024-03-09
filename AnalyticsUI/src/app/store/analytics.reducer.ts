@@ -1,14 +1,12 @@
 import { AnalyticsStateActionTypes } from "./analytics.actions";
-import { DeviceType, PageLoads, ScreenSize } from "../models/page-view-models";
-import { PowerUser } from "../models/events-models";
-import { ErrorByDay } from "../models/exceptions-models";
+import { SimpleCount } from "../models/simple-count";
 
 export interface AnalyticsState {
-  deviceTypeList: DeviceType[],
-  screenSizeList: ScreenSize[],
-  powerUserList: PowerUser[],
-  errorByDayList: ErrorByDay[],
-  pageLoadsList: PageLoads[],
+  deviceTypeList: SimpleCount[],
+  screenSizeList: SimpleCount[],
+  powerUserList: SimpleCount[],
+  errorByDayList: SimpleCount[],
+  pageLoadsList: SimpleCount[],
 }
 
 export const initialState: AnalyticsState =

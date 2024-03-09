@@ -1,8 +1,8 @@
 ﻿namespace AdvancedAnalyticsAPI.Models
 {
-    public class ScreenSize
+    public class SimpleCount
     {
-        public string DeviceName { get; set; }
+        public string Variable { get; set; }
         public int Count { get; set; }
     }
 }
