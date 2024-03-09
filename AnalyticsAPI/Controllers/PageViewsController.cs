@@ -9,7 +9,13 @@ namespace AdvancedAnalyticsAPI.Controllers
     public class PageViewsController : ControllerBase
     {
         string apiKey = "";
-        string appId = "6dbf6d2a-104f-44d2-b549-a8e7f150100c";
+        string appId = "";
+
+        public PageViewsController(IConfiguration configuration)
+        {
+            apiKey = configuration["apiKey"];
+            appId = configuration["appId"];
+        }
 
         [HttpGet]
         [Route("GetDeviceTypes")]
