@@ -32,5 +32,18 @@ namespace AdvancedAnalyticsAPI.Controllers
 
             return await _appInsightsService.GetSimpleCountAsync(query);
         }
+
+        [HttpGet]
+        [Route("GetUserLogins")]
+        public async Task<IEnumerable<UserLogin>> GetUserLogins()
+        {
+            var query = @"
+                    customEvents
+                    | where name == 'USER_LOGGED_IN'
+                    | project LoginTime = timestamp, UserId = customDimensions.UserId
+                ";
+
+            return await _appInsightsService.GetUserLogins(query);
+        }
     }
 }
