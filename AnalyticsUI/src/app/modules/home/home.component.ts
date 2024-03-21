@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import Chart from 'chart.js/auto';
 import { Subscription, filter } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
-import { GetLastWeekErrors, GetPageLoads } from 'src/app/store/analytics.actions';
+import { GetLastWeekErrors, GetPageLoads, GetUserLogins } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
@@ -14,27 +14,16 @@ import { AnalyticsState } from 'src/app/store/analytics.reducer';
 })
 
 export class HomeComponent {
-  usersData = [
-    { day: 'Monday', count: 10 },
-    { day: 'Tuesday', count: 20 },
-    { day: 'Wednesday', count: 15 },
-    { day: 'Thursday', count: 25 },
-    { day: 'Friday', count: 22 },
-    { day: 'Saturday', count: 30 },
-    { day: 'Sunday', count: 30 },
-  ];
-
   private subscriptions = new Subscription();
   errorByDayList: SimpleCount[] = [];
   pageLoadsList: SimpleCount[] = [];
+  userLoginsList: SimpleCount[] = [];
 
   constructor(private router: Router, public store: Store<{ analyticsState: AnalyticsState }>) {
     
   }
 
   ngOnInit(): void {
-    this.loadUsersChart();
-
     this.store.dispatch(GetLastWeekErrors());
     this.subscriptions.add(
       this.store
@@ -60,6 +49,19 @@ export class HomeComponent {
           }
         })
     );
+
+    this.store.dispatch(GetUserLogins());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.userLoginsList)
+        .pipe(filter((userLoginsList) => userLoginsList !== null))
+        .subscribe((userLoginsList) => {
+          if (userLoginsList.length > 0) {
+            this.userLoginsList = userLoginsList;
+            this.loadUsersChart();
+          }
+        })
+    );
   }
 
   loadPagesChart() {
@@ -78,7 +80,12 @@ export class HomeComponent {
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'left'
+            }
+          }
         }
       }
     );
@@ -90,11 +97,11 @@ export class HomeComponent {
       {
         type: 'line',
         data: {
-          labels: this.usersData.map(row => row.day),
+          labels: this.userLoginsList.map(row => row.variable),
           datasets: [
             {
-              label: 'User Count',
-              data: this.usersData.map(row => row.count)
+              label: 'User Logins',
+              data: this.userLoginsList.map(row => row.count)
             }
           ]
         }

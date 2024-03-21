@@ -2,7 +2,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of as observableOf } from 'rxjs';
-import { GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults } from "./analytics.actions";
+import { GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults } from "./analytics.actions";
 import { AnalyticsService } from "../service/analytics.service";
 
 @Injectable()
@@ -91,6 +91,40 @@ export class AnalyticsStoreEffects {
           ),
           catchError(
             error => observableOf(GetPageLoadsError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetUserLoginsEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetUserLogins),
+    switchMap(action =>
+      this.analyticsService.getUserLogins()
+        .pipe(
+          map(
+            data => {
+              return GetUserLoginsResults({ userLogins: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetUserLoginsError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetAllUsersEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetAllUsers),
+    switchMap(action =>
+      this.analyticsService.getAllUsers()
+        .pipe(
+          map(
+            data => {
+              return GetAllUsersResults({ allUsers: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetAllUsersError({ message: error }))
           )
         )
     )

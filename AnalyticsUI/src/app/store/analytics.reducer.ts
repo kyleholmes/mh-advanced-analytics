@@ -1,5 +1,6 @@
 import { AnalyticsStateActionTypes } from "./analytics.actions";
 import { SimpleCount } from "../models/simple-count";
+import { User } from "../models/user";
 
 export interface AnalyticsState {
   deviceTypeList: SimpleCount[],
@@ -7,6 +8,8 @@ export interface AnalyticsState {
   powerUserList: SimpleCount[],
   errorByDayList: SimpleCount[],
   pageLoadsList: SimpleCount[],
+  userLoginsList: SimpleCount[],
+  allUsersList: User[],
 }
 
 export const initialState: AnalyticsState =
@@ -16,6 +19,8 @@ export const initialState: AnalyticsState =
   powerUserList: [],
   errorByDayList: [],
   pageLoadsList: [],
+  userLoginsList: [],
+  allUsersList: [],
 }
 
 export function analyticsReducer(state = initialState, action: any): AnalyticsState {
@@ -39,6 +44,14 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
       
     case AnalyticsStateActionTypes.GET_PAGE_LOADS_RES: {
       return { ...state, pageLoadsList: action.pageLoads };
+    }
+      
+    case AnalyticsStateActionTypes.GET_USER_LOGINS_RES: {
+      return { ...state, userLoginsList: action.userLogins };
+    }
+      
+    case AnalyticsStateActionTypes.GET_ALL_USERS_RES: {
+      return { ...state, allUsersList: action.allUsers };
     }
 
     default: {

@@ -53,8 +53,9 @@ namespace AdvancedAnalyticsAPI.Controllers
             var query = @"
                 pageViews
                     | where timestamp >= startofday(ago(7d))
-                    | project operation_Name
-                    | summarize Count = count() by operation_Name
+                    | where customDimensions.Page != ''
+                    | project PageName = customDimensions.Page
+                    | summarize Count = count() by tostring(PageName)
                     | top 5 by Count
                     | order by Count desc
                 ";

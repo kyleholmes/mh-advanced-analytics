@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { SimpleCount } from "../models/simple-count";
+import { User } from "../models/user";
 
 export enum AnalyticsStateActionTypes {
   GET_DEVICE_TYPES = '[Analytics] Get Device Types',
@@ -21,6 +22,14 @@ export enum AnalyticsStateActionTypes {
   GET_PAGE_LOADS = '[Analytics] Get Page Loads',
   GET_PAGE_LOADS_RES = '[Analytics] Get Page Loads Results',
   GET_PAGE_LOADS_ERR = '[Analytics] Get Page Loads Error',
+
+  GET_USER_LOGINS = '[Analytics] Get User Logins',
+  GET_USER_LOGINS_RES = '[Analytics] Get User Logins Results',
+  GET_USER_LOGINS_ERR = '[Analytics] Get User Logins Error',
+
+  GET_ALL_USERS = '[Analytics] Get All Users',
+  GET_ALL_USERS_RES = '[Analytics] Get All Users Results',
+  GET_ALL_USERS_ERR = '[Analytics] Get All Users Error',
 }
 
 export const GetDeviceTypes = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES);
@@ -42,3 +51,11 @@ export const GetLastWeekErrorsError = createAction(AnalyticsStateActionTypes.GET
 export const GetPageLoads = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS);
 export const GetPageLoadsResults = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS_RES, props<{ pageLoads: SimpleCount[] }>());
 export const GetPageLoadsError = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS_ERR, props<{ message: string }>());
+
+export const GetUserLogins = createAction(AnalyticsStateActionTypes.GET_USER_LOGINS);
+export const GetUserLoginsResults = createAction(AnalyticsStateActionTypes.GET_USER_LOGINS_RES, props<{ userLogins: SimpleCount[] }>());
+export const GetUserLoginsError = createAction(AnalyticsStateActionTypes.GET_USER_LOGINS_ERR, props<{ message: string }>());
+
+export const GetAllUsers = createAction(AnalyticsStateActionTypes.GET_ALL_USERS);
+export const GetAllUsersResults = createAction(AnalyticsStateActionTypes.GET_ALL_USERS_RES, props<{ allUsers: User[] }>());
+export const GetAllUsersError = createAction(AnalyticsStateActionTypes.GET_ALL_USERS_ERR, props<{ message: string }>());

@@ -30,17 +30,20 @@ namespace AdvancedAnalyticsAPI.Controllers
                     | order by UserCount desc
                 ";
 
-            return await _appInsightsService.GetSimpleCountAsync(query);
+            return await _appInsightsService.GetPowerUsersAsync(query);
         }
 
         [HttpGet]
         [Route("GetUserLogins")]
-        public async Task<IEnumerable<UserLogin>> GetUserLogins()
+        public async Task<IEnumerable<SimpleCount>> GetUserLogins()
         {
             var query = @"
                     customEvents
                     | where name == 'USER_LOGGED_IN'
-                    | project LoginTime = timestamp, UserId = customDimensions.UserId
+                    | where timestamp >= startofday(ago(7d))
+                    | project Day = tostring(split(timestamp, 'T')[0])
+                    | summarize Count = count() by Day
+                    | order by Day asc 
                 ";
 
             return await _appInsightsService.GetUserLogins(query);

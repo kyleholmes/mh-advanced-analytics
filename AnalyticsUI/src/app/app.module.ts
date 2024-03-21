@@ -15,6 +15,9 @@ import { PagesComponent } from './modules/pages/pages.component';
 import { ErrorsComponent } from './modules/errors/errors.component';
 import { HomeComponent } from './modules/home/home.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -22,7 +25,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         UsersComponent,
         PagesComponent,
         ErrorsComponent,
-        HomeComponent
+        HomeComponent,
     ],
     imports: [
         BrowserModule,
@@ -30,6 +33,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         CommonModule,
         RouterModule,
         MatIconModule,
+        MatTableModule,
+        MatPaginatorModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         StoreModule.forRoot({
             analyticsState: analyticsReducer,

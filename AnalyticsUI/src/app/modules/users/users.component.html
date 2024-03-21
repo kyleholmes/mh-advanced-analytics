@@ -2,25 +2,57 @@
     <div class="header">Users</div>
     
     <div class="body">
-        <div class="card">
+        <div class="card-small">
             <div class="card-header">Device Types</div>
             <div class="canvas-holder">
                 <canvas id="deviceTypes"></canvas>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card-small">
             <div class="card-header">Screen Sizes</div>
             <div class="canvas-holder">
                 <canvas id="screenSizes"></canvas>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card-small">
             <div class="card-header">Power Users</div>
             <div class="canvas-holder">
                 <canvas id="powerUsers"></canvas>
             </div>
+        </div>
+
+        <div class="card-full">
+            <div class="card-header">All Users</div>
+            <div class="pr-table" #TABLE cdkScrollable>
+            <table mat-table [dataSource]="dataSource" matSort matSortActive="uid" matSortDirection="asc">
+                <ng-container matColumnDef="uid">
+                <th mat-header-cell *matHeaderCellDef> User ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.uid}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef> First name </th>
+                <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="lastLogin">
+                <th mat-header-cell *matHeaderCellDef> Last Login </th>
+                <td mat-cell *matCellDef="let element"> {{element.lastLogin | date:'MM/dd/yyyy HH:mm a'}} </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div *ngIf="dataSource?.filteredData?.length===0">No Match Found</div>
+            </div>
+            <mat-paginator class="mh-paginator-small" [pageSize]="100" [pageSizeOptions]="[10,20,75,100, 150]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
 </div>

@@ -32,4 +32,12 @@ export class AnalyticsService {
   public getPageLoadsList() {
     return this.http.get('https://localhost:44397/PageViews/GetPageLoads').pipe(map((response: any) => response));
   }
+
+  public getUserLogins() {
+    return this.http.get('https://localhost:44397/Events/GetUserLogins').pipe(map((response: any) => response));
+  }
+
+  public getAllUsers() {
+    return this.http.get('https://localhost:44397/Events/GetAllUsers').pipe(map((response: any) => response));
+  }
 }
