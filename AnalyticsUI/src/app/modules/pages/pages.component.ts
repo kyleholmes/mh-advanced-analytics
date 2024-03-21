@@ -1,6 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import Chart from 'chart.js/auto';
+import { Subscription, filter } from 'rxjs';
+import { Page } from 'src/app/models/page';
+import { SimpleCount } from 'src/app/models/simple-count';
+import { User } from 'src/app/models/user';
+import { GetAllPages, GetPageLoads } from 'src/app/store/analytics.actions';
+import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
   selector: 'app-home',
@@ -9,43 +19,50 @@ import Chart from 'chart.js/auto';
 })
 
 export class PagesComponent {
-  pagesData = [
-    { page: '340B Monitor', count: 10 },
-    { page: 'Qualification Filters', count: 20 },
-    { page: 'Dispense Fee Management', count: 15 },
-    { page: 'Order Builder', count: 25 },
-    { page: 'Dashboard', count: 22 },
-    { page: 'Prescriber List', count: 30 },
-  ];
+  private subscriptions = new Subscription();
+  pageLoadsList: SimpleCount[] = [];
+  allPagesList: Page[] = [];
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+  displayedColumns: string[] = ['pageID', 'pageName', 'ngPageURL'];
+  dataSource: any;
 
-  usersData = [
-    { day: 'Monday', count: 10 },
-    { day: 'Tuesday', count: 20 },
-    { day: 'Wednesday', count: 15 },
-    { day: 'Thursday', count: 25 },
-    { day: 'Friday', count: 22 },
-    { day: 'Saturday', count: 30 },
-    { day: 'Sunday', count: 30 },
-  ];
-
-  errorData = [
-    { day: 'Monday', count: 10 },
-    { day: 'Tuesday', count: 20 },
-    { day: 'Wednesday', count: 15 },
-    { day: 'Thursday', count: 25 },
-    { day: 'Friday', count: 22 },
-    { day: 'Saturday', count: 30 },
-    { day: 'Sunday', count: 10 },
-  ];
-
-  constructor(private router: Router) {
+  constructor(public store: Store<{ analyticsState: AnalyticsState }>, private router: Router) {
     
   }
 
   ngOnInit(): void {
-    this.loadPagesChart();
-    this.loadUsersChart();
-    this.loadErrorChart();
+    this.store.dispatch(GetPageLoads());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.pageLoadsList)
+        .pipe(filter((pageLoadsList) => pageLoadsList !== null))
+        .subscribe((pageLoadsList) => {
+          if (pageLoadsList.length > 0) {
+            this.pageLoadsList = pageLoadsList;
+            this.loadPagesChart();
+          }
+        })
+    );
+
+    this.store.dispatch(GetAllPages());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.allPagesList)
+        .pipe(filter((allPagesList) => allPagesList !== null))
+        .subscribe((allPagesList) => {
+          if (allPagesList.length > 0) {
+            this.allPagesList = allPagesList;
+            this.loadAllPagesTable();
+          }
+        })
+    );
+  }
+
+  loadAllPagesTable() {
+    this.dataSource = new MatTableDataSource(this.allPagesList);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   loadPagesChart() {
@@ -54,69 +71,25 @@ export class PagesComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.pagesData.map(row => row.page),
+          labels: this.pageLoadsList.map(row => row.variable),
           datasets: [
             {
               label: 'Page Views',
-              data: this.pagesData.map(row => row.count)
+              data: this.pageLoadsList.map(row => row.count)
             }
           ]
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false
-        }
-      }
-    );
-  }
-
-  loadUsersChart() {
-    new Chart(
-      <HTMLCanvasElement>document.getElementById('users'),
-      {
-        type: 'line',
-        data: {
-          labels: this.usersData.map(row => row.day),
-          datasets: [
-            {
-              label: 'User Count',
-              data: this.usersData.map(row => row.count)
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'left'
             }
-          ]
+          }
         }
       }
     );
-  }
-
-  loadErrorChart() {
-    new Chart(
-      <HTMLCanvasElement>document.getElementById('errors'),
-      {
-        type: 'bar',
-        data: {
-          labels: this.errorData.map(row => row.day),
-          datasets: [
-            {
-              label: 'Error Count',
-              data: this.errorData.map(row => row.count),
-              backgroundColor: '#DC3545',
-            }
-          ]
-        }
-      }
-    );
-  }
-
-  openPages() {
-    
-  }
-
-  openUsers() {
-    
-  }
-
-  openErrors() {
-    
   }
   
 }

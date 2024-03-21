@@ -1,0 +1,40 @@
+<div>
+    <div class="header">{{currentUser.firstName + ' ' + currentUser.lastName + ' Analytics'}}</div>
+    
+    <div class="body">
+        <div class="card-tall">
+            <div class="card-header">User Info</div>
+            <div class="">
+                <div class="user-info-label">First Name</div>
+                <div class="user-info-value">{{currentUser.firstName}}</div><br>
+                <div class="user-info-label">Last Name</div>
+                <div class="user-info-value">{{currentUser.lastName}}</div><br>
+                <div class="user-info-label">Email</div>
+                <div class="user-info-value">{{currentUser.email}}</div><br>
+                <div class="user-info-label">Last Login</div>
+                <div class="user-info-value">{{currentUser.lastLogin | date:'MM/dd/yyyy HH:mm a'}}</div><br>
+                <div class="user-info-label">User ID</div>
+                <div class="user-info-value">{{currentUser.uid}}</div><br>
+                <div class="user-info-label">Phone Number</div>
+                <div class="user-info-value">{{currentUser.phoneNumber}}</div><br>
+                <div class="user-info-label">Job Title</div>
+                <div class="user-info-value">{{currentUser.jobTitle}}</div><br>
+                <div class="user-info-label">Last App</div>
+                <div class="user-info-value">{{currentUser.lastApp}}</div><br>
+                <div class="user-info-label">Last PID</div>
+                <div class="user-info-value">{{currentUser.lastPID}}</div><br>
+                <div class="user-info-label">Internal User</div>
+                <div class="user-info-value">{{currentUser.isMHIUser}}</div><br>
+                <div class="user-info-label">Display Height</div>
+                <div class="user-info-value">{{currentUser.displayHeight}}</div><br>
+                <div class="user-info-label">Macro Manager Favorite Page</div>
+                <div class="user-info-value">{{currentUser.macroManagerQuickAccessPageID}}</div><br>
+                <div class="user-info-label">340B Architect Favorite Page</div>
+                <div class="user-info-value">{{currentUser.architect340BQuickAccessPageID}}</div><br>
+                <div class="user-info-label">Gateway Favorite Page</div>
+                <div class="user-info-value">{{currentUser.gatewayQuickAccessPageID}}</div><br>
+
+            </div>
+        </div>
+    </div>
+</div>

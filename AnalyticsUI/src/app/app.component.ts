@@ -29,6 +29,11 @@ export class AppComponent {
     this.showMenu = false;
   }
 
+  openUserDetail() {
+    this.router.navigate(['/user-detail']);
+    this.showMenu = false;
+  }
+
   openErrors() {
     this.router.navigate(['/errors']);
     this.showMenu = false;

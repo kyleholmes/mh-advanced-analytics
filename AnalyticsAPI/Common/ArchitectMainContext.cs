@@ -17,12 +17,14 @@ namespace AdvancedAnalyticsAPI.Common
         #region Public Members
         public DbSet<User> User { get; set; }
         public DbSet<UserFullName> UserFullName { get; set; }
+        public DbSet<Page> Page { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasNoKey();
             modelBuilder.Entity<UserFullName>().HasNoKey();
+            modelBuilder.Entity<Page>().HasNoKey();
         }
 
         public void AddParameters(List<SqlParameter> Parameters, string ParameterName, SqlDbType sqlDbType, ParameterDirection parameterDirection, object value)

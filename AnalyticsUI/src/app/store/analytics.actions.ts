@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { SimpleCount } from "../models/simple-count";
 import { User } from "../models/user";
+import { Page } from "../models/page";
 
 export enum AnalyticsStateActionTypes {
   GET_DEVICE_TYPES = '[Analytics] Get Device Types',
@@ -30,6 +31,12 @@ export enum AnalyticsStateActionTypes {
   GET_ALL_USERS = '[Analytics] Get All Users',
   GET_ALL_USERS_RES = '[Analytics] Get All Users Results',
   GET_ALL_USERS_ERR = '[Analytics] Get All Users Error',
+
+  GET_ALL_PAGES = '[Analytics] Get All Pages',
+  GET_ALL_PAGES_RES = '[Analytics] Get All Pages Results',
+  GET_ALL_PAGES_ERR = '[Analytics] Get All Pages Error',
+
+  SET_CURRENT_USER = '[Analytics] Set Current User',
 }
 
 export const GetDeviceTypes = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES);
@@ -59,3 +66,9 @@ export const GetUserLoginsError = createAction(AnalyticsStateActionTypes.GET_USE
 export const GetAllUsers = createAction(AnalyticsStateActionTypes.GET_ALL_USERS);
 export const GetAllUsersResults = createAction(AnalyticsStateActionTypes.GET_ALL_USERS_RES, props<{ allUsers: User[] }>());
 export const GetAllUsersError = createAction(AnalyticsStateActionTypes.GET_ALL_USERS_ERR, props<{ message: string }>());
+
+export const GetAllPages = createAction(AnalyticsStateActionTypes.GET_ALL_PAGES);
+export const GetAllPagesResults = createAction(AnalyticsStateActionTypes.GET_ALL_PAGES_RES, props<{ allPages: Page[] }>());
+export const GetAllPagesError = createAction(AnalyticsStateActionTypes.GET_ALL_PAGES_ERR, props<{ message: string }>());
+
+export const SetCurrentUser = createAction(AnalyticsStateActionTypes.SET_CURRENT_USER, props<{ currentUser: User }>());

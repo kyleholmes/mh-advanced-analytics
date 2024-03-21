@@ -1,7 +1,9 @@
-﻿using AdvancedAnalyticsAPI.Models;
+﻿using AdvancedAnalyticsAPI.Common;
+using AdvancedAnalyticsAPI.Models;
 using AdvancedAnalyticsAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.ApplicationInsights.Query;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdvancedAnalyticsAPI.Controllers
 {
@@ -10,10 +12,12 @@ namespace AdvancedAnalyticsAPI.Controllers
     public class PageViewsController : ControllerBase
     {
         private readonly AppInsightsService _appInsightsService;
+        private readonly ArchitectMainContext _architectMainContext;
 
-        public PageViewsController(AppInsightsService appInsightsService)
+        public PageViewsController(AppInsightsService appInsightsService, ArchitectMainContext architectMainContext)
         {
             _appInsightsService = appInsightsService;
+            _architectMainContext = architectMainContext;
         }
 
         [HttpGet]
@@ -61,6 +65,13 @@ namespace AdvancedAnalyticsAPI.Controllers
                 ";
 
             return await _appInsightsService.GetSimpleCountAsync(query);
+        }
+
+        [HttpGet]
+        [Route("GetAllPages")]
+        public async Task<IEnumerable<Page>> GetAllPages()
+        {
+            return await _architectMainContext.Page.FromSqlRaw(StoredProcs.GetAllPages).ToListAsync();
         }
     }
 }

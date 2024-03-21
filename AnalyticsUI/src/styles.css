@@ -68,6 +68,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: center;
 }
 
+.card-tall{
+  margin: 1%;
+  padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 29%;
+  height: 500px;
+  display: inline-block;
+}
+
 .card-full{
   margin: 1%;
   padding: 1%;

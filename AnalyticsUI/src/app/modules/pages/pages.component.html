@@ -2,6 +2,39 @@
     <div class="header">Pages</div>
     
     <div class="body">
+        <div class="card-small">
+            <div class="card-header">Most Used</div>
+            <div class="canvas-holder">
+                <canvas id="pages"></canvas>
+            </div>
+        </div>
+
+        <div class="card-full">
+            <div class="card-header">All Pages</div>
+            <div class="pr-table" #TABLE cdkScrollable>
+            <table mat-table [dataSource]="dataSource" matSort matSortActive="uid" matSortDirection="asc">
+                <ng-container matColumnDef="pageID">
+                <th mat-header-cell *matHeaderCellDef> Page ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.pageID}} </td>
+                </ng-container>
         
+                <ng-container matColumnDef="pageName">
+                <th mat-header-cell *matHeaderCellDef> Page Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.pageName}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="ngPageURL">
+                <th mat-header-cell *matHeaderCellDef> Page URL </th>
+                <td mat-cell *matCellDef="let element"> {{element.ngPageURL}} </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div *ngIf="dataSource?.filteredData?.length===0">No Match Found</div>
+            </div>
+            <mat-paginator class="mh-paginator-small" [pageSize]="100" [pageSizeOptions]="[10,20,75,100, 150]" showFirstLastButtons></mat-paginator>
+        </div>
+
     </div>
 </div>

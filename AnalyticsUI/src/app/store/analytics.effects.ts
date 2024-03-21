@@ -2,7 +2,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of as observableOf } from 'rxjs';
-import { GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults } from "./analytics.actions";
+import { GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults } from "./analytics.actions";
 import { AnalyticsService } from "../service/analytics.service";
 
 @Injectable()
@@ -125,6 +125,23 @@ export class AnalyticsStoreEffects {
           ),
           catchError(
             error => observableOf(GetAllUsersError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetAllPagesEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetAllPages),
+    switchMap(action =>
+      this.analyticsService.getAllPages()
+        .pipe(
+          map(
+            data => {
+              return GetAllPagesResults({ allPages: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetAllPagesError({ message: error }))
           )
         )
     )

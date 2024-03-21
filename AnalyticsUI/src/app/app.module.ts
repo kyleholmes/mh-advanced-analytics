@@ -18,6 +18,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         PagesComponent,
         ErrorsComponent,
         HomeComponent,
+        UserDetailComponent,
     ],
     imports: [
         BrowserModule,

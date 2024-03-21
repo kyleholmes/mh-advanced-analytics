@@ -40,4 +40,8 @@ export class AnalyticsService {
   public getAllUsers() {
     return this.http.get('https://localhost:44397/Events/GetAllUsers').pipe(map((response: any) => response));
   }
+
+  public getAllPages() {
+    return this.http.get('https://localhost:44397/PageViews/GetAllPages').pipe(map((response: any) => response));
+  }
 }

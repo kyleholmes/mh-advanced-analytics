@@ -4,11 +4,12 @@ import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes } from 'src/app/store/analytics.actions';
+import { GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes, SetCurrentUser } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -27,7 +28,7 @@ export class UsersComponent {
   allUsersList: User[] = [];
   
   constructor(
-    public store: Store<{ analyticsState: AnalyticsState }>
+    public store: Store<{ analyticsState: AnalyticsState }>, private router: Router
   ) {
     
   }
@@ -84,6 +85,11 @@ export class UsersComponent {
           }
         })
     );
+  }
+
+  openUserDetail(selectedRow: User) {
+    this.store.dispatch(SetCurrentUser({ currentUser: selectedRow }));
+    this.router.navigate(['/user-detail', selectedRow.uid]);
   }
 
   loadAllUsersTable() {

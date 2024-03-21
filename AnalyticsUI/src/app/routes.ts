@@ -4,6 +4,7 @@ import { PagesComponent } from './modules/pages/pages.component';
 import { UsersComponent } from './modules/users/users.component';
 import { ErrorsComponent } from './modules/errors/errors.component';
 import { NgModule } from '@angular/core';
+import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
 const routeConfig: Routes = [
   {
     path: '',
@@ -25,6 +26,11 @@ const routeConfig: Routes = [
     component: ErrorsComponent,
     title: 'Errors'
   },
+  {
+    path: 'user-detail/:id',
+    component: UserDetailComponent,
+    title: 'User Detail'
+  }
 ];
 
 @NgModule({
