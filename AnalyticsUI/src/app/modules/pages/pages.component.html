@@ -1,5 +1,8 @@
 <div>
-    <div class="header">Pages</div>
+    <div class="header">
+        <mat-icon class="back-button" (click)="back()">arrow_back</mat-icon>
+        <span class="page-header">Pages</span>
+    </div>
     
     <div class="body">
         <div class="card-small">
@@ -29,7 +32,7 @@
                 </ng-container>
         
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openPageDetail(row)"></tr>
             </table>
             <div *ngIf="dataSource?.filteredData?.length===0">No Match Found</div>
             </div>

@@ -2,6 +2,8 @@ import { AnalyticsStateActionTypes } from "./analytics.actions";
 import { SimpleCount } from "../models/simple-count";
 import { User } from "../models/user";
 import { Page } from "../models/page";
+import { Error } from "../models/error";
+import { Activity } from "../models/activity";
 
 export interface AnalyticsState {
   deviceTypeList: SimpleCount[],
@@ -13,6 +15,10 @@ export interface AnalyticsState {
   allUsersList: User[],
   allPagesList: Page[],
   currentUser: User,
+  userErrors: Error[],
+  userActivityList: Activity[],
+  currentPage: Page,
+  pageAverageLoadTime: string,
 }
 
 export const initialState: AnalyticsState =
@@ -26,6 +32,10 @@ export const initialState: AnalyticsState =
   allUsersList: [],
   allPagesList: [],
   currentUser: {} as User,
+  userErrors: [],
+  userActivityList: [],
+  currentPage: {} as Page,
+  pageAverageLoadTime: '',
 }
 
 export function analyticsReducer(state = initialState, action: any): AnalyticsState {
@@ -63,8 +73,24 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
       return { ...state, allPagesList: action.allPages };
     }
       
-    case AnalyticsStateActionTypes.SET_CURRENT_USER: {
-      return { ...state, currentUser: action.currentUser };
+    case AnalyticsStateActionTypes.GET_USER_RES: {
+      return { ...state, currentUser: action.user };
+    }
+      
+    case AnalyticsStateActionTypes.GET_USER_ERRORS_RES: {
+      return { ...state, userErrors: action.userErrors };
+    }
+      
+    case AnalyticsStateActionTypes.GET_USER_ACTIVITY_RES: {
+      return { ...state, userActivityList: action.userActivity };
+    }
+      
+    case AnalyticsStateActionTypes.GET_PAGE_RES: {
+      return { ...state, currentPage: action.page };
+    }
+    
+    case AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_RES: {
+      return { ...state, pageAverageLoadTime: action.averageLoadTime };
     }
 
     default: {

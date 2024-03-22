@@ -3,7 +3,9 @@ using AdvancedAnalyticsAPI.Models;
 using AdvancedAnalyticsAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.ApplicationInsights.Query;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace AdvancedAnalyticsAPI.Controllers
 {
@@ -72,6 +74,32 @@ namespace AdvancedAnalyticsAPI.Controllers
         public async Task<IEnumerable<Page>> GetAllPages()
         {
             return await _architectMainContext.Page.FromSqlRaw(StoredProcs.GetAllPages).ToListAsync();
+        }
+
+        [HttpGet]
+        [Route("GetPageByPageID")]
+        public async Task<Page> GetPageByPageID(int PageID)
+        {
+            List<SqlParameter> sqlParams = new();
+            _architectMainContext.AddParameters(sqlParams, "@PageID", SqlDbType.Int, ParameterDirection.Input, Convert.ToInt32(PageID));
+
+            var page = await _architectMainContext.Page.FromSqlRaw(_architectMainContext.BuildSQLComand(StoredProcs.GetPage, sqlParams), sqlParams.ToArray()).ToListAsync();
+            return page[0];
+        }
+
+        [HttpGet]
+        [Route("GetPageAverageLoadTime")]
+        public async Task<string> GetPageAverageLoadTime(string PageURL)
+        {
+            var query = @"
+                pageViews 
+                | where timestamp >= startofday(ago(30d))
+                | where duration > 0 and url == '" + PageURL + @"'
+                | summarize AverageLoadTime = round(avg(duration), 0) / 1000
+                | project AverageLoadTime
+                ";
+
+            return await _appInsightsService.GetSingleValue(query);
         }
     }
 }

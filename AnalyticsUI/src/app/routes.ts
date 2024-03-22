@@ -5,6 +5,7 @@ import { UsersComponent } from './modules/users/users.component';
 import { ErrorsComponent } from './modules/errors/errors.component';
 import { NgModule } from '@angular/core';
 import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
+import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
 const routeConfig: Routes = [
   {
     path: '',
@@ -30,7 +31,12 @@ const routeConfig: Routes = [
     path: 'user-detail/:id',
     component: UserDetailComponent,
     title: 'User Detail'
-  }
+  },
+  {
+    path: 'page-detail/:id',
+    component: PageDetailComponent,
+    title: 'Page Detail'
+  },
 ];
 
 @NgModule({

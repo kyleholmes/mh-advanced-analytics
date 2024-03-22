@@ -27,13 +27,6 @@ button.primary {
   text-align: center;
 }
 
-.body{
-  clear: both;
-  padding-top: 10px;
-}
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 .header{
   width: 100%;
   text-align: center;
@@ -42,6 +35,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .body{
   clear: both;
   padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .card{
@@ -77,6 +75,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 29%;
   height: 500px;
   display: inline-block;
+  overflow: auto;
 }
 
 .card-full{
@@ -106,6 +105,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 80%;
   height: 80%;
   margin: auto;
+}
+
+.page-header{
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+.back-button{
+  vertical-align: middle;
+  float: left;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .pr-table{

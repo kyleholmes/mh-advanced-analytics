@@ -59,6 +59,10 @@ export class PagesComponent {
     );
   }
 
+  openPageDetail(selectedRow: Page) {
+    this.router.navigate(['/page-detail', selectedRow.pageID]);
+  }
+
   loadAllPagesTable() {
     this.dataSource = new MatTableDataSource(this.allPagesList);
     this.dataSource.paginator = this.paginator;
@@ -90,6 +94,14 @@ export class PagesComponent {
         }
       }
     );
+  }
+
+  back() {
+    this.router.navigate(['/']);
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
   
 }

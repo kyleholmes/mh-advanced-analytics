@@ -39,6 +39,14 @@ namespace AdvancedAnalyticsAPI.Services
             return responseList;
         }
 
+        public async Task<string> GetSingleValue(string query)
+        {
+            var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var returnList = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(Configuration["appId"], query);
+            return returnList.Body.Tables[0].Rows[0][0].ToString();
+        }
+
         public async Task<IEnumerable<SimpleCount>> GetPowerUsersAsync(string query)
         {
             var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
@@ -89,6 +97,45 @@ namespace AdvancedAnalyticsAPI.Services
                 {
                     Variable = row[0].ToString(),
                     Count = Convert.ToInt32(row[1])
+                };
+                responseList.Add(responseItem);
+            }
+            return responseList;
+        }
+
+        public async Task<IEnumerable<Error>> GetUserErrors(string query)
+        {
+            var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var returnList = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(Configuration["appId"], query);
+            var responseList = new List<Error>();
+            foreach (var row in returnList.Body.Tables[0].Rows)
+            {
+                var responseItem = new Error
+                {
+                    TimeStamp = row[0].ToString(),
+                    ErrorMessage = row[1].ToString(),
+                    PageName = row[2].ToString()
+                };
+                responseList.Add(responseItem);
+            }
+            return responseList;
+        }
+
+        public async Task<IEnumerable<Activity>> GetUserActivity(string query)
+        {
+            var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var returnList = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(Configuration["appId"], query);
+            var responseList = new List<Activity>();
+            foreach (var row in returnList.Body.Tables[0].Rows)
+            {
+                var responseItem = new Activity
+                {
+                    TimeStamp = row[0].ToString(),
+                    Action = row[1].ToString(),
+                    Page = row[2].ToString(),
+                    EventInfo = row[3] != null ? row[3].ToString() : ""
                 };
                 responseList.Add(responseItem);
             }

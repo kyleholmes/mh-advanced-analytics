@@ -19,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
+import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { UserDetailComponent } from './modules/users/user-detail/user-detail.com
         ErrorsComponent,
         HomeComponent,
         UserDetailComponent,
+        PageDetailComponent,
     ],
     imports: [
         BrowserModule,

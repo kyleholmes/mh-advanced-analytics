@@ -48,5 +48,20 @@ namespace AdvancedAnalyticsAPI.Controllers
 
             return await _appInsightsService.GetUserLogins(query);
         }
+
+        [HttpGet]
+        [Route("GetUserActivity")]
+        public async Task<IEnumerable<Activity>> GetUserActivity(int UID)
+        {
+            var query = @"
+                    customEvents
+                    | where timestamp >= startofday(ago(7d))
+                    | where customDimensions.UserId == " + UID + @"
+                    | order by timestamp desc
+                    | project TimeStamp = timestamp, Action = name, Page = customDimensions.Page, EventInfo = customDimensions.EventInfo
+                ";
+
+            return await _appInsightsService.GetUserActivity(query);
+        }
     }
 }

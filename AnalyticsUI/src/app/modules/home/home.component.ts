@@ -139,5 +139,9 @@ export class HomeComponent {
   openErrors() {
     this.router.navigate(['/errors']);
   }
+
+  public ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
   
 }

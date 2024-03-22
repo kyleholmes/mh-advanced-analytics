@@ -2,7 +2,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of as observableOf } from 'rxjs';
-import { GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults } from "./analytics.actions";
+import { GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsResults, GetPage, GetPageAverageLoadTime, GetPageAverageLoadTimeError, GetPageAverageLoadTimeResults, GetPageError, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPageResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUser, GetUserActivity, GetUserActivityError, GetUserActivityResults, GetUserError, GetUserErrors, GetUserErrorsError, GetUserErrorsResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults, GetUserResults } from "./analytics.actions";
 import { AnalyticsService } from "../service/analytics.service";
 
 @Injectable()
@@ -142,6 +142,91 @@ export class AnalyticsStoreEffects {
           ),
           catchError(
             error => observableOf(GetAllPagesError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetUserEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetUser),
+    switchMap(action =>
+      this.analyticsService.getUser(action.uid)
+        .pipe(
+          map(
+            data => {
+              return GetUserResults({ user: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetUserError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetUserErrorsEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetUserErrors),
+    switchMap(action =>
+      this.analyticsService.getUserErrors(action.uid)
+        .pipe(
+          map(
+            data => {
+              return GetUserErrorsResults({ userErrors: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetUserErrorsError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetUserActivityEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetUserActivity),
+    switchMap(action =>
+      this.analyticsService.getUserActivity(action.uid)
+        .pipe(
+          map(
+            data => {
+              return GetUserActivityResults({ userActivity: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetUserActivityError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetPageEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetPage),
+    switchMap(action =>
+      this.analyticsService.getPage(action.pageID)
+        .pipe(
+          map(
+            data => {
+              return GetPageResults({ page: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetPageError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetPageAverageLoadTimeEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetPageAverageLoadTime),
+    switchMap(action =>
+      this.analyticsService.getPageAverageLoadTime(action.pageUrl)
+        .pipe(
+          map(
+            data => {
+              return GetPageAverageLoadTimeResults({ averageLoadTime: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetPageAverageLoadTimeError({ message: error }))
           )
         )
     )

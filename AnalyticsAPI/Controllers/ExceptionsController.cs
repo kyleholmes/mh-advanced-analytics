@@ -29,5 +29,18 @@ namespace AdvancedAnalyticsAPI.Controllers
                 ";
             return await _appInsightsService.GetSimpleCountAsync(query);
         }
+
+        [HttpGet]
+        [Route("GetUserErrors")]
+        public async Task<IEnumerable<Error>> GetUserErrors(int UID)
+        {
+            var query = @"
+                    exceptions 
+                    | where timestamp >= startofday(ago(30d))
+                    | where user_AccountId == " + UID + @"
+                    | project TimeStamp = timestamp, ErrorMessage = outerMessage, PageName = operation_Name
+                ";
+            return await _appInsightsService.GetUserErrors(query);
+        }
     }
 }

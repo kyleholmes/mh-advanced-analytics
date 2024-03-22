@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes, SetCurrentUser } from 'src/app/store/analytics.actions';
+import { GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -88,7 +88,6 @@ export class UsersComponent {
   }
 
   openUserDetail(selectedRow: User) {
-    this.store.dispatch(SetCurrentUser({ currentUser: selectedRow }));
     this.router.navigate(['/user-detail', selectedRow.uid]);
   }
 
@@ -177,5 +176,13 @@ export class UsersComponent {
         }
       }
     );
+  }
+
+  back() {
+    this.router.navigate(['/']);
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

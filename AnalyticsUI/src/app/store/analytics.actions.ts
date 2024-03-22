@@ -2,6 +2,8 @@ import { createAction, props } from "@ngrx/store";
 import { SimpleCount } from "../models/simple-count";
 import { User } from "../models/user";
 import { Page } from "../models/page";
+import { Error } from "../models/error";
+import { Activity } from "../models/activity";
 
 export enum AnalyticsStateActionTypes {
   GET_DEVICE_TYPES = '[Analytics] Get Device Types',
@@ -36,7 +38,25 @@ export enum AnalyticsStateActionTypes {
   GET_ALL_PAGES_RES = '[Analytics] Get All Pages Results',
   GET_ALL_PAGES_ERR = '[Analytics] Get All Pages Error',
 
-  SET_CURRENT_USER = '[Analytics] Set Current User',
+  GET_USER = '[Analytics] Get User',
+  GET_USER_RES = '[Analytics] Get User Results',
+  GET_USER_ERR = '[Analytics] Get User Error',
+
+  GET_USER_ERRORS = '[Analytics] Get User Errors',
+  GET_USER_ERRORS_RES = '[Analytics] Get User Errors Results',
+  GET_USER_ERRORS_ERR = '[Analytics] Get User Errors Error',
+
+  GET_USER_ACTIVITY = '[Analytics] Get User Activity',
+  GET_USER_ACTIVITY_RES = '[Analytics] Get User Activity Results',
+  GET_USER_ACTIVITY_ERR = '[Analytics] Get User Activity Error',
+
+  GET_PAGE = '[Analytics] Get Page',
+  GET_PAGE_RES = '[Analytics] Get Page Results',
+  GET_PAGE_ERR = '[Analytics] Get Page Error',
+
+  GET_PAGE_AVERAGE_LOAD_TIME = '[Analytics] Get Page Average Load Time',
+  GET_PAGE_AVERAGE_LOAD_TIME_RES = '[Analytics] Get Page Average Load Time Results',
+  GET_PAGE_AVERAGE_LOAD_TIME_ERR = '[Analytics] Get Page Average Load Time Error',
 }
 
 export const GetDeviceTypes = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES);
@@ -71,4 +91,22 @@ export const GetAllPages = createAction(AnalyticsStateActionTypes.GET_ALL_PAGES)
 export const GetAllPagesResults = createAction(AnalyticsStateActionTypes.GET_ALL_PAGES_RES, props<{ allPages: Page[] }>());
 export const GetAllPagesError = createAction(AnalyticsStateActionTypes.GET_ALL_PAGES_ERR, props<{ message: string }>());
 
-export const SetCurrentUser = createAction(AnalyticsStateActionTypes.SET_CURRENT_USER, props<{ currentUser: User }>());
+export const GetUser = createAction(AnalyticsStateActionTypes.GET_USER, props<{ uid: string }>());
+export const GetUserResults = createAction(AnalyticsStateActionTypes.GET_USER_RES, props<{ user: User }>());
+export const GetUserError = createAction(AnalyticsStateActionTypes.GET_USER_ERR, props<{ message: string }>());
+
+export const GetUserErrors = createAction(AnalyticsStateActionTypes.GET_USER_ERRORS, props<{ uid: string }>());
+export const GetUserErrorsResults = createAction(AnalyticsStateActionTypes.GET_USER_ERRORS_RES, props<{ userErrors: Error[] }>());
+export const GetUserErrorsError = createAction(AnalyticsStateActionTypes.GET_USER_ERRORS_ERR, props<{ message: string }>());
+
+export const GetUserActivity = createAction(AnalyticsStateActionTypes.GET_USER_ACTIVITY, props<{ uid: string }>());
+export const GetUserActivityResults = createAction(AnalyticsStateActionTypes.GET_USER_ACTIVITY_RES, props<{ userActivity: Activity[] }>());
+export const GetUserActivityError = createAction(AnalyticsStateActionTypes.GET_USER_ACTIVITY_ERR, props<{ message: string }>());
+
+export const GetPage = createAction(AnalyticsStateActionTypes.GET_PAGE, props<{ pageID: string }>());
+export const GetPageResults = createAction(AnalyticsStateActionTypes.GET_PAGE_RES, props<{ page: Page }>());
+export const GetPageError = createAction(AnalyticsStateActionTypes.GET_PAGE_ERR, props<{ message: string }>());
+
+export const GetPageAverageLoadTime = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME, props<{ pageUrl: string }>());
+export const GetPageAverageLoadTimeResults = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_RES, props<{ averageLoadTime: string }>());
+export const GetPageAverageLoadTimeError = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_ERR, props<{ message: string }>());

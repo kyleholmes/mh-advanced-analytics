@@ -1,7 +1,29 @@
 <div>
-    <div class="header">{{currentUser.firstName + ' ' + currentUser.lastName + ' Analytics'}}</div>
+    <div class="header">
+        <mat-icon class="back-button" (click)="back()">arrow_back</mat-icon>
+        <span class="page-header">{{currentUser.firstName + ' ' + currentUser.lastName + ' Analytics'}}</span>
+    </div>
     
     <div class="body">
+        <div class="card-tall">
+            <div class="card-header">Recent Errors</div>
+            <div *ngFor="let error of userErrors">
+                <div style="word-break: break-all;">{{ error.timeStamp }}</div><br>
+                <div style="word-break: break-all;">{{ error.pageName }}</div><br>
+                <div style="word-break: break-all;">{{ error.errorMessage }}</div>
+            </div>
+        </div>
+
+        <div class="card-tall">
+            <div class="card-header">Recent Activity</div>
+            <div *ngFor="let activity of userActivityList">
+                <div style="word-break: break-all;">{{ activity.timeStamp }}</div>
+                <div style="word-break: break-all;">{{ activity.action }}</div>
+                <div style="word-break: break-all;">{{ activity.page }}</div>
+                <div *ngIf="activity.eventInfo != ''" style="word-break: break-all;">{{ activity.eventInfo }}</div>
+            </div>
+        </div>
+
         <div class="card-tall">
             <div class="card-header">User Info</div>
             <div class="">
@@ -33,7 +55,6 @@
                 <div class="user-info-value">{{currentUser.architect340BQuickAccessPageID}}</div><br>
                 <div class="user-info-label">Gateway Favorite Page</div>
                 <div class="user-info-value">{{currentUser.gatewayQuickAccessPageID}}</div><br>
-
             </div>
         </div>
     </div>

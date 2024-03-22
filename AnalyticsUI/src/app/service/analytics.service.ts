@@ -38,10 +38,30 @@ export class AnalyticsService {
   }
 
   public getAllUsers() {
-    return this.http.get('https://localhost:44397/Events/GetAllUsers').pipe(map((response: any) => response));
+    return this.http.get('https://localhost:44397/Users/GetAllUsers').pipe(map((response: any) => response));
   }
 
   public getAllPages() {
     return this.http.get('https://localhost:44397/PageViews/GetAllPages').pipe(map((response: any) => response));
+  }
+
+  public getUser(uid: string) {
+    return this.http.get('https://localhost:44397/Users/GetUser?UID=' + uid).pipe(map((response: any) => response));
+  }
+
+  public getUserErrors(uid: string) {
+    return this.http.get('https://localhost:44397/Exceptions/GetUserErrors?UID=' + uid).pipe(map((response: any) => response));
+  }
+
+  public getUserActivity(uid: string) {
+    return this.http.get('https://localhost:44397/Events/GetUserActivity?UID=' + uid).pipe(map((response: any) => response));
+  }
+
+  public getPage(pageID: string) {
+    return this.http.get('https://localhost:44397/PageViews/GetPageByPageID?PageID=' + pageID).pipe(map((response: any) => response));
+  }
+
+  public getPageAverageLoadTime(pageUrl: string) {
+    return this.http.get('https://localhost:44397/PageViews/GetPageAverageLoadTime?PageURL=' + pageUrl).pipe(map((response: any) => response));
   }
 }
