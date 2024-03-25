@@ -1,11 +1,8 @@
 ﻿using AdvancedAnalyticsAPI.Common;
 using AdvancedAnalyticsAPI.Models;
-using Azure;
 using Microsoft.Azure.ApplicationInsights.Query;
-using Microsoft.Azure.ApplicationInsights.Query.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Rest;
 using System.Data;
 
 namespace AdvancedAnalyticsAPI.Services
@@ -21,7 +18,7 @@ namespace AdvancedAnalyticsAPI.Services
             _architectMainContext = architectMainContext;
         }
 
-        public async Task<IEnumerable<SimpleCount>> GetSimpleCountAsync(string query)
+        public async Task<IEnumerable<SimpleCount>> GetSimpleCount(string query)
         {
             var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
             var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
@@ -47,7 +44,7 @@ namespace AdvancedAnalyticsAPI.Services
             return returnList.Body.Tables[0].Rows[0][0].ToString();
         }
 
-        public async Task<IEnumerable<SimpleCount>> GetPowerUsersAsync(string query)
+        public async Task<IEnumerable<SimpleCount>> GetPowerUsers(string query)
         {
             var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
             var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
@@ -85,25 +82,7 @@ namespace AdvancedAnalyticsAPI.Services
             };
         }
 
-        public async Task<IEnumerable<SimpleCount>> GetUserLogins(string query)
-        {
-            var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
-            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
-            var returnList = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(Configuration["appId"], query);
-            var responseList = new List<SimpleCount>();
-            foreach (var row in returnList.Body.Tables[0].Rows)
-            {
-                var responseItem = new SimpleCount
-                {
-                    Variable = row[0].ToString(),
-                    Count = Convert.ToInt32(row[1])
-                };
-                responseList.Add(responseItem);
-            }
-            return responseList;
-        }
-
-        public async Task<IEnumerable<Error>> GetUserErrors(string query)
+        public async Task<IEnumerable<Error>> GetErrors(string query)
         {
             var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
             var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
@@ -115,14 +94,15 @@ namespace AdvancedAnalyticsAPI.Services
                 {
                     TimeStamp = row[0].ToString(),
                     ErrorMessage = row[1].ToString(),
-                    PageName = row[2].ToString()
+                    PageName = row[2].ToString(),
+                    ItemID = row[3].ToString()
                 };
                 responseList.Add(responseItem);
             }
             return responseList;
         }
 
-        public async Task<IEnumerable<Activity>> GetUserActivity(string query)
+        public async Task<IEnumerable<Activity>> GetActivity(string query)
         {
             var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
             var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
@@ -140,6 +120,40 @@ namespace AdvancedAnalyticsAPI.Services
                 responseList.Add(responseItem);
             }
             return responseList;
+        }
+
+        public async Task<ErrorDetail> GetErrorDetails(string query)
+        {
+            var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var returnList = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(Configuration["appId"], query);
+            var responseList = new List<ErrorDetail>();
+            foreach (var row in returnList.Body.Tables[0].Rows)
+            {
+                var responseItem = new ErrorDetail
+                {
+                    TimeStamp = row[0].ToString(),
+                    ErrorMessage = row[1].ToString(),
+                    PageName = row[2].ToString(),
+                    ItemID = row[3].ToString(),
+                    Browser = row[4].ToString(),
+                    OS = row[5].ToString(),
+                    City = row[6].ToString(),
+                    State = row[7].ToString(),
+                    Method = row[8].ToString(),
+                    Stack = row[9].ToString(),
+                    UserID = row[10].ToString()
+                };
+                responseList.Add(responseItem);
+            }
+
+            foreach (var item in responseList)
+            {
+                var user = await GetUserFullName(item.UserID);
+                item.UserID = user.FirstName + " " + user.LastName;
+            }
+
+            return responseList[0];
         }
     }
 }

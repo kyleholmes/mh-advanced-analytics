@@ -6,6 +6,7 @@ import { ErrorsComponent } from './modules/errors/errors.component';
 import { NgModule } from '@angular/core';
 import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
 import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
+import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail.component';
 const routeConfig: Routes = [
   {
     path: '',
@@ -36,6 +37,11 @@ const routeConfig: Routes = [
     path: 'page-detail/:id',
     component: PageDetailComponent,
     title: 'Page Detail'
+  },
+  {
+    path: 'error-detail/:id',
+    component: ErrorDetailComponent,
+    title: 'Error Detail'
   },
 ];
 

@@ -4,6 +4,7 @@ import { User } from "../models/user";
 import { Page } from "../models/page";
 import { Error } from "../models/error";
 import { Activity } from "../models/activity";
+import { ErrorDetail } from "../models/error-detail";
 
 export interface AnalyticsState {
   deviceTypeList: SimpleCount[],
@@ -19,6 +20,11 @@ export interface AnalyticsState {
   userActivityList: Activity[],
   currentPage: Page,
   pageAverageLoadTime: string,
+  pageErrors: Error[],
+  pageActivityList: Activity[],
+  pageFavoritedBy: User[],
+  lastWeekErrorsFull: Error[],
+  errorDetail: ErrorDetail
 }
 
 export const initialState: AnalyticsState =
@@ -36,6 +42,11 @@ export const initialState: AnalyticsState =
   userActivityList: [],
   currentPage: {} as Page,
   pageAverageLoadTime: '',
+  pageErrors: [],
+  pageActivityList: [],
+  pageFavoritedBy: [],
+  lastWeekErrorsFull: [],
+  errorDetail: {} as ErrorDetail
 }
 
 export function analyticsReducer(state = initialState, action: any): AnalyticsState {
@@ -91,6 +102,26 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
     
     case AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_RES: {
       return { ...state, pageAverageLoadTime: action.averageLoadTime };
+    }
+      
+    case AnalyticsStateActionTypes.GET_PAGE_ERRORS_RES: {
+      return { ...state, pageErrors: action.pageErrors };
+    }
+      
+    case AnalyticsStateActionTypes.GET_PAGE_ACTIVITY_RES: {
+      return { ...state, pageActivityList: action.pageActivity };
+    }
+      
+    case AnalyticsStateActionTypes.GET_PAGE_FAVORITED_BY_RES: {
+      return { ...state, pageFavoritedBy: action.favoritedBy };
+    }
+      
+    case AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS_FULL_RES: {
+      return { ...state, lastWeekErrorsFull: action.lastWeekErrors };
+    }
+      
+    case AnalyticsStateActionTypes.GET_ERROR_DETAIL_RES: {
+      return { ...state, errorDetail: action.errorDetail };
     }
 
     default: {

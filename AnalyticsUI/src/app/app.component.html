@@ -3,7 +3,7 @@
       <img style="width: 85%; display: inline-block;" src="./assets/MH-ByMcK_logo_Blk-Blue.png" (click)="goHome()">
       <mat-icon *ngIf="!showMenu" style="height: 48px; line-height: 48px;" (click)="toggleMenu()">expand_more</mat-icon>
       <mat-icon *ngIf="showMenu" style="height: 48px; line-height: 48px;" (click)="toggleMenu()">expand_less</mat-icon>
-      <div *ngIf="showMenu">
+      <div *ngIf="showMenu" class="corner-menu">
         <div class="menu-item" (click)="goHome()">Home</div>
         <div class="menu-item" (click)="openPages()">Pages</div>
         <div class="menu-item" (click)="openUsers()">Users</div>

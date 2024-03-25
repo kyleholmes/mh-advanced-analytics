@@ -14,5 +14,29 @@
             <div class="card-header">Average Load Time</div>
             <div>{{pageAverageLoadTime + ' seconds'}}</div>
         </div>
+
+        <div class="card">
+            <div class="card-header">Recent Errors</div>
+            <div *ngFor="let error of pageErrors">
+                <div style="word-break: break-all;">{{ error.timeStamp }}</div><br>
+                <div style="word-break: break-all;">{{ error.pageName }}</div><br>
+                <div style="word-break: break-all;">{{ error.errorMessage }}</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Recent Activity</div>
+            <div *ngFor="let activity of pageActivityList">
+                <div style="word-break: break-all;">{{ activity.timeStamp }}</div><br>
+                <div style="word-break: break-all;">{{ activity.eventInfo }}</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Favorited By</div>
+            <div *ngFor="let user of pageFavoritedBy">
+                <div style="word-break: break-all;">{{ user.firstName + ' ' + user.lastName }}</div><br>
+            </div>
+        </div>
     </div>
 </div>

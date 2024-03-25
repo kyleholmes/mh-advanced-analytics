@@ -32,7 +32,7 @@ namespace AdvancedAnalyticsAPI.Controllers
                 + "toint(split(customDimensions.ScreenSize, 'x')[0]) between (768 .. 992),'Tablet', 'Computer') "
                 + "| summarize DeviceCount = count() by Device";
 
-            return await _appInsightsService.GetSimpleCountAsync(query);
+            return await _appInsightsService.GetSimpleCount(query);
         }
 
         [HttpGet]
@@ -49,7 +49,7 @@ namespace AdvancedAnalyticsAPI.Controllers
                     | summarize DeviceCount = count() by Device
                 ";
 
-            return await _appInsightsService.GetSimpleCountAsync(query);
+            return await _appInsightsService.GetSimpleCount(query);
         }
 
         [HttpGet]
@@ -66,7 +66,7 @@ namespace AdvancedAnalyticsAPI.Controllers
                     | order by Count desc
                 ";
 
-            return await _appInsightsService.GetSimpleCountAsync(query);
+            return await _appInsightsService.GetSimpleCount(query);
         }
 
         [HttpGet]
@@ -100,6 +100,16 @@ namespace AdvancedAnalyticsAPI.Controllers
                 ";
 
             return await _appInsightsService.GetSingleValue(query);
+        }
+
+        [HttpGet]
+        [Route("GetPageFavoritedBy")]
+        public async Task<IEnumerable<User>> GetPageFavoritedBy(int PageID)
+        {
+            List<SqlParameter> sqlParams = new();
+            _architectMainContext.AddParameters(sqlParams, "@PageID", SqlDbType.Int, ParameterDirection.Input, Convert.ToInt32(PageID));
+
+            return await _architectMainContext.User.FromSqlRaw(_architectMainContext.BuildSQLComand(StoredProcs.GetPageFavoritedBy, sqlParams), sqlParams.ToArray()).ToListAsync();
         }
     }
 }

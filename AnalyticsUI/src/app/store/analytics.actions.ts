@@ -4,6 +4,7 @@ import { User } from "../models/user";
 import { Page } from "../models/page";
 import { Error } from "../models/error";
 import { Activity } from "../models/activity";
+import { ErrorDetail } from "../models/error-detail";
 
 export enum AnalyticsStateActionTypes {
   GET_DEVICE_TYPES = '[Analytics] Get Device Types',
@@ -57,6 +58,26 @@ export enum AnalyticsStateActionTypes {
   GET_PAGE_AVERAGE_LOAD_TIME = '[Analytics] Get Page Average Load Time',
   GET_PAGE_AVERAGE_LOAD_TIME_RES = '[Analytics] Get Page Average Load Time Results',
   GET_PAGE_AVERAGE_LOAD_TIME_ERR = '[Analytics] Get Page Average Load Time Error',
+
+  GET_PAGE_ERRORS = '[Analytics] Get Page Errors',
+  GET_PAGE_ERRORS_RES = '[Analytics] Get Page Errors Results',
+  GET_PAGE_ERRORS_ERR = '[Analytics] Get Page Errors Error',
+
+  GET_PAGE_ACTIVITY = '[Analytics] Get Page Activity',
+  GET_PAGE_ACTIVITY_RES = '[Analytics] Get Page Activity Results',
+  GET_PAGE_ACTIVITY_ERR = '[Analytics] Get Page Activity Error',
+
+  GET_PAGE_FAVORITED_BY = '[Analytics] Get Page Favorited By',
+  GET_PAGE_FAVORITED_BY_RES = '[Analytics] Get Page Favorited By Results',
+  GET_PAGE_FAVORITED_BY_ERR = '[Analytics] Get Page Favorited By Error',
+
+  GET_LAST_WEEK_ERRORS_FULL = '[Analytics] Get Last Week Errors Full',
+  GET_LAST_WEEK_ERRORS_FULL_RES = '[Analytics] Get Last Week Errors Full Results',
+  GET_LAST_WEEK_ERRORS_FULL_ERR = '[Analytics] Get Last Week Errors Full Error',
+
+  GET_ERROR_DETAIL = '[Analytics] Get Error Detail',
+  GET_ERROR_DETAIL_RES = '[Analytics] Get Error Detail Results',
+  GET_ERROR_DETAIL_ERR = '[Analytics] Get Error Detail Error',
 }
 
 export const GetDeviceTypes = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES);
@@ -110,3 +131,23 @@ export const GetPageError = createAction(AnalyticsStateActionTypes.GET_PAGE_ERR,
 export const GetPageAverageLoadTime = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME, props<{ pageUrl: string }>());
 export const GetPageAverageLoadTimeResults = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_RES, props<{ averageLoadTime: string }>());
 export const GetPageAverageLoadTimeError = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_ERR, props<{ message: string }>());
+
+export const GetPageErrors = createAction(AnalyticsStateActionTypes.GET_PAGE_ERRORS, props<{ pageUrl: string }>());
+export const GetPageErrorsResults = createAction(AnalyticsStateActionTypes.GET_PAGE_ERRORS_RES, props<{ pageErrors: Error[] }>());
+export const GetPageErrorsError = createAction(AnalyticsStateActionTypes.GET_PAGE_ERRORS_ERR, props<{ message: string }>());
+
+export const GetPageActivity = createAction(AnalyticsStateActionTypes.GET_PAGE_ACTIVITY, props<{ pageUrl: string }>());
+export const GetPageActivityResults = createAction(AnalyticsStateActionTypes.GET_PAGE_ACTIVITY_RES, props<{ pageActivity: Activity[] }>());
+export const GetPageActivityError = createAction(AnalyticsStateActionTypes.GET_PAGE_ACTIVITY_ERR, props<{ message: string }>());
+
+export const GetPageFavoritedBy = createAction(AnalyticsStateActionTypes.GET_PAGE_FAVORITED_BY, props<{ pageID: string }>());
+export const GetPageFavoritedByResults = createAction(AnalyticsStateActionTypes.GET_PAGE_FAVORITED_BY_RES, props<{ favoritedBy: User[] }>());
+export const GetPageFavoritedByError = createAction(AnalyticsStateActionTypes.GET_PAGE_FAVORITED_BY_ERR, props<{ message: string }>());
+
+export const GetLastWeekErrorsFull = createAction(AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS_FULL);
+export const GetLastWeekErrorsFullResults = createAction(AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS_FULL_RES, props<{ lastWeekErrors: Error[] }>());
+export const GetLastWeekErrorsFullError = createAction(AnalyticsStateActionTypes.GET_LAST_WEEK_ERRORS_FULL_ERR, props<{ message: string }>());
+
+export const GetErrorDetail = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL, props<{ itemID: string }>());
+export const GetErrorDetailResults = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL_RES, props<{ errorDetail: ErrorDetail }>());
+export const GetErrorDetailError = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL_ERR, props<{ message: string }>());

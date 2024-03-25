@@ -20,6 +20,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
 import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
+import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { PageDetailComponent } from './modules/pages/page-detail/page-detail.com
         HomeComponent,
         UserDetailComponent,
         PageDetailComponent,
+        ErrorDetailComponent
     ],
     imports: [
         BrowserModule,

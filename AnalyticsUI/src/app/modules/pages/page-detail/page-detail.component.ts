@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { GetAllUsers, GetDeviceTypes, GetPage, GetPageAverageLoadTime, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
+import { GetAllUsers, GetDeviceTypes, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -24,6 +24,9 @@ export class PageDetailComponent {
   currentPage!: Page;
   currentPageID!: string;
   pageAverageLoadTime!: string;
+  pageErrors!: Error[];
+  pageActivityList!: Activity[];
+  pageFavoritedBy!: User[];
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -43,6 +46,9 @@ export class PageDetailComponent {
         .subscribe((currentPage) => {
           this.currentPage = currentPage;
           this.store.dispatch(GetPageAverageLoadTime({ pageUrl: this.currentPage.ngPageURL }));
+          this.store.dispatch(GetPageErrors({ pageUrl: this.currentPage.ngPageURL }));
+          this.store.dispatch(GetPageActivity({ pageUrl: this.currentPage.ngPageURL }));
+          this.store.dispatch(GetPageFavoritedBy({ pageID: this.currentPage.pageID?.toString() }));
         })
     );
 
@@ -52,6 +58,33 @@ export class PageDetailComponent {
         .pipe(filter((pageAverageLoadTime) => pageAverageLoadTime !== null))
         .subscribe((pageAverageLoadTime) => {
           this.pageAverageLoadTime = pageAverageLoadTime;
+        })
+    );
+
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.pageErrors)
+        .pipe(filter((pageErrors) => pageErrors !== null))
+        .subscribe((pageErrors) => {
+          this.pageErrors = pageErrors;
+        })
+    );
+
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.pageActivityList)
+        .pipe(filter((pageActivityList) => pageActivityList !== null))
+        .subscribe((pageActivityList) => {
+          this.pageActivityList = pageActivityList;
+        })
+    );
+
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.pageFavoritedBy)
+        .pipe(filter((pageFavoritedBy) => pageFavoritedBy !== null))
+        .subscribe((pageFavoritedBy) => {
+          this.pageFavoritedBy = pageFavoritedBy;
         })
     );
   }

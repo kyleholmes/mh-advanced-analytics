@@ -1,7 +1,24 @@
 <div>
-    <div class="header">Errors</div>
+    <div class="header">
+        <mat-icon class="back-button" (click)="back()">arrow_back</mat-icon>
+        <span class="page-header">Errors</span>
+    </div>
     
     <div class="body">
-        
+        <div class="card-50">
+            <div class="card-header">Recent Errors</div>
+            <div *ngFor="let error of lastWeekErrorsFull">
+                <div (click)="openError(error)">
+                    <div style="word-break: break-all;">{{ error.timeStamp }}</div><br>
+                    <div style="word-break: break-all;">{{ error.pageName }}</div><br>
+                    <div style="word-break: break-all;">{{ error.errorMessage }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-50">
+            <div class="card-header">Unusual Activity</div>
+            <div>Fake this?</div>
+        </div>
     </div>
 </div>

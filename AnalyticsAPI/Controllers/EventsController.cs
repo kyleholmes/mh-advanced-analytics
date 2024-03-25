@@ -30,7 +30,7 @@ namespace AdvancedAnalyticsAPI.Controllers
                     | order by UserCount desc
                 ";
 
-            return await _appInsightsService.GetPowerUsersAsync(query);
+            return await _appInsightsService.GetPowerUsers(query);
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace AdvancedAnalyticsAPI.Controllers
                     | order by Day asc 
                 ";
 
-            return await _appInsightsService.GetUserLogins(query);
+            return await _appInsightsService.GetSimpleCount(query);
         }
 
         [HttpGet]
@@ -61,7 +61,23 @@ namespace AdvancedAnalyticsAPI.Controllers
                     | project TimeStamp = timestamp, Action = name, Page = customDimensions.Page, EventInfo = customDimensions.EventInfo
                 ";
 
-            return await _appInsightsService.GetUserActivity(query);
+            return await _appInsightsService.GetActivity(query);
+        }
+
+        [HttpGet]
+        [Route("GetPageActivity")]
+        public async Task<IEnumerable<Activity>> GetPageActivity(string PageUrl)
+        {
+            var query = @"
+                    customEvents
+                    | where timestamp >= startofday(ago(30d))
+                    | where name == 'ClickEvent'
+                    | where operation_Name has '" + PageUrl + @"'
+                    | order by timestamp desc
+                    | project TimeStamp = timestamp, Action = name, Page = customDimensions.Page, EventInfo = customDimensions.EventInfo
+                ";
+
+            return await _appInsightsService.GetActivity(query);
         }
     }
 }

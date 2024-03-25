@@ -2,7 +2,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of as observableOf } from 'rxjs';
-import { GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsResults, GetPage, GetPageAverageLoadTime, GetPageAverageLoadTimeError, GetPageAverageLoadTimeResults, GetPageError, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPageResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUser, GetUserActivity, GetUserActivityError, GetUserActivityResults, GetUserError, GetUserErrors, GetUserErrorsError, GetUserErrorsResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults, GetUserResults } from "./analytics.actions";
+import { GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetErrorDetail, GetErrorDetailError, GetErrorDetailResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsFull, GetLastWeekErrorsFullError, GetLastWeekErrorsFullResults, GetLastWeekErrorsResults, GetPage, GetPageActivity, GetPageActivityError, GetPageActivityResults, GetPageAverageLoadTime, GetPageAverageLoadTimeError, GetPageAverageLoadTimeResults, GetPageError, GetPageErrors, GetPageErrorsError, GetPageErrorsResults, GetPageFavoritedBy, GetPageFavoritedByError, GetPageFavoritedByResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPageResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUser, GetUserActivity, GetUserActivityError, GetUserActivityResults, GetUserError, GetUserErrors, GetUserErrorsError, GetUserErrorsResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults, GetUserResults } from "./analytics.actions";
 import { AnalyticsService } from "../service/analytics.service";
 
 @Injectable()
@@ -227,6 +227,91 @@ export class AnalyticsStoreEffects {
           ),
           catchError(
             error => observableOf(GetPageAverageLoadTimeError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetPageErrorsEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetPageErrors),
+    switchMap(action =>
+      this.analyticsService.getPageErrors(action.pageUrl)
+        .pipe(
+          map(
+            data => {
+              return GetPageErrorsResults({ pageErrors: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetPageErrorsError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetPageActivityEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetPageActivity),
+    switchMap(action =>
+      this.analyticsService.getPageActivity(action.pageUrl)
+        .pipe(
+          map(
+            data => {
+              return GetPageActivityResults({ pageActivity: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetPageActivityError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetPageFavoritedByEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetPageFavoritedBy),
+    switchMap(action =>
+      this.analyticsService.getPageFavoritedBy(action.pageID)
+        .pipe(
+          map(
+            data => {
+              return GetPageFavoritedByResults({ favoritedBy: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetPageFavoritedByError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetLastWeekErrorsFullEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetLastWeekErrorsFull),
+    switchMap(action =>
+      this.analyticsService.getLastWeekErrorsFull()
+        .pipe(
+          map(
+            data => {
+              return GetLastWeekErrorsFullResults({ lastWeekErrors: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetLastWeekErrorsFullError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetErrorDetailEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetErrorDetail),
+    switchMap(action =>
+      this.analyticsService.getErrorDetail(action.itemID)
+        .pipe(
+          map(
+            data => {
+              return GetErrorDetailResults({ errorDetail: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetErrorDetailError({ message: error }))
           )
         )
     )

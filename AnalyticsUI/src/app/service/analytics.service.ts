@@ -64,4 +64,24 @@ export class AnalyticsService {
   public getPageAverageLoadTime(pageUrl: string) {
     return this.http.get('https://localhost:44397/PageViews/GetPageAverageLoadTime?PageURL=' + pageUrl).pipe(map((response: any) => response));
   }
+
+  public getPageErrors(pageUrl: string) {
+    return this.http.get('https://localhost:44397/Exceptions/GetPageErrors?PageUrl=' + pageUrl).pipe(map((response: any) => response));
+  }
+
+  public getPageActivity(pageUrl: string) {
+    return this.http.get('https://localhost:44397/Events/GetPageActivity?PageUrl=' + pageUrl).pipe(map((response: any) => response));
+  }
+
+  public getPageFavoritedBy(pageID: string) {
+    return this.http.get('https://localhost:44397/PageViews/GetPageFavoritedBy?PageID=' + pageID).pipe(map((response: any) => response));
+  }
+
+  public getLastWeekErrorsFull() {
+    return this.http.get('https://localhost:44397/Exceptions/GetLastWeekErrorsFull').pipe(map((response: any) => response));
+  }
+
+  public getErrorDetail(itemID: string) {
+    return this.http.get('https://localhost:44397/Exceptions/GetErrorDetails?ItemID=' + itemID).pipe(map((response: any) => response));
+  }
 }

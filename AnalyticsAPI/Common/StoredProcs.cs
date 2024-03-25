@@ -7,5 +7,6 @@
         public const string GetUserFullName = "Analytics_GetUserFullNameByUID";
         public const string GetAllPages = "Analytics_GetAllPages";
         public const string GetPage = "Analytics_GetPageByPageID";
+        public const string GetPageFavoritedBy = "Analytics_GetFavoritedByPageID";
     }
 }

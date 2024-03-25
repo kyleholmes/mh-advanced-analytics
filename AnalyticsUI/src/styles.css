@@ -52,6 +52,7 @@ button.primary {
   height: 300px;
   display: inline-block;
   text-align: center;
+  overflow: auto;
 }
 
 .card-small{
@@ -78,6 +79,18 @@ button.primary {
   overflow: auto;
 }
 
+.card-50{
+  margin: 1%;
+  padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 45%;
+  height: 500px;
+  display: inline-block;
+  overflow: auto;
+}
+
 .card-full{
   margin: 1%;
   padding: 1%;
@@ -85,9 +98,10 @@ button.primary {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 95%;
-  height: 400px;
+  height: 100%;
   display: inline-block;
   text-align: center;
+  overflow: auto;
 }
 
 .card-header{
