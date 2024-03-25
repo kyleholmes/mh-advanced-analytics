@@ -22,31 +22,18 @@ export class UsersComponent {
   displayedColumns: string[] = ['uid', 'firstName', 'lastName', 'lastLogin'];
   dataSource: any;
   private subscriptions = new Subscription();
-  deviceTypesList: SimpleCount[] = [];
   screenSizeList: SimpleCount[] = [];
   powerUserList: SimpleCount[] = [];
   allUsersList: User[] = [];
+  loading1 = true;
+  loading2 = true;
+  loading3 = true;
+  loading4 = true;
   
-  constructor(
-    public store: Store<{ analyticsState: AnalyticsState }>, private router: Router
-  ) {
-    
+  constructor(public store: Store<{ analyticsState: AnalyticsState }>, private router: Router) {
   }
   
   ngOnInit(): void {
-    this.store.dispatch(GetDeviceTypes());
-    this.subscriptions.add(
-      this.store
-        .select((store) => store.analyticsState.deviceTypeList)
-        .pipe(filter((deviceTypesList) => deviceTypesList !== null))
-        .subscribe((deviceTypesList) => {
-          if (deviceTypesList.length > 0) {
-            this.deviceTypesList = deviceTypesList;
-            this.loadDeviceTypeChart();
-          }
-        })
-    );
-
     this.store.dispatch(GetScreenSizes());
     this.subscriptions.add(
       this.store
@@ -56,6 +43,7 @@ export class UsersComponent {
           if (screenSizeList.length > 0) {
             this.screenSizeList = screenSizeList;
             this.loadScreenSizeChart();
+            this.loading2 = false;
           }
         })
     );
@@ -69,6 +57,7 @@ export class UsersComponent {
           if (powerUserList.length > 0) {
             this.powerUserList = powerUserList;
             this.loadPowerUserChart();
+            this.loading3 = false;
           }
         })
     );
@@ -82,9 +71,45 @@ export class UsersComponent {
           if (allUsersList.length > 0) {
             this.allUsersList = allUsersList;
             this.loadAllUsersTable();
+            this.loading4 = false;
           }
         })
     );
+
+    const citymap = [
+      {
+        center: { lat: 33.7488, lng: -84.3877 },
+        population: 12714856,
+      },
+      {
+        center: { lat: 32.7767, lng: -96.7970 },
+        population: 8405837,
+      },
+    ];
+
+    const mapElement = document.getElementById("map");
+    if (mapElement) {
+      const map = new google.maps.Map(mapElement, {
+        zoom: 3,
+        center: { lat: 37.09, lng: -95.712 },
+        mapTypeId: "terrain",
+        disableDefaultUI: true,
+      });
+
+      for (const city in citymap) {
+        const cityCircle = new google.maps.Circle({
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.35,
+          map,
+          center: citymap[city].center,
+          radius: Math.sqrt(citymap[city].population) * 100,
+        });
+      }
+      this.loading1 = false;
+    }
   }
 
   openUserDetail(selectedRow: User) {
@@ -95,33 +120,6 @@ export class UsersComponent {
     this.dataSource = new MatTableDataSource(this.allUsersList);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  loadDeviceTypeChart() {
-    new Chart(
-      <HTMLCanvasElement>document.getElementById('deviceTypes'),
-      {
-        type: 'doughnut',
-        data: {
-          labels: this.deviceTypesList.map(row => row.variable),
-          datasets: [
-            {
-              label: 'Device Types',
-              data: this.deviceTypesList.map(row => row.count)
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'left'
-            }
-          }
-        }
-      }
-    );
   }
 
   loadScreenSizeChart() {
@@ -155,7 +153,7 @@ export class UsersComponent {
     new Chart(
       <HTMLCanvasElement>document.getElementById('powerUsers'),
       {
-        type: 'doughnut',
+        type: 'bar',
         data: {
           labels: this.powerUserList.map(row => row.variable),
           datasets: [
@@ -170,7 +168,7 @@ export class UsersComponent {
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              position: 'left'
+              display: false
             }
           }
         }

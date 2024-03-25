@@ -58,6 +58,8 @@ export enum AnalyticsStateActionTypes {
   GET_PAGE_AVERAGE_LOAD_TIME = '[Analytics] Get Page Average Load Time',
   GET_PAGE_AVERAGE_LOAD_TIME_RES = '[Analytics] Get Page Average Load Time Results',
   GET_PAGE_AVERAGE_LOAD_TIME_ERR = '[Analytics] Get Page Average Load Time Error',
+  GET_PAGE_AVERAGE_LOAD_TIME_CLEANUP = '[Analytics] Get Page Average Load Time Cleanup',
+
 
   GET_PAGE_ERRORS = '[Analytics] Get Page Errors',
   GET_PAGE_ERRORS_RES = '[Analytics] Get Page Errors Results',
@@ -131,6 +133,7 @@ export const GetPageError = createAction(AnalyticsStateActionTypes.GET_PAGE_ERR,
 export const GetPageAverageLoadTime = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME, props<{ pageUrl: string }>());
 export const GetPageAverageLoadTimeResults = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_RES, props<{ averageLoadTime: string }>());
 export const GetPageAverageLoadTimeError = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_ERR, props<{ message: string }>());
+export const GetPageAverageLoadTimeCleanup = createAction(AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_CLEANUP);
 
 export const GetPageErrors = createAction(AnalyticsStateActionTypes.GET_PAGE_ERRORS, props<{ pageUrl: string }>());
 export const GetPageErrorsResults = createAction(AnalyticsStateActionTypes.GET_PAGE_ERRORS_RES, props<{ pageErrors: Error[] }>());

@@ -7,11 +7,15 @@
     <div class="body">
         <div class="card-50">
             <div class="card-header">Recent Errors</div>
-            <div *ngFor="let error of lastWeekErrorsFull">
-                <div (click)="openError(error)">
-                    <div style="word-break: break-all;">{{ error.timeStamp }}</div><br>
-                    <div style="word-break: break-all;">{{ error.pageName }}</div><br>
-                    <div style="word-break: break-all;">{{ error.errorMessage }}</div>
+            <div *ngIf="loading" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loading">
+                <div *ngFor="let error of lastWeekErrorsFull">
+                    <div class="error-holder" (click)="openError(error)">
+                        <div>{{ error.timeStamp + ' ' + (error.pageName == '/' ? '': error.pageName.split('#')[1]) }}</div>
+                        <div>{{ error.errorMessage }}</div>
+                    </div>
                 </div>
             </div>
         </div>

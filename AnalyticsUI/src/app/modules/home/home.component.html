@@ -6,6 +6,9 @@
     <div class="body">
         <div class="card" (click)="openPages()">
             <div class="card-header">Pages</div>
+            <div *ngIf="loading1" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
             <div class="canvas-holder">
                 <canvas id="pages"></canvas>
             </div>
@@ -13,6 +16,9 @@
 
         <div class="card" (click)="openUsers()">
             <div class="card-header">Users</div>
+            <div *ngIf="loading2" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
             <div class="canvas-holder">
                 <canvas id="users"></canvas>
             </div>
@@ -20,6 +26,9 @@
 
         <div class="card" (click)="openErrors()">
             <div class="card-header">Errors</div>
+            <div *ngIf="loading3" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
             <div class="canvas-holder">
                 <canvas id="errors"></canvas>
             </div>

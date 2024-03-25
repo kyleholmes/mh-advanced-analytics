@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Chart } from 'chart.js';
-import { Subscription, filter } from 'rxjs';
+import { Subscription, filter, skip } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { GetAllUsers, GetDeviceTypes, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
+import { GetAllUsers, GetDeviceTypes, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageAverageLoadTimeCleanup, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -27,6 +27,7 @@ export class PageDetailComponent {
   pageErrors!: Error[];
   pageActivityList!: Activity[];
   pageFavoritedBy!: User[];
+  loadingRecentErrors = true;
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -64,9 +65,10 @@ export class PageDetailComponent {
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.pageErrors)
-        .pipe(filter((pageErrors) => pageErrors !== null))
+        .pipe(skip(1), filter((pageErrors) => pageErrors !== [] as Error[]))
         .subscribe((pageErrors) => {
           this.pageErrors = pageErrors;
+          this.loadingRecentErrors = false;
         })
     );
 
@@ -94,6 +96,7 @@ export class PageDetailComponent {
   }
 
   public ngOnDestroy() {
+    this.store.dispatch(GetPageAverageLoadTimeCleanup());
     this.subscriptions.unsubscribe();
   }
 }

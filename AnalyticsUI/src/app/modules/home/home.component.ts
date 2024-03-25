@@ -18,25 +18,15 @@ export class HomeComponent {
   errorByDayList: SimpleCount[] = [];
   pageLoadsList: SimpleCount[] = [];
   userLoginsList: SimpleCount[] = [];
+  loading1 = true;
+  loading2 = true;
+  loading3 = true;
 
   constructor(private router: Router, public store: Store<{ analyticsState: AnalyticsState }>) {
     
   }
 
   ngOnInit(): void {
-    this.store.dispatch(GetLastWeekErrors());
-    this.subscriptions.add(
-      this.store
-        .select((store) => store.analyticsState.errorByDayList)
-        .pipe(filter((errorByDayList) => errorByDayList !== null))
-        .subscribe((errorByDayList) => {
-          if (errorByDayList.length > 0) {
-            this.errorByDayList = errorByDayList;
-            this.loadErrorChart();
-          }
-        })
-    );
-
     this.store.dispatch(GetPageLoads());
     this.subscriptions.add(
       this.store
@@ -46,6 +36,7 @@ export class HomeComponent {
           if (pageLoadsList.length > 0) {
             this.pageLoadsList = pageLoadsList;
             this.loadPagesChart();
+            this.loading1 = false;
           }
         })
     );
@@ -59,6 +50,21 @@ export class HomeComponent {
           if (userLoginsList.length > 0) {
             this.userLoginsList = userLoginsList;
             this.loadUsersChart();
+            this.loading2 = false;
+          }
+        })
+    );
+
+    this.store.dispatch(GetLastWeekErrors());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.errorByDayList)
+        .pipe(filter((errorByDayList) => errorByDayList !== null))
+        .subscribe((errorByDayList) => {
+          if (errorByDayList.length > 0) {
+            this.errorByDayList = errorByDayList;
+            this.loadErrorChart();
+            this.loading3 = false;
           }
         })
     );
@@ -70,7 +76,7 @@ export class HomeComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.pageLoadsList.map(row => row.variable),
+          labels: this.pageLoadsList.map(row => row.variable.split('-')[1]),
           datasets: [
             {
               label: 'Page Views',

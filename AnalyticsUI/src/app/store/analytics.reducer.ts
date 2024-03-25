@@ -104,6 +104,10 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
       return { ...state, pageAverageLoadTime: action.averageLoadTime };
     }
       
+    case AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_CLEANUP: {
+      return { ...state, pageAverageLoadTime: '' };
+    }
+      
     case AnalyticsStateActionTypes.GET_PAGE_ERRORS_RES: {
       return { ...state, pageErrors: action.pageErrors };
     }

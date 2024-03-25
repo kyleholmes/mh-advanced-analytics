@@ -43,8 +43,8 @@ namespace AdvancedAnalyticsAPI.Controllers
                 pageViews
                     | where notempty(customDimensions.ScreenSize)
                     | project ScreenSize = customDimensions.ScreenSize, Device = case(toint(split(customDimensions.ScreenSize, 'x')[0]) between(992 .. 1200),
-                    'Small Computer 992px-1200px', toint(split(customDimensions.ScreenSize, 'x')[0]) between (1200 .. 1800),
-                    'Large Computer 1200px-1800px', 'Extra Large Computer 1800px+')
+                    'Small 992px-1200px', toint(split(customDimensions.ScreenSize, 'x')[0]) between (1200 .. 1800),
+                    'Large 1200px-1800px', 'Extra Large 1800px+')
                     | where toint(split(ScreenSize, 'x')[0]) > 992
                     | summarize DeviceCount = count() by Device
                 ";

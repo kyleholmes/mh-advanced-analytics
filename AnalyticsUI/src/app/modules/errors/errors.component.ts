@@ -14,6 +14,7 @@ import { Error } from 'src/app/models/error';
 export class ErrorsComponent {
   private subscriptions = new Subscription();
   lastWeekErrorsFull!: Error[];
+  loading = true;
 
   constructor(public store: Store<{ analyticsState: AnalyticsState }>, private router: Router) {
     
@@ -28,6 +29,7 @@ export class ErrorsComponent {
         .subscribe((lastWeekErrorsFull) => {
           if (lastWeekErrorsFull.length > 0) {
             this.lastWeekErrorsFull = lastWeekErrorsFull;
+            this.loading = false;
           }
         })
     );

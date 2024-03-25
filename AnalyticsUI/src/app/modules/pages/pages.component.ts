@@ -26,6 +26,9 @@ export class PagesComponent {
   @ViewChild(MatSort, { static: true }) sort!: MatSort; 
   displayedColumns: string[] = ['pageID', 'pageName', 'ngPageURL'];
   dataSource: any;
+  loading1 = true;
+  loading2 = true;
+  loading3 = true;
 
   constructor(public store: Store<{ analyticsState: AnalyticsState }>, private router: Router) {
     
@@ -41,6 +44,7 @@ export class PagesComponent {
           if (pageLoadsList.length > 0) {
             this.pageLoadsList = pageLoadsList;
             this.loadPagesChart();
+            this.loading1 = false;
           }
         })
     );
@@ -54,6 +58,7 @@ export class PagesComponent {
           if (allPagesList.length > 0) {
             this.allPagesList = allPagesList;
             this.loadAllPagesTable();
+            this.loading2 = false;
           }
         })
     );
@@ -75,7 +80,7 @@ export class PagesComponent {
       {
         type: 'doughnut',
         data: {
-          labels: this.pageLoadsList.map(row => row.variable),
+          labels: this.pageLoadsList.map(row => row.variable.split('-')[1]),
           datasets: [
             {
               label: 'Page Views',

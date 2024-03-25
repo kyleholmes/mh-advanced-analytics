@@ -6,14 +6,18 @@
     
     <div class="body">
         <div class="card-small">
-            <div class="card-header">Device Types</div>
-            <div class="canvas-holder">
-                <canvas id="deviceTypes"></canvas>
+            <div class="map-header">User Locations</div>
+            <div *ngIf="loading1" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
             </div>
+            <div id="map" style="height: 100%;"></div>
         </div>
 
         <div class="card-small">
             <div class="card-header">Screen Sizes</div>
+            <div *ngIf="loading2" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
             <div class="canvas-holder">
                 <canvas id="screenSizes"></canvas>
             </div>
@@ -21,13 +25,19 @@
 
         <div class="card-small">
             <div class="card-header">Power Users</div>
+            <div *ngIf="loading3" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
             <div class="canvas-holder">
                 <canvas id="powerUsers"></canvas>
             </div>
         </div>
 
-        <div class="card-full">
+        <div class="card-wide">
             <div class="card-header">All Users</div>
+            <div *ngIf="loading1" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
             <div class="pr-table" #TABLE cdkScrollable>
             <table mat-table [dataSource]="dataSource" matSort matSortActive="uid" matSortDirection="asc">
                 <ng-container matColumnDef="uid">

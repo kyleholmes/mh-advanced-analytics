@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
 import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
 import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
     declarations: [
@@ -51,6 +52,7 @@ import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail
             AnalyticsStoreEffects
         ]),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+        GoogleMapsModule,
     ],
     providers: [Store],
     bootstrap: [AppComponent],
