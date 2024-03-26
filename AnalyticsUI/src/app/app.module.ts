@@ -22,6 +22,9 @@ import { UserDetailComponent } from './modules/users/user-detail/user-detail.com
 import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
 import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 @NgModule({
     declarations: [
@@ -53,6 +56,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
         ]),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
         GoogleMapsModule,
+        MatStepperModule,
+        MatExpansionModule,
     ],
     providers: [Store],
     bootstrap: [AppComponent],

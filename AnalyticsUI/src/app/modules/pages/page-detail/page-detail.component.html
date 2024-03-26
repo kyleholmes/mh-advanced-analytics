@@ -31,13 +31,25 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" style="overflow: scroll;">
             <div class="card-header">Recent Activity</div>
             <div *ngIf="pageActivityList.length === 0">Not enough data available</div>
-            <div *ngFor="let activity of pageActivityList">
-                <div style="word-break: break-all;">{{ activity.timeStamp }}</div><br>
-                <div style="word-break: break-all;">{{ activity.eventInfo }}</div>
-            </div>
+            <mat-vertical-stepper [linear]="false" #stepper>
+                <mat-step *ngFor="let activity of pageActivityList">
+                    <mat-expansion-panel *ngIf="activity.action === 'ClickEvent'" class="card-full click-step" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                            <mat-panel-description>{{ 'User Clicked ' + activity.eventInfo }}</mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div>PID: 1</div>
+                        <div>HID: 1</div>
+                        <div>App: 340B Architect</div>
+                        <div>Screen Size: 1280x720</div>
+                        <div>Location: Atlanta, GA</div>
+                        <div>Browser: Edge 122.0</div>
+                    </mat-expansion-panel>
+                </mat-step>
+            </mat-vertical-stepper>
         </div>
 
         <div class="card">

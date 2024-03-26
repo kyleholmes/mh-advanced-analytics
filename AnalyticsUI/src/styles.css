@@ -198,12 +198,11 @@ tr.mat-mdc-row {
 }
 
 tr.mat-mdc-row:hover {
-  background-color: grey;
+  background-color: #f9f9f9;
 }
 
 tr.mat-mdc-header-row {
   height: 40px;
-  background-color: grey !important;
 }
 
 .loading-holder{
@@ -248,4 +247,65 @@ tr.mat-mdc-header-row {
     top: 24px;
     height: 32px;
   }
+}
+
+.user-info-label{
+  display: inline-block;
+  width: 200px;
+}
+
+.user-info-value{
+  display: inline-block;
+}
+
+.mat-vertical-stepper-content 
+{
+  visibility: visible !important;
+  height: 100% !important;
+}
+
+.mat-step-header {
+  padding: 0 !important;
+}
+
+.mat-vertical-content {
+  padding: 0 !important;
+}
+
+.mat-expansion-panel-header-title {
+  color: white !important;
+}
+
+.mat-expansion-panel-header-description {
+  color: white !important;
+}
+
+.page-load-step{
+  cursor: pointer;
+  color: white !important;
+  background-color: #005489 !important;
+}
+
+.login-step{
+  cursor: pointer;
+  color: white !important;
+  background-color: #007663 !important;
+}
+
+.click-step{
+  cursor: pointer;
+  color: white !important;
+  background-color: #007c9e !important;
+}
+
+.menu-step{
+  cursor: pointer;
+  color: white !important;
+  background-color: #BB3E96 !important;
+}
+
+.app-change-step{
+  cursor: pointer;
+  color: white !important;
+  background-color: #F15A24 !important;
 }
