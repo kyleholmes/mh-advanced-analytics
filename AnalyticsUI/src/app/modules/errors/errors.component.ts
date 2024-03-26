@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription, filter } from 'rxjs';
-import { GetLastWeekErrorsFull } from 'src/app/store/analytics.actions';
+import { ClearErrorData, GetLastWeekErrorsFull } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { Error } from 'src/app/models/error';
 
@@ -44,6 +44,7 @@ export class ErrorsComponent {
   }
 
   public ngOnDestroy() {
+    this.store.dispatch(ClearErrorData());
     this.subscriptions.unsubscribe();
   }
 }

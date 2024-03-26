@@ -128,6 +128,34 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
       return { ...state, errorDetail: action.errorDetail };
     }
 
+    case AnalyticsStateActionTypes.CLEAR_ERROR_DATA: {
+      return { ...state, lastWeekErrorsFull: [] };
+    }
+
+    case AnalyticsStateActionTypes.CLEAR_ERROR_DETAIL: {
+      return { ...state, errorDetail: {} as ErrorDetail };
+    }
+
+    case AnalyticsStateActionTypes.CLEAR_PAGE_DATA: {
+      return { ...state, allPagesList: [], pageLoadsList: [] };
+    }
+
+    case AnalyticsStateActionTypes.CLEAR_PAGE_DETAIL: {
+      return { ...state, pageFavoritedBy: [], pageActivityList: [], pageErrors: [], pageAverageLoadTime: '', currentPage: {} as Page };
+    }
+
+    case AnalyticsStateActionTypes.CLEAR_USER_DATA: {
+      return { ...state, screenSizeList: [], powerUserList: [], allUsersList: [] };
+    }
+
+    case AnalyticsStateActionTypes.CLEAR_USER_DETAIL: {
+      return { ...state, currentUser: {} as User, userActivityList: [], userErrors: [] };
+    }
+
+    case AnalyticsStateActionTypes.CLEAR_HOME_DATA: {
+      return { ...state, pageLoadsList: [], userLoginsList: [], errorByDayList: [] };
+    }
+
     default: {
       return state;
     }

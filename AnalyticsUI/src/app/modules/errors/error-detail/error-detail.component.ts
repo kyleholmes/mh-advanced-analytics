@@ -1,18 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
-import { SimpleCount } from 'src/app/models/simple-count';
-import { User } from 'src/app/models/user';
-import { GetAllUsers, GetDeviceTypes, GetErrorDetail, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
+import { ClearErrorDetail, GetErrorDetail } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Error } from 'src/app/models/error';
-import { Activity } from 'src/app/models/activity';
-import { Page } from 'src/app/models/page';
 import { ErrorDetail } from 'src/app/models/error-detail';
 
 @Component({
@@ -51,6 +42,7 @@ export class ErrorDetailComponent {
   }
 
   public ngOnDestroy() {
+    this.store.dispatch(ClearErrorDetail());
     this.subscriptions.unsubscribe();
   }
 }
