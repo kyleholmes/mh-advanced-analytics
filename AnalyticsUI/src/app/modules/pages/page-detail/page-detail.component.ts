@@ -91,6 +91,10 @@ export class PageDetailComponent {
     );
   }
 
+  openError(error: Error) {
+    this.router.navigate(['/error-detail', error.itemID]);
+  }
+
   back() {
     this.router.navigate(['/pages']);
   }

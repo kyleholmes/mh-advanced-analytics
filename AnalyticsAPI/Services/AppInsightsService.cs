@@ -149,8 +149,11 @@ namespace AdvancedAnalyticsAPI.Services
 
             foreach (var item in responseList)
             {
-                var user = await GetUserFullName(item.UserID);
-                item.UserID = user.FirstName + " " + user.LastName;
+                if(item.UserID != "")
+                {
+                    var user = await GetUserFullName(item.UserID);
+                    item.UserID = user.FirstName + " " + user.LastName;
+                }
             }
 
             return responseList[0];

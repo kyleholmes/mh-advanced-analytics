@@ -309,3 +309,10 @@ tr.mat-mdc-header-row {
   color: white !important;
   background-color: #F15A24 !important;
 }
+
+.error-item{
+  cursor: pointer;
+  color: white !important;
+  background-color: #57211F !important;
+  text-align: left;
+}

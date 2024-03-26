@@ -24,9 +24,10 @@
             <div *ngIf="!loadingRecentErrors">
                 <div *ngIf="pageErrors.length === 0">No errors have been reported</div>
                 <div *ngFor="let error of pageErrors">
-                    <div style="word-break: break-all;">{{ error.timeStamp }}</div><br>
-                    <div style="word-break: break-all;">{{ error.pageName }}</div><br>
-                    <div style="word-break: break-all;">{{ error.errorMessage }}</div>
+                    <div class="card-full error-item" (click)="openError(error)">
+                        <div style="margin-bottom: 8px;">{{ error.timeStamp}}</div>
+                        <div>{{ error.errorMessage }}</div>
+                    </div>
                 </div>
             </div>
         </div>

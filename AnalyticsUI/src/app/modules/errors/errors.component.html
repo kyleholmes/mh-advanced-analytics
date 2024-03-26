@@ -12,8 +12,8 @@
             </div>
             <div *ngIf="!loading">
                 <div *ngFor="let error of lastWeekErrorsFull">
-                    <div class="error-holder" (click)="openError(error)">
-                        <div>{{ error.timeStamp + ' ' + (error.pageName == '/' ? '': error.pageName.split('#')[1]) }}</div>
+                    <div class="card-full error-item" (click)="openError(error)">
+                        <div style="margin-bottom: 8px;">{{ error.timeStamp + ' ' + (error.pageName === '/' || error.pageName.includes('jolokia') ? '': error.pageName) }}</div>
                         <div>{{ error.errorMessage }}</div>
                     </div>
                 </div>
