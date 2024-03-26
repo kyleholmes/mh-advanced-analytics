@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { Subscription, filter, skip } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { GetAllUsers, GetDeviceTypes, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageAverageLoadTimeCleanup, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
+import { ClearPageDetail, GetAllUsers, GetDeviceTypes, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageAverageLoadTimeCleanup, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -101,6 +101,7 @@ export class PageDetailComponent {
 
   public ngOnDestroy() {
     this.store.dispatch(GetPageAverageLoadTimeCleanup());
+    this.store.dispatch(ClearPageDetail());
     this.subscriptions.unsubscribe();
   }
 }

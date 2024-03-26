@@ -80,6 +80,15 @@ export enum AnalyticsStateActionTypes {
   GET_ERROR_DETAIL = '[Analytics] Get Error Detail',
   GET_ERROR_DETAIL_RES = '[Analytics] Get Error Detail Results',
   GET_ERROR_DETAIL_ERR = '[Analytics] Get Error Detail Error',
+
+  CLEAR_PAGE_DATA = '[Analytics] Clear Page Data',
+  CLEAR_PAGE_DETAIL = '[Analytics] Clear Page Detail',
+  CLEAR_USER_DATA = '[Analytics] Clear User Data',
+  CLEAR_USER_DETAIL = '[Analytics] Clear User Detail',
+  CLEAR_ERROR_DATA = '[Analytics] Clear Error Data',
+  CLEAR_ERROR_DETAIL = '[Analytics] Clear Error Detail',
+  CLEAR_HOME_DATA = '[Analytics] Clear Home Data',
+
 }
 
 export const GetDeviceTypes = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES);
@@ -154,3 +163,11 @@ export const GetLastWeekErrorsFullError = createAction(AnalyticsStateActionTypes
 export const GetErrorDetail = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL, props<{ itemID: string }>());
 export const GetErrorDetailResults = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL_RES, props<{ errorDetail: ErrorDetail }>());
 export const GetErrorDetailError = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL_ERR, props<{ message: string }>());
+
+export const ClearPageData = createAction(AnalyticsStateActionTypes.CLEAR_PAGE_DATA);
+export const ClearPageDetail = createAction(AnalyticsStateActionTypes.CLEAR_PAGE_DETAIL);
+export const ClearErrorData = createAction(AnalyticsStateActionTypes.CLEAR_ERROR_DATA);
+export const ClearErrorDetail = createAction(AnalyticsStateActionTypes.CLEAR_ERROR_DETAIL);
+export const ClearUserData = createAction(AnalyticsStateActionTypes.CLEAR_USER_DATA);
+export const ClearUserDetail = createAction(AnalyticsStateActionTypes.CLEAR_USER_DETAIL);
+export const ClearHomeData = createAction(AnalyticsStateActionTypes.CLEAR_HOME_DATA);
