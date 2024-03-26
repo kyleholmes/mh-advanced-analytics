@@ -46,6 +46,21 @@ export class ErrorDetailComponent {
     );
   }
 
+  extractFromJson(obj: string) {
+    if(obj == null) return '';
+    obj = JSON.parse(obj);
+    let returnValue = '';
+    for (var i = 0; i < obj.length; i++) {
+      Object.entries(obj[i]).forEach((element: any) => {
+        if (element.includes('assembly')) {
+          returnValue += element + '<br>';
+        }
+      });
+    }
+    returnValue = returnValue.replaceAll('assembly,', '');
+    return returnValue;
+  }
+
   back() {
     this.router.navigate(['/errors']);
   }
