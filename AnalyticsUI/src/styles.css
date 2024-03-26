@@ -168,6 +168,7 @@ button.primary {
 .page-header{
   font-size: 24px;
   vertical-align: middle;
+  padding-left: 200px;
 }
 
 .back-button{
