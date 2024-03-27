@@ -24,6 +24,7 @@ import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail
 import { GoogleMapsModule } from '@angular/google-maps';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { RecentActivityComponent } from './modules/recent-activity/recent-activity.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
         HomeComponent,
         UserDetailComponent,
         PageDetailComponent,
-        ErrorDetailComponent
+        ErrorDetailComponent,
+        RecentActivityComponent
     ],
     imports: [
         BrowserModule,

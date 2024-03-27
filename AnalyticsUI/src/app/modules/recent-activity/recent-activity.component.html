@@ -1,0 +1,21 @@
+<div>
+    <div class="header">
+        <mat-icon class="back-button" (click)="back()">arrow_back</mat-icon>
+        <span class="page-header">{{currentUser.firstName + ' ' + currentUser.lastName + ' Average Day'}}</span>
+    </div>
+    
+    <div class="body">
+        <div class="card-full" style="background-color: grey;">
+            <div class="timeline">
+                <div *ngFor='let entry of userActivityList; let i = index;'>
+                    <div class="container" [ngClass]="{ left: i%2!==0, right:i%2==0}">
+                    <div class="content">
+                        <h2>{{ entry.timeStamp }}</h2>
+                        <p>{{ entry.eventInfo }}</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

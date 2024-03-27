@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { UserDetailComponent } from './modules/users/user-detail/user-detail.component';
 import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
 import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail.component';
+import { RecentActivityComponent } from './modules/recent-activity/recent-activity.component';
 const routeConfig: Routes = [
   {
     path: '',
@@ -42,6 +43,11 @@ const routeConfig: Routes = [
     path: 'error-detail/:id',
     component: ErrorDetailComponent,
     title: 'Error Detail'
+  },
+  {
+    path: 'recent-activity/:id',
+    component: RecentActivityComponent,
+    title: 'Recent Activity'
   },
 ];
 

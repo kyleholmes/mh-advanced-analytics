@@ -14,26 +14,20 @@ import { Error } from 'src/app/models/error';
 import { Activity } from 'src/app/models/activity';
 
 @Component({
-  selector: 'user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrl: './user-detail.component.css'
+  selector: 'recent-activity',
+  templateUrl: './recent-activity.component.html',
+  styleUrl: './recent-activity.component.css'
 })
-export class UserDetailComponent {
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort!: MatSort; 
-  displayedColumns: string[] = ['uid', 'firstName', 'lastName', 'lastLogin'];
-  dataSource: any;
+export class RecentActivityComponent {
   private subscriptions = new Subscription();
-  deviceTypesList: SimpleCount[] = [];
-  screenSizeList: SimpleCount[] = [];
-  powerUserList: SimpleCount[] = [];
-  allUsersList: User[] = [];
   currentUser!: User;
   currentUserID!: string;
-  userErrors: Error[] = [];
-  userActivityList: Activity[] = [];
-  loadingErrors: boolean = true;
-  loadingActivity: boolean = true;
+  userActivityList: Activity[] = [
+    { timeStamp: '2024-03-01 8:00am', action: '', eventInfo: 'Log In', page: '' },
+    { timeStamp: '2024-03-01 8:05am', action: '', eventInfo: 'Loads Dispense Fee Dashboard', page: '' },
+    { timeStamp: '2024-03-01 9:00am', action: '', eventInfo: 'Checks Qualification Filters', page: '' },
+    { timeStamp: '2024-03-01 11:00am', action: '', eventInfo: 'Logs Out', page: '' },
+  ];
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -54,40 +48,10 @@ export class UserDetailComponent {
           this.currentUser = currentUser;
         })
     );
-
-    this.store.dispatch(GetUserErrors({ uid: this.currentUserID }));
-    this.subscriptions.add(
-      this.store
-        .select((store) => store.analyticsState.userErrors)
-        .pipe(skip(1), filter((userErrors) => userErrors !== null))
-        .subscribe((userErrors) => {
-          this.userErrors = userErrors;
-          this.loadingErrors = false;
-        })
-    );
-
-    this.store.dispatch(GetUserActivity({ uid: this.currentUserID }));
-    this.subscriptions.add(
-      this.store
-        .select((store) => store.analyticsState.userActivityList)
-        .pipe(skip(1), filter((userActivityList) => userActivityList !== null))
-        .subscribe((userActivityList) => {
-          this.userActivityList = userActivityList;
-          this.loadingActivity = false;
-        })
-    );
-  }
-
-  openError(error: Error) {
-    this.router.navigate(['/error-detail', error.itemID]);
-  }
-
-  openRecentActivity() {
-    this.router.navigate(['/recent-activity', this.currentUser.uid]);
   }
 
   back() {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/user-detail', this.currentUser.uid]);
   }
 
   public ngOnDestroy() {

@@ -132,6 +132,24 @@ button.primary {
   overflow: auto;
 }
 
+.card-tall-hover{
+  margin: 1%;
+  padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 29%;
+  height: 500px;
+  display: inline-block;
+  overflow: auto;
+  cursor: pointer;
+}
+
+.card-tall-hover:hover{
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 .card-50{
   margin: 1%;
   padding: 1%;
