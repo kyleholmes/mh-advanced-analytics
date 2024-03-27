@@ -28,6 +28,9 @@ export class PageDetailComponent {
   pageActivityList!: Activity[];
   pageFavoritedBy!: User[];
   loadingRecentErrors = true;
+  loadingFavorites = true;
+  loadingActivity = true;
+  loadingLoadTime = true;
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -46,9 +49,9 @@ export class PageDetailComponent {
         .pipe(filter((currentPage) => currentPage !== null))
         .subscribe((currentPage) => {
           this.currentPage = currentPage;
-          this.store.dispatch(GetPageAverageLoadTime({ pageUrl: this.currentPage.ngPageURL }));
+          this.store.dispatch(GetPageAverageLoadTime({ pageUrl: this.currentPage.pageName }));
           this.store.dispatch(GetPageErrors({ pageUrl: this.currentPage.ngPageURL }));
-          this.store.dispatch(GetPageActivity({ pageUrl: this.currentPage.ngPageURL }));
+          this.store.dispatch(GetPageActivity({ pageUrl: this.currentPage.pageName }));
           this.store.dispatch(GetPageFavoritedBy({ pageID: this.currentPage.pageID?.toString() }));
         })
     );
@@ -56,9 +59,10 @@ export class PageDetailComponent {
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.pageAverageLoadTime)
-        .pipe(filter((pageAverageLoadTime) => pageAverageLoadTime !== null))
+        .pipe(skip(1), filter((pageAverageLoadTime) => pageAverageLoadTime !== null))
         .subscribe((pageAverageLoadTime) => {
           this.pageAverageLoadTime = pageAverageLoadTime;
+          this.loadingLoadTime = false;
         })
     );
 
@@ -75,24 +79,30 @@ export class PageDetailComponent {
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.pageActivityList)
-        .pipe(filter((pageActivityList) => pageActivityList !== null))
+        .pipe(skip(1), filter((pageActivityList) => pageActivityList !== null))
         .subscribe((pageActivityList) => {
           this.pageActivityList = pageActivityList;
+          this.loadingActivity = false;
         })
     );
 
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.pageFavoritedBy)
-        .pipe(filter((pageFavoritedBy) => pageFavoritedBy !== null))
+        .pipe(skip(1), filter((pageFavoritedBy) => pageFavoritedBy !== null))
         .subscribe((pageFavoritedBy) => {
           this.pageFavoritedBy = pageFavoritedBy;
+          this.loadingFavorites = false;
         })
     );
   }
 
   openError(error: Error) {
     this.router.navigate(['/error-detail', error.itemID]);
+  }
+
+  openUserDetail(user: User) {
+    this.router.navigate(['/user-detail', user.uid]);
   }
 
   back() {

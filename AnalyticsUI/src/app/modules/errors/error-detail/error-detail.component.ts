@@ -15,6 +15,7 @@ export class ErrorDetailComponent {
   private subscriptions = new Subscription();
   currentError!: ErrorDetail;
   currentErrorID!: string;
+  loading = true;
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -32,9 +33,27 @@ export class ErrorDetailComponent {
         .select((store) => store.analyticsState.errorDetail)
         .pipe(filter((currentError) => currentError !== null))
         .subscribe((currentError) => {
-          this.currentError = currentError;
+          if(currentError.errorMessage != null) {
+            this.currentError = currentError;
+            this.loading = false;
+          }
         })
     );
+  }
+
+  extractFromJson(obj: string) {
+    if(obj == null) return '';
+    obj = JSON.parse(obj);
+    let returnValue = '';
+    for (var i = 0; i < obj.length; i++) {
+      Object.entries(obj[i]).forEach((element: any) => {
+        if (element.includes('assembly')) {
+          returnValue += element + '<br>';
+        }
+      });
+    }
+    returnValue = returnValue.replaceAll('assembly,', '');
+    return returnValue;
   }
 
   back() {

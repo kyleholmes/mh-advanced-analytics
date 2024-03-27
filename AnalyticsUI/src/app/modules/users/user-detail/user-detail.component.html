@@ -7,94 +7,107 @@
     <div class="body">
         <div class="card-tall">
             <div class="card-header">Recent Errors</div>
-            <div *ngFor="let error of userErrors">
-                <div>{{ error.timeStamp }}</div><br>
-                <div>{{ error.pageName }}</div><br>
-                <div style="word-break: break-all;">{{ error.errorMessage }}</div>
+            <div *ngIf="loadingErrors" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loadingErrors">
+                <div *ngIf="userErrors.length === 0">No Errors Found</div>
+                <div *ngFor="let error of userErrors">
+                    <div class="card-full error-item" (click)="openError(error)">
+                        <div style="margin-bottom: 8px;">{{ error.timeStamp + ' ' + (error.pageName === '/' || error.pageName.includes('jolokia') ? '': error.pageName) }}</div>
+                        <div style="word-break: break-all;">{{ error.errorMessage }}</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="card-tall">
             <div class="card-header">Recent Activity</div>
-            <mat-vertical-stepper [linear]="false" #stepper>
-                <mat-step *ngFor="let activity of userActivityList">
-                    <mat-expansion-panel *ngIf="activity.action === 'ASP_PAGE_LOAD'" class="card-full page-load-step" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
-                            <mat-panel-description>{{ 'Loaded: ' + activity.page }}</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div>PID: 1</div>
-                        <div>HID: 1</div>
-                        <div>App: 340B Architect</div>
-                        <div>Screen Size: 1280x720</div>
-                        <div>Location: Atlanta, GA</div>
-                        <div>Browser: Edge 122.0</div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel *ngIf="activity.action === 'ClickEvent'" class="card-full click-step" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
-                            <mat-panel-description>{{ 'User Clicked ' + activity.eventInfo }}</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div>PID: 1</div>
-                        <div>HID: 1</div>
-                        <div>App: 340B Architect</div>
-                        <div>Screen Size: 1280x720</div>
-                        <div>Location: Atlanta, GA</div>
-                        <div>Browser: Edge 122.0</div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel *ngIf="activity.action === 'USER_LOGGED_IN'" class="card-full login-step" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
-                            <mat-panel-description>User Logged In</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div>PID: 1</div>
-                        <div>HID: 1</div>
-                        <div>App: 340B Architect</div>
-                        <div>Screen Size: 1280x720</div>
-                        <div>Location: Atlanta, GA</div>
-                        <div>Browser: Edge 122.0</div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel *ngIf="activity.action === 'MH_Menu_State_SHOW' || activity.action === 'MH_Menu_State_HIDE'" class="card-full menu-step" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
-                            <mat-panel-description>{{ 'Menu Opened on ' + activity.page }}</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div>PID: 1</div>
-                        <div>HID: 1</div>
-                        <div>App: 340B Architect</div>
-                        <div>Screen Size: 1280x720</div>
-                        <div>Location: Atlanta, GA</div>
-                        <div>Browser: Edge 122.0</div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel *ngIf="activity.action === 'Application_Change_To_340bArchitect' 
-                                                || activity.action === 'Application_Change_To_UserAccessManagement' 
-                                                || activity.action === 'Application_Change_To_MacroManager'" 
-                                                class="card-full app-change-step" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
-                            <mat-panel-description>{{ 'Application Changed To ' + activity.action.substring(activity.action.lastIndexOf('_') + 1)}}</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div>PID: 1</div>
-                        <div>HID: 1</div>
-                        <div>App: 340B Architect</div>
-                        <div>Screen Size: 1280x720</div>
-                        <div>Location: Atlanta, GA</div>
-                        <div>Browser: Edge 122.0</div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel *ngIf="activity.action === 'PID_Change'" class="card-full menu-step" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
-                            <mat-panel-description>{{ 'PID Changed on ' + activity.page }}</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div>PID: 1</div>
-                        <div>HID: 1</div>
-                        <div>App: 340B Architect</div>
-                        <div>Screen Size: 1280x720</div>
-                        <div>Location: Atlanta, GA</div>
-                        <div>Browser: Edge 122.0</div>
-                    </mat-expansion-panel>
-                </mat-step>
-            </mat-vertical-stepper>
+            <div *ngIf="loadingActivity" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loadingActivity">
+                <div *ngIf="userActivityList.length === 0">No Recent Activity</div>
+                <mat-vertical-stepper [linear]="false" #stepper>
+                    <mat-step *ngFor="let activity of userActivityList">
+                        <mat-expansion-panel *ngIf="activity.action === 'ASP_PAGE_LOAD'" class="card-full page-load-step" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                                <mat-panel-description>{{ 'Loaded: ' + activity.page }}</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div>PID: 1</div>
+                            <div>HID: 1</div>
+                            <div>App: 340B Architect</div>
+                            <div>Screen Size: 1280x720</div>
+                            <div>Location: Atlanta, GA</div>
+                            <div>Browser: Edge 122.0</div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel *ngIf="activity.action === 'ClickEvent'" class="card-full click-step" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                                <mat-panel-description>{{ 'User Clicked ' + activity.eventInfo }}</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div>PID: 1</div>
+                            <div>HID: 1</div>
+                            <div>App: 340B Architect</div>
+                            <div>Screen Size: 1280x720</div>
+                            <div>Location: Atlanta, GA</div>
+                            <div>Browser: Edge 122.0</div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel *ngIf="activity.action === 'USER_LOGGED_IN'" class="card-full login-step" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                                <mat-panel-description>User Logged In</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div>PID: 1</div>
+                            <div>HID: 1</div>
+                            <div>App: 340B Architect</div>
+                            <div>Screen Size: 1280x720</div>
+                            <div>Location: Atlanta, GA</div>
+                            <div>Browser: Edge 122.0</div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel *ngIf="activity.action === 'MH_Menu_State_SHOW' || activity.action === 'MH_Menu_State_HIDE'" class="card-full menu-step" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                                <mat-panel-description>{{ 'Menu Opened on ' + activity.page }}</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div>PID: 1</div>
+                            <div>HID: 1</div>
+                            <div>App: 340B Architect</div>
+                            <div>Screen Size: 1280x720</div>
+                            <div>Location: Atlanta, GA</div>
+                            <div>Browser: Edge 122.0</div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel *ngIf="activity.action === 'Application_Change_To_340bArchitect' 
+                                                    || activity.action === 'Application_Change_To_UserAccessManagement' 
+                                                    || activity.action === 'Application_Change_To_MacroManager'" 
+                                                    class="card-full app-change-step" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                                <mat-panel-description>{{ 'Application Changed To ' + activity.action.substring(activity.action.lastIndexOf('_') + 1)}}</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div>PID: 1</div>
+                            <div>HID: 1</div>
+                            <div>App: 340B Architect</div>
+                            <div>Screen Size: 1280x720</div>
+                            <div>Location: Atlanta, GA</div>
+                            <div>Browser: Edge 122.0</div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel *ngIf="activity.action === 'PID_Change'" class="card-full menu-step" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                                <mat-panel-description>{{ 'PID Changed on ' + activity.page }}</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div>PID: 1</div>
+                            <div>HID: 1</div>
+                            <div>App: 340B Architect</div>
+                            <div>Screen Size: 1280x720</div>
+                            <div>Location: Atlanta, GA</div>
+                            <div>Browser: Edge 122.0</div>
+                        </mat-expansion-panel>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </div>
         </div>
 
         <div class="card-tall">

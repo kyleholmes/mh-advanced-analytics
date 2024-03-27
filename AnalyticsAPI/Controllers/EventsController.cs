@@ -72,7 +72,7 @@ namespace AdvancedAnalyticsAPI.Controllers
                     customEvents
                     | where timestamp >= startofday(ago(30d))
                     | where name == 'ClickEvent'
-                    | where operation_Name has '" + PageUrl + @"'
+                    | where customDimensions.Page has '" + PageUrl + @"'
                     | order by timestamp desc
                     | project TimeStamp = timestamp, Action = name, Page = customDimensions.Page, EventInfo = customDimensions.EventInfo
                 ";
