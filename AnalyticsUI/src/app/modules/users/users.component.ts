@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { ClearUserData, GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes, SetPageTitle } from 'src/app/store/analytics.actions';
+import { ClearUserData, GetAllUsers, GetBrowserActivity, GetDeviceTypes, GetPowerUsers, GetScreenSizes, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -25,10 +25,12 @@ export class UsersComponent {
   screenSizeList: SimpleCount[] = [];
   powerUserList: SimpleCount[] = [];
   allUsersList: User[] = [];
+  browserActivityList: SimpleCount[] = [];
   loading1 = true;
   loading2 = true;
   loading3 = true;
   loading4 = true;
+  loading5 = true;
   
   constructor(public store: Store<{ analyticsState: AnalyticsState }>, private router: Router) {
   }
@@ -73,6 +75,20 @@ export class UsersComponent {
             this.allUsersList = allUsersList;
             this.loadAllUsersTable();
             this.loading4 = false;
+          }
+        })
+    );
+
+    this.store.dispatch(GetBrowserActivity());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.browserActivityList)
+        .pipe(filter((browserActivity) => browserActivity !== null))
+        .subscribe((browserActivity) => {
+          if (browserActivity.length > 0) {
+            this.browserActivityList = browserActivity;
+            this.loadBrowserActivity();
+            this.loading5 = false;
           }
         })
     );
@@ -170,6 +186,38 @@ export class UsersComponent {
           plugins: {
             legend: {
               display: false
+            }
+          }
+        }
+      }
+    );
+  }
+
+  loadBrowserActivity() {
+    new Chart(
+      <HTMLCanvasElement>document.getElementById('browserActivity'),
+      {
+        type: 'pie',
+        data: {
+          labels: this.browserActivityList.map(row => row.variable),
+          datasets: [{
+            label: 'Browsers',
+            data: this.browserActivityList.map(row => row.count),
+            backgroundColor: [
+              'rgb(255, 160, 132)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+              'rgb(150, 203, 237)',
+              'rgb(54, 162, 235)'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'left'
             }
           }
         }

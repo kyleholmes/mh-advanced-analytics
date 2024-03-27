@@ -19,6 +19,16 @@
         </div>
 
         <div class="card-small">
+            <div class="card-header">Browser Usage</div>
+            <div *ngIf="loading5" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div class="canvas-holder">
+                <canvas id="browserActivity"></canvas>
+            </div>
+        </div>
+
+        <div class="card-small">
             <div class="card-header">Power Users</div>
             <div *ngIf="loading3" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>

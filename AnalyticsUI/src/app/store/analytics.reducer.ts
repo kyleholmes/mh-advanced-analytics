@@ -26,7 +26,8 @@ export interface AnalyticsState {
   pageFavoritedBy: User[],
   lastWeekErrorsFull: Error[],
   errorDetail: ErrorDetail,
-  currentPageTitle: string
+  currentPageTitle: string,
+  browserActivityList: SimpleCount[]
 }
 
 export const initialState: AnalyticsState =
@@ -50,7 +51,8 @@ export const initialState: AnalyticsState =
   pageFavoritedBy: [],
   lastWeekErrorsFull: [],
   errorDetail: {} as ErrorDetail,
-  currentPageTitle: ''
+  currentPageTitle: '',
+  browserActivityList: []
 }
 
 export function analyticsReducer(state = initialState, action: any): AnalyticsState {
@@ -134,6 +136,10 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
       
     case AnalyticsStateActionTypes.GET_ERROR_DETAIL_RES: {
       return { ...state, errorDetail: action.errorDetail };
+    }
+
+    case AnalyticsStateActionTypes.GET_BROWSER_ACTIVITY_RES: {
+      return { ...state, browserActivityList: action.browserActivity };
     }
 
     case AnalyticsStateActionTypes.CLEAR_ERROR_DATA: {

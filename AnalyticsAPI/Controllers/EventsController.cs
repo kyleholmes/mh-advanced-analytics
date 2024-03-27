@@ -79,5 +79,20 @@ namespace AdvancedAnalyticsAPI.Controllers
 
             return await _appInsightsService.GetActivity(query);
         }
+
+        [HttpGet]
+        [Route("GetBrowserActivity")]
+        public async Task<IEnumerable<SimpleCount>> GetBrowserActivity()
+        {
+            var query = @"
+                    pageViews 
+                    | where timestamp >= startofday(ago(30d))
+                    | where duration > 0 
+                    | summarize count() by client_Browser
+                    | top 5 by count_
+                ";
+
+            return await _appInsightsService.GetSimpleCount(query);
+        }
     }
 }

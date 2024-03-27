@@ -84,6 +84,10 @@ export enum AnalyticsStateActionTypes {
   GET_ERROR_DETAIL_RES = '[Analytics] Get Error Detail Results',
   GET_ERROR_DETAIL_ERR = '[Analytics] Get Error Detail Error',
 
+  GET_BROWSER_ACTIVITY = '[Analytics] Get Browser Activity',
+  GET_BROWSER_ACTIVITY_RES = '[Analytics] Get Browser Activity Result',
+  GET_BROWSER_ACTIVITY_ERR = '[Analytics] Get Browser Activity Error',
+
   CLEAR_PAGE_DATA = '[Analytics] Clear Page Data',
   CLEAR_PAGE_DETAIL = '[Analytics] Clear Page Detail',
   CLEAR_USER_DATA = '[Analytics] Clear User Data',
@@ -172,6 +176,10 @@ export const GetLastWeekErrorsFullError = createAction(AnalyticsStateActionTypes
 export const GetErrorDetail = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL, props<{ itemID: string }>());
 export const GetErrorDetailResults = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL_RES, props<{ errorDetail: ErrorDetail }>());
 export const GetErrorDetailError = createAction(AnalyticsStateActionTypes.GET_ERROR_DETAIL_ERR, props<{ message: string }>());
+
+export const GetBrowserActivity = createAction(AnalyticsStateActionTypes.GET_BROWSER_ACTIVITY);
+export const GetBrowserActivityResults = createAction(AnalyticsStateActionTypes.GET_BROWSER_ACTIVITY_RES, props<{ browserActivity: SimpleCount[] }>());
+export const GetBrowserActivityError = createAction(AnalyticsStateActionTypes.GET_BROWSER_ACTIVITY_ERR, props<{ message: string }>());
 
 export const ClearPageData = createAction(AnalyticsStateActionTypes.CLEAR_PAGE_DATA);
 export const ClearPageDetail = createAction(AnalyticsStateActionTypes.CLEAR_PAGE_DETAIL);
