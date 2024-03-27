@@ -12,8 +12,13 @@
 
         <div class="card">
             <div class="card-header">Average Load Time</div>
-            <div *ngIf="pageAverageLoadTime === ''">Not enough data available</div>
-            <div *ngIf="pageAverageLoadTime !== ''">{{pageAverageLoadTime + ' seconds'}}</div>
+            <div *ngIf="loadingLoadTime" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loadingLoadTime">
+                <div *ngIf="pageAverageLoadTime === ''">Not enough data available</div>
+                <div *ngIf="pageAverageLoadTime !== ''">{{pageAverageLoadTime + ' seconds'}}</div>
+            </div>
         </div>
 
         <div class="card">
@@ -34,30 +39,40 @@
 
         <div class="card" style="overflow: scroll;">
             <div class="card-header">Recent Activity</div>
-            <div *ngIf="pageActivityList.length === 0">Not enough data available</div>
-            <mat-vertical-stepper [linear]="false" #stepper>
-                <mat-step *ngFor="let activity of pageActivityList">
-                    <mat-expansion-panel *ngIf="activity.action === 'ClickEvent'" class="card-full click-step" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
-                            <mat-panel-description>{{ 'User Clicked ' + activity.eventInfo }}</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div>PID: 1</div>
-                        <div>HID: 1</div>
-                        <div>App: 340B Architect</div>
-                        <div>Screen Size: 1280x720</div>
-                        <div>Location: Atlanta, GA</div>
-                        <div>Browser: Edge 122.0</div>
-                    </mat-expansion-panel>
-                </mat-step>
-            </mat-vertical-stepper>
+            <div *ngIf="loadingActivity" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loadingActivity">
+                <div *ngIf="pageActivityList.length === 0">No recent activity</div>
+                <mat-vertical-stepper [linear]="false" #stepper>
+                    <mat-step *ngFor="let activity of pageActivityList">
+                        <mat-expansion-panel *ngIf="activity.action === 'ClickEvent'" class="card-full click-step" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>{{ activity.timeStamp }}</mat-panel-title>
+                                <mat-panel-description>{{ 'User Clicked ' + activity.eventInfo }}</mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div>PID: 1</div>
+                            <div>HID: 1</div>
+                            <div>App: 340B Architect</div>
+                            <div>Screen Size: 1280x720</div>
+                            <div>Location: Atlanta, GA</div>
+                            <div>Browser: Edge 122.0</div>
+                        </mat-expansion-panel>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </div>
         </div>
 
         <div class="card">
             <div class="card-header">Favorited By</div>
-            <div *ngIf="pageFavoritedBy.length === 0">No users have favorited this page</div>
-            <div *ngFor="let user of pageFavoritedBy">
-                <div style="word-break: break-all;">{{ user.firstName + ' ' + user.lastName }}</div><br>
+            <div *ngIf="loadingFavorites" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loadingFavorites">
+                <div *ngIf="pageFavoritedBy.length === 0">No users have favorited this page</div>
+                <div *ngFor="let user of pageFavoritedBy">
+                    <div style="word-break: break-all;">{{ user.firstName + ' ' + user.lastName }}</div><br>
+                </div>
             </div>
         </div>
     </div>

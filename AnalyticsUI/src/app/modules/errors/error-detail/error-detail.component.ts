@@ -15,6 +15,7 @@ export class ErrorDetailComponent {
   private subscriptions = new Subscription();
   currentError!: ErrorDetail;
   currentErrorID!: string;
+  loading = true;
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -32,7 +33,10 @@ export class ErrorDetailComponent {
         .select((store) => store.analyticsState.errorDetail)
         .pipe(filter((currentError) => currentError !== null))
         .subscribe((currentError) => {
-          this.currentError = currentError;
+          if(currentError.errorMessage != null) {
+            this.currentError = currentError;
+            this.loading = false;
+          }
         })
     );
   }

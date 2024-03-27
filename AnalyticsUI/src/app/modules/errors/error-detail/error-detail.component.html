@@ -6,14 +6,19 @@
     
     <div class="body">
         <div class="card-full" style="text-align: left;">
-            <div class="card-header">{{currentError.method}}</div>
-            <div>{{currentError.pageName == '/' ? '': currentError.pageName}}</div>
-            <div>Device Info: {{currentError.os + ' - ' + currentError.browser}}</div>
-            <div>User Info: {{currentError.userID + ' ' + currentError.city + ', ' + currentError.state}}</div>
-            <div>{{currentError.timeStamp}}</div>
-            <div>{{currentError.errorMessage}}</div><br>
-            <div>Stack Trace:</div>
-            <div [innerHTML]="extractFromJson(currentError.stack)"></div><br>
+            <div *ngIf="loading" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loading">
+                <div class="card-header">{{currentError.method}}</div>
+                <div>{{currentError.pageName == '/' ? '': currentError.pageName}}</div>
+                <div>Device Info: {{currentError.os + ' - ' + currentError.browser}}</div>
+                <div>User Info: {{currentError.userID + ' ' + currentError.city + ', ' + currentError.state}}</div>
+                <div>{{currentError.timeStamp}}</div>
+                <div>{{currentError.errorMessage}}</div><br>
+                <div>Stack Trace:</div>
+                <div [innerHTML]="extractFromJson(currentError.stack)"></div><br>
+            </div>
         </div>
     </div>
 </div>
