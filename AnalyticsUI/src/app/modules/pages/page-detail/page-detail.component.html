@@ -5,12 +5,7 @@
     </div>
     
     <div class="body">
-        <div class="card">
-            <div class="card-header">Page Info</div>
-            <div>{{currentPage.ngPageURL}}</div>
-        </div>
-
-        <div class="card">
+        <div class="card-no-hover">
             <div class="card-header">Average Load Time</div>
             <div *ngIf="loadingLoadTime" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
@@ -21,7 +16,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card-no-hover">
             <div class="card-header">Recent Errors</div>
             <div *ngIf="loadingRecentErrors" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
@@ -37,7 +32,7 @@
             </div>
         </div>
 
-        <div class="card" style="overflow: scroll;">
+        <div class="card-no-hover" style="overflow-y: scroll;">
             <div class="card-header">Recent Activity</div>
             <div *ngIf="loadingActivity" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
@@ -63,16 +58,16 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card-no-hover">
             <div class="card-header">Favorited By</div>
             <div *ngIf="loadingFavorites" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
             </div>
             <div *ngIf="!loadingFavorites">
                 <div *ngIf="pageFavoritedBy.length === 0">No users have favorited this page</div>
-                <div *ngFor="let user of pageFavoritedBy">
-                    <div style="word-break: break-all;">{{ user.firstName + ' ' + user.lastName }}</div><br>
-                </div>
+                <div *ngFor="let user of pageFavoritedBy" class="user-item" (click)="openUserDetail(user)">
+                    {{ user.firstName + ' ' + user.lastName }}
+                </div><br>
             </div>
         </div>
     </div>

@@ -101,6 +101,10 @@ export class PageDetailComponent {
     this.router.navigate(['/error-detail', error.itemID]);
   }
 
+  openUserDetail(user: User) {
+    this.router.navigate(['/user-detail', user.uid]);
+  }
+
   back() {
     this.router.navigate(['/pages']);
   }
