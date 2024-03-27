@@ -60,6 +60,9 @@ export enum AnalyticsStateActionTypes {
   GET_PAGE_AVERAGE_LOAD_TIME_ERR = '[Analytics] Get Page Average Load Time Error',
   GET_PAGE_AVERAGE_LOAD_TIME_CLEANUP = '[Analytics] Get Page Average Load Time Cleanup',
 
+  GET_ALL_PAGE_LOAD_TIMES = '[Analytics] Get All Page Average Load Time',
+  GET_ALL_PAGE_LOAD_TIMES_RES = '[Analytics] Get All Page Average Load Time Result',
+  GET_ALL_PAGE_LOAD_TIMES_ERR = '[Analytics] Get All Page Average Load Time Error',
 
   GET_PAGE_ERRORS = '[Analytics] Get Page Errors',
   GET_PAGE_ERRORS_RES = '[Analytics] Get Page Errors Results',
@@ -112,6 +115,10 @@ export const GetLastWeekErrorsError = createAction(AnalyticsStateActionTypes.GET
 export const GetPageLoads = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS);
 export const GetPageLoadsResults = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS_RES, props<{ pageLoads: SimpleCount[] }>());
 export const GetPageLoadsError = createAction(AnalyticsStateActionTypes.GET_PAGE_LOADS_ERR, props<{ message: string }>());
+
+export const GetAllLoadTimes = createAction(AnalyticsStateActionTypes.GET_ALL_PAGE_LOAD_TIMES);
+export const GetAllLoadTimesResults = createAction(AnalyticsStateActionTypes.GET_ALL_PAGE_LOAD_TIMES_RES, props<{ pageLoadTimesList: SimpleCount[] }>());
+export const GetAllLoadTimesError = createAction(AnalyticsStateActionTypes.GET_ALL_PAGE_LOAD_TIMES_ERR, props<{ message: string }>());
 
 export const GetUserLogins = createAction(AnalyticsStateActionTypes.GET_USER_LOGINS);
 export const GetUserLoginsResults = createAction(AnalyticsStateActionTypes.GET_USER_LOGINS_RES, props<{ userLogins: SimpleCount[] }>());

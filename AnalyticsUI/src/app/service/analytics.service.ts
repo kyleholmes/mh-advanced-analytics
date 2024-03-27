@@ -33,6 +33,10 @@ export class AnalyticsService {
     return this.http.get('https://localhost:44397/PageViews/GetPageLoads').pipe(map((response: any) => response));
   }
 
+  public getAllPageLoadTimesList() {
+    return this.http.get('https://localhost:44397/PageViews/GetAllLoadTimes').pipe(map((response: any) => response));
+  }
+
   public getUserLogins() {
     return this.http.get('https://localhost:44397/Events/GetUserLogins').pipe(map((response: any) => response));
   }

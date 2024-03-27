@@ -9,7 +9,7 @@ import { Subscription, filter } from 'rxjs';
 import { Page } from 'src/app/models/page';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { ClearPageData, GetAllPages, GetPageLoads, SetPageTitle } from 'src/app/store/analytics.actions';
+import { ClearPageData, GetAllLoadTimes, GetAllPages, GetPageLoads, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
@@ -22,6 +22,7 @@ export class PagesComponent {
   private subscriptions = new Subscription();
   pageLoadsList: SimpleCount[] = [];
   allPagesList: Page[] = [];
+  pageLoadTimesList: SimpleCount[] = [];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort; 
   displayedColumns: string[] = ['pageID', 'pageName', 'ngPageURL'];
@@ -45,6 +46,7 @@ export class PagesComponent {
           if (pageLoadsList.length > 0) {
             this.pageLoadsList = pageLoadsList;
             this.loadPagesChart();
+            this.loadPageTrends();
             this.loading1 = false;
           }
         })
@@ -63,6 +65,21 @@ export class PagesComponent {
           }
         })
     );
+
+    this.store.dispatch(GetAllLoadTimes());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.pageLoadTimesList)
+        .pipe(filter((pageLoadTimes) => pageLoadTimes !== null))
+        .subscribe((pageLoadTimes) => {
+          if (pageLoadTimes.length > 0) {
+            this.pageLoadTimesList = pageLoadTimes.slice(0,5);
+            this.loadSlowestPages();
+            this.loading3 = false;
+          }
+        })
+    );
+
   }
 
   openPageDetail(selectedRow: Page) {
@@ -100,6 +117,115 @@ export class PagesComponent {
         }
       }
     );
+  }
+
+  loadSlowestPages() {
+    new Chart(
+      <HTMLCanvasElement>document.getElementById('slowestPages'),
+      {
+        type: 'bar',
+        data: {
+          labels: this.pageLoadTimesList.map(row => row.variable.replace('Macro Manager - ', '').replace('340B Architect - ', '')),
+          datasets: [{
+            data: this.pageLoadTimesList.map(row => row.count),
+            backgroundColor: [
+              this.getLoadTimeColor(this.pageLoadTimesList[0].count, false),
+              this.getLoadTimeColor(this.pageLoadTimesList[1].count, false),
+              this.getLoadTimeColor(this.pageLoadTimesList[2].count, false),
+              this.getLoadTimeColor(this.pageLoadTimesList[3].count, false),
+              this.getLoadTimeColor(this.pageLoadTimesList[4].count, false)
+            ],
+            borderColor: [
+              this.getLoadTimeColor(this.pageLoadTimesList[0].count, true),
+              this.getLoadTimeColor(this.pageLoadTimesList[1].count, true),
+              this.getLoadTimeColor(this.pageLoadTimesList[2].count, true),
+              this.getLoadTimeColor(this.pageLoadTimesList[3].count, true),
+              this.getLoadTimeColor(this.pageLoadTimesList[4].count, true)
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              title: {
+                display: true,
+                text: 'Seconds'
+              }
+            }
+          }
+        }
+      }
+    );
+  }
+
+  loadPageTrends() {
+    new Chart(
+      <HTMLCanvasElement>document.getElementById('pageTrends'),
+      {
+        type: 'line',
+        data: {
+          labels: ['Sep','Oct','Nov','Dec','Jan', 'Feb', 'Mar'],
+          datasets: [
+            {
+              label: 'Drug Catalog',
+              data: [226,253,180,277,278,458,670],
+              yAxisID: 'y',
+            },
+            {
+              label: 'NDCA Dashboard',
+              data: [752,600,650,401,124,212,129],
+              yAxisID: 'y1',
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false,
+          },
+          //stacked: false,
+          plugins: {
+            legend: {
+              position: 'chartArea',
+              labels: {
+                boxWidth: 20
+              }
+            }
+          },
+          scales: {
+            y: {
+              type: 'linear',
+              display: true,
+              position: 'left',
+            },
+            y1: {
+              type: 'linear',
+              display: true,
+              position: 'right',
+
+              // grid line settings
+              grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+              },
+            },
+          }
+        },
+      }
+    );
+  }
+  
+  getLoadTimeColor(time: number, border: boolean){
+    let r = (255 - (255/time));
+    let g = 150-(time**2);
+    return 'rgba('+r+','+g+', 50' + (border ? ')': ', 0.2)');
   }
 
   back() {

@@ -2,7 +2,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of as observableOf } from 'rxjs';
-import { GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetErrorDetail, GetErrorDetailError, GetErrorDetailResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsFull, GetLastWeekErrorsFullError, GetLastWeekErrorsFullResults, GetLastWeekErrorsResults, GetPage, GetPageActivity, GetPageActivityError, GetPageActivityResults, GetPageAverageLoadTime, GetPageAverageLoadTimeError, GetPageAverageLoadTimeResults, GetPageError, GetPageErrors, GetPageErrorsError, GetPageErrorsResults, GetPageFavoritedBy, GetPageFavoritedByError, GetPageFavoritedByResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPageResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUser, GetUserActivity, GetUserActivityError, GetUserActivityResults, GetUserError, GetUserErrors, GetUserErrorsError, GetUserErrorsResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults, GetUserResults } from "./analytics.actions";
+import { GetAllLoadTimes, GetAllLoadTimesError, GetAllLoadTimesResults, GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetErrorDetail, GetErrorDetailError, GetErrorDetailResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsFull, GetLastWeekErrorsFullError, GetLastWeekErrorsFullResults, GetLastWeekErrorsResults, GetPage, GetPageActivity, GetPageActivityError, GetPageActivityResults, GetPageAverageLoadTime, GetPageAverageLoadTimeError, GetPageAverageLoadTimeResults, GetPageError, GetPageErrors, GetPageErrorsError, GetPageErrorsResults, GetPageFavoritedBy, GetPageFavoritedByError, GetPageFavoritedByResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPageResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUser, GetUserActivity, GetUserActivityError, GetUserActivityResults, GetUserError, GetUserErrors, GetUserErrorsError, GetUserErrorsResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults, GetUserResults } from "./analytics.actions";
 import { AnalyticsService } from "../service/analytics.service";
 
 @Injectable()
@@ -91,6 +91,23 @@ export class AnalyticsStoreEffects {
           ),
           catchError(
             error => observableOf(GetPageLoadsError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetAllPageLoadTimesEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetAllLoadTimes),
+    switchMap(action =>
+      this.analyticsService.getAllPageLoadTimesList()
+        .pipe(
+          map(
+            data => {
+              return GetAllLoadTimesResults({ pageLoadTimesList : data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetAllLoadTimesError({ message: error }))
           )
         )
     )

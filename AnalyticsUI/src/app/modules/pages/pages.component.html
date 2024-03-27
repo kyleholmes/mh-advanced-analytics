@@ -1,12 +1,32 @@
 <div>
     <div class="body">
-        <div class="card-small">
+        <div class="card-medium">
             <div class="card-header">Most Used</div>
             <div *ngIf="loading1" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
             </div>
             <div class="canvas-holder">
                 <canvas id="pages"></canvas>
+            </div>
+        </div>
+
+        <div class="card-medium">
+            <div class="card-header">Avg Load Time</div>
+            <div *ngIf="loading3" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div class="canvas-holder">
+                <canvas id="slowestPages"></canvas>
+            </div>
+        </div>
+
+        <div class="card-medium">
+            <div class="card-header">Page Usage - Highest and Lowest Trending</div>
+            <div *ngIf="loading1" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div class="canvas-holder">
+                <canvas id="pageTrends"></canvas>
             </div>
         </div>
 
