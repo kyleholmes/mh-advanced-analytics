@@ -11,6 +11,80 @@
       </div>
   </div>
   <section class="content">
+    <div style="text-align: center; right: -100px; position: relative; margin-bottom: 20px; overflow-x: hidden;">
+      <span class="page-header">{{ currentPageTitle }}</span><br>
+
+      <div class="filter-wrapper" style="margin-top: 10px;">
+        <span class="mh-label">
+          Date Range
+        </span>
+        <input type="date" class="mh-date-input">
+      </div>
+
+      <div class="filter-wrapper">
+        <span class="mh-label">
+          Release
+        </span>
+        <select class="mh-dropdown-selected">
+          <option>All</option>
+          <option>February 2024</option>
+          <option>January 2024</option>
+          <option>December 2023</option>
+          <option>November 2023</option>
+          <option>October 2023</option>
+          <option>September 2023</option>
+          <option>August 2023</option>
+        </select>
+      </div>
+
+      <div class="filter-wrapper">
+        <span class="mh-label">
+          Entity
+        </span>
+        <select class="mh-dropdown-selected">
+          <option>All</option>
+          <option></option>
+          <option>Corp ID:</option>
+          <option>175</option>
+          <option></option>
+          <option>Hospitals:</option>
+          <option>MACRO HELIX</option>
+          <option>MACRO HELIX HOSPITAL TEST</option>
+          <option>Support Regional Hospital</option>
+          <option></option>
+          <option>Pharmacies:</option>
+          <option>42740	SF BOTS TEST CRT PHARMA1</option>
+          <option>14730	MACROHELIX ORDERING TEST</option>
+          <option>5903	MACRO HELIX - NDC ARCHITECT</option>
+          <option>1190	WEBSERVICE TESTER PHARMA1</option>
+        </select>
+      </div>
+
+      <div class="filter-wrapper">
+        <span class="mh-label">
+          Application
+        </span>
+        <select class="mh-dropdown-selected">
+          <option>All</option>
+          <option>340B Architect</option>
+          <option>Macro Manager</option>
+          <option>340B Impact</option>
+          <option>340B Gateway</option>
+          <option>NDC Architect</option>
+        </select>
+      </div>
+
+      <div class="filter-wrapper">
+        <span class="mh-label">
+          Feature
+        </span>
+        <select class="mh-dropdown-selected">
+          <option>All</option>
+          <option>Gateway Dashboards</option>
+          <option>Dispense Fee Management</option>
+        </select>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </section>
 </main>

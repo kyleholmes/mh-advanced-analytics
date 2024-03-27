@@ -92,6 +92,8 @@ export enum AnalyticsStateActionTypes {
   CLEAR_ERROR_DETAIL = '[Analytics] Clear Error Detail',
   CLEAR_HOME_DATA = '[Analytics] Clear Home Data',
 
+  SET_PAGE_TITLE = '[Analytics] Set Page Title',
+
 }
 
 export const GetDeviceTypes = createAction(AnalyticsStateActionTypes.GET_DEVICE_TYPES);
@@ -178,3 +180,5 @@ export const ClearErrorDetail = createAction(AnalyticsStateActionTypes.CLEAR_ERR
 export const ClearUserData = createAction(AnalyticsStateActionTypes.CLEAR_USER_DATA);
 export const ClearUserDetail = createAction(AnalyticsStateActionTypes.CLEAR_USER_DETAIL);
 export const ClearHomeData = createAction(AnalyticsStateActionTypes.CLEAR_HOME_DATA);
+
+export const SetPageTitle = createAction(AnalyticsStateActionTypes.SET_PAGE_TITLE, props<{ title: string }>());

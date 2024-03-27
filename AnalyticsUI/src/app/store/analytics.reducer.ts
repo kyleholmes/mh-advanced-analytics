@@ -25,7 +25,8 @@ export interface AnalyticsState {
   pageActivityList: Activity[],
   pageFavoritedBy: User[],
   lastWeekErrorsFull: Error[],
-  errorDetail: ErrorDetail
+  errorDetail: ErrorDetail,
+  currentPageTitle: string
 }
 
 export const initialState: AnalyticsState =
@@ -48,7 +49,8 @@ export const initialState: AnalyticsState =
   pageActivityList: [],
   pageFavoritedBy: [],
   lastWeekErrorsFull: [],
-  errorDetail: {} as ErrorDetail
+  errorDetail: {} as ErrorDetail,
+  currentPageTitle: ''
 }
 
 export function analyticsReducer(state = initialState, action: any): AnalyticsState {
@@ -160,6 +162,10 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
 
     case AnalyticsStateActionTypes.CLEAR_HOME_DATA: {
       return { ...state, pageLoadsList: [], userLoginsList: [], errorByDayList: [] };
+    }
+      
+    case AnalyticsStateActionTypes.SET_PAGE_TITLE: {
+      return { ...state, currentPageTitle: action.title };
     }
 
     default: {

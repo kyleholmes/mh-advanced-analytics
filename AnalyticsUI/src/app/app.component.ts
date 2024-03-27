@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AnalyticsState } from './store/analytics.reducer';
+import { Store } from '@ngrx/store';
+import { Subscription, filter } from 'rxjs';
+import { SetPageTitle } from './store/analytics.actions';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +12,19 @@ import { Router } from '@angular/router';
 })
   
 export class AppComponent {
+  private subscriptions = new Subscription();
   showMenu = false;
+  currentPageTitle: string = '';
 
-  constructor(private router: Router) {
-    
+  constructor(private router: Router, public store: Store<{ analyticsState: AnalyticsState }>) {
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.currentPageTitle)
+        .pipe(filter((currentPageTitle) => currentPageTitle !== null))
+        .subscribe((currentPageTitle) => {
+          this.currentPageTitle = currentPageTitle;
+        })
+    );
   }
 
   goHome() {

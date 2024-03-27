@@ -14,25 +14,15 @@ import { Error } from 'src/app/models/error';
 import { Activity } from 'src/app/models/activity';
 
 @Component({
-  selector: 'user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrl: './user-detail.component.css'
+  selector: 'comparison',
+  templateUrl: './comparison.component.html',
+  styleUrl: './comparison.component.css'
 })
-export class UserDetailComponent {
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort!: MatSort; 
-  displayedColumns: string[] = ['uid', 'firstName', 'lastName', 'lastLogin'];
-  dataSource: any;
+export class ComparisonComponent {
   private subscriptions = new Subscription();
-  deviceTypesList: SimpleCount[] = [];
-  screenSizeList: SimpleCount[] = [];
-  powerUserList: SimpleCount[] = [];
-  allUsersList: User[] = [];
   currentUser!: User;
   currentUserID!: string;
-  userErrors: Error[] = [];
   userActivityList: Activity[] = [];
-  loadingErrors: boolean = true;
   loadingActivity: boolean = true;
   showMenu: boolean = false;
   
@@ -53,18 +43,7 @@ export class UserDetailComponent {
         .pipe(filter((currentUser) => currentUser !== null))
         .subscribe((currentUser) => {
           this.currentUser = currentUser;
-          this.store.dispatch(SetPageTitle({ title: this.currentUser.firstName + ' ' + this.currentUser.lastName }));
-        })
-    );
-
-    this.store.dispatch(GetUserErrors({ uid: this.currentUserID }));
-    this.subscriptions.add(
-      this.store
-        .select((store) => store.analyticsState.userErrors)
-        .pipe(skip(1), filter((userErrors) => userErrors !== null))
-        .subscribe((userErrors) => {
-          this.userErrors = userErrors;
-          this.loadingErrors = false;
+          this.store.dispatch(SetPageTitle({ title: 'Recent Activity Comparison' }));
         })
     );
 
@@ -84,21 +63,10 @@ export class UserDetailComponent {
     this.showMenu = !this.showMenu;
   }
 
-  openError(error: Error) {
-    this.router.navigate(['/error-detail', error.itemID]);
-  }
-
-  openComparison() {
-    this.router.navigate(['/comparison', this.currentUser.uid]);
-  }
-
   openRecentActivity() {
     this.router.navigate(['/recent-activity', this.currentUser.uid]);
   }
 
-  back() {
-    this.router.navigate(['/users']);
-  }
 
   public ngOnDestroy() {
     this.store.dispatch(ClearUserDetail());

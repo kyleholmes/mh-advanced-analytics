@@ -9,7 +9,7 @@ import { Subscription, filter } from 'rxjs';
 import { Page } from 'src/app/models/page';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { ClearPageData, GetAllLoadTimes, GetAllPages, GetPageLoads } from 'src/app/store/analytics.actions';
+import { ClearPageData, GetAllLoadTimes, GetAllPages, GetPageLoads, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
@@ -36,6 +36,7 @@ export class PagesComponent {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(SetPageTitle({ title: 'Pages' }));
     this.store.dispatch(GetPageLoads());
     this.subscriptions.add(
       this.store
