@@ -19,6 +19,7 @@ export interface AnalyticsState {
   userErrors: Error[],
   userActivityList: Activity[],
   currentPage: Page,
+  pageLoadTimesList: SimpleCount[],
   pageAverageLoadTime: string,
   pageErrors: Error[],
   pageActivityList: Activity[],
@@ -43,6 +44,7 @@ export const initialState: AnalyticsState =
   userActivityList: [],
   currentPage: {} as Page,
   pageAverageLoadTime: '',
+  pageLoadTimesList: [],
   pageErrors: [],
   pageActivityList: [],
   pageFavoritedBy: [],
@@ -105,6 +107,10 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
     case AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_RES: {
       return { ...state, pageAverageLoadTime: action.averageLoadTime };
     }
+
+    case AnalyticsStateActionTypes.GET_ALL_PAGE_LOAD_TIMES_RES: {
+      return { ...state, pageLoadTimesList: action.pageLoadTimesList };
+    }
       
     case AnalyticsStateActionTypes.GET_PAGE_AVERAGE_LOAD_TIME_CLEANUP: {
       return { ...state, pageAverageLoadTime: '' };
@@ -139,7 +145,7 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
     }
 
     case AnalyticsStateActionTypes.CLEAR_PAGE_DATA: {
-      return { ...state, allPagesList: [], pageLoadsList: [] };
+      return { ...state, allPagesList: [], pageLoadsList: [], pageLoadTimesList: [] };
     }
 
     case AnalyticsStateActionTypes.CLEAR_PAGE_DETAIL: {
