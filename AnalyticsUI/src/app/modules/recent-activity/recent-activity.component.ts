@@ -46,7 +46,7 @@ export class RecentActivityComponent {
         .pipe(filter((currentUser) => currentUser !== null))
         .subscribe((currentUser) => {
           this.currentUser = currentUser;
-          this.store.dispatch(SetPageTitle({ title: this.currentUser.firstName + ' ' + this.currentUser.lastName + ' Average Day' }));
+          this.store.dispatch(SetPageTitle({ title: this.currentUser.firstName + ' ' + this.currentUser.lastName }));
         })
     );
   }

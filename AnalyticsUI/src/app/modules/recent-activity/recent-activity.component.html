@@ -1,6 +1,7 @@
 <div>
     <div class="body">
-        <div class="card-full" style="background-color: grey;">
+        <div class="card-50" style="background-color: grey; height: auto;">
+            <div class="card-header" style="color: white; text-align: center; font-weight: normal;">Average Day</div>
             <div class="timeline">
                 <div *ngFor='let entry of userActivityList; let i = index;'>
                     <div class="container" [ngClass]="{ left: i%2!==0, right:i%2==0}">
@@ -10,6 +11,14 @@
                     </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="card-50">
+            <div class="card-header">Unusual Activity</div>
+            <div>
+                <div class="card-full click-step" style="margin: 0; width: 500px; text-align: left; padding-left: 15px;">3/25/2024 4:35pm<br>Added excessive number of Qualification Filters</div><br>
+                <div class="card-full click-step" style="margin: 0; width: 500px; text-align: left; padding-left: 15px;">3/21/2024 1:34pm<br>Deleted multiple Rules</div><br>
             </div>
         </div>
     </div>
