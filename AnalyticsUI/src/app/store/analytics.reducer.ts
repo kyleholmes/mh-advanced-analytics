@@ -141,7 +141,7 @@ export function analyticsReducer(state = initialState, action: any): AnalyticsSt
     }
 
     case AnalyticsStateActionTypes.CLEAR_PAGE_DETAIL: {
-      return { ...state, pageFavoritedBy: [], pageActivityList: [], pageErrors: [], pageAverageLoadTime: '', currentPage: {} as Page };
+      return { ...state, pageFavoritedBy: [], pageActivityList: [], pageErrors: [], pageAverageLoadTime: '' };
     }
 
     case AnalyticsStateActionTypes.CLEAR_USER_DATA: {
