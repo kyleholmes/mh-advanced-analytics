@@ -1,6 +1,6 @@
 <div>
     <div class="body">
-        <div class="card-full" style="text-align: left;">
+        <div class="card-50" style="text-align: left;">
             <div *ngIf="loading" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
             </div>
@@ -13,6 +13,27 @@
                 <div>{{currentError.errorMessage}}</div><br>
                 <div>Stack Trace:</div>
                 <div [innerHTML]="extractFromJson(currentError.stack)"></div><br>
+            </div>
+        </div>
+
+        <div class="card-50" style="text-align: left;">
+            <div *ngIf="loading" class="loading-holder">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
+            <div *ngIf="!loading">
+                <div class="card-header">Similar Errors</div>
+                <mat-chip-listbox>
+                    <mat-chip-option selected>By Time</mat-chip-option>
+                    <mat-chip-option>By User</mat-chip-option>
+                    <mat-chip-option>By Type</mat-chip-option>
+                    <mat-chip-option>By Page</mat-chip-option>
+                </mat-chip-listbox>
+                <div *ngFor="let error of lastWeekErrorsFull">
+                    <div class="card-full error-item" (click)="openError(error)">
+                        <div style="margin-bottom: 8px;">{{ error.timeStamp + ' ' + (error.pageName === '/' || error.pageName.includes('jolokia') ? '': error.pageName) }}</div>
+                        <div>{{ error.errorMessage }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
