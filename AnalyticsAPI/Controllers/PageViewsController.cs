@@ -103,6 +103,21 @@ namespace AdvancedAnalyticsAPI.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllLoadTimes")]
+        public async Task<IEnumerable<SimpleStat>> GetAllLoadTimes()
+        {
+            var query = @"
+                pageViews
+                | where notempty(duration) and client_Type == 'Browser'
+                | extend total_duration=duration*itemCount
+                | summarize avg_duration=round((sum(total_duration)/sum(itemCount)),0)/1000 by name
+                | top 100 by avg_duration desc
+                ";
+
+            return await _appInsightsService.GetSimpleStat(query);
+        }
+
+        [HttpGet]
         [Route("GetPageFavoritedBy")]
         public async Task<IEnumerable<User>> GetPageFavoritedBy(int PageID)
         {

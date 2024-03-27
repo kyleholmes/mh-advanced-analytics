@@ -36,6 +36,24 @@ namespace AdvancedAnalyticsAPI.Services
             return responseList;
         }
 
+        public async Task<IEnumerable<SimpleStat>> GetSimpleStat(string query)
+        {
+            var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
+            var applicationInsightsClient = new ApplicationInsightsDataClient(credentials);
+            var returnList = await applicationInsightsClient.Query.ExecuteWithHttpMessagesAsync(Configuration["appId"], query);
+            var responseList = new List<SimpleStat>();
+            foreach (var row in returnList.Body.Tables[0].Rows)
+            {
+                var responseItem = new SimpleStat
+                {
+                    Variable = row[0].ToString(),
+                    Count = float.Parse(row[1].ToString())
+                };
+                responseList.Add(responseItem);
+            }
+            return responseList;
+        }
+
         public async Task<string> GetSingleValue(string query)
         {
             var credentials = new ApiKeyClientCredentials(Configuration["apiKey"]);
