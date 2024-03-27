@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Chart } from 'chart.js';
-import { Subscription, filter } from 'rxjs';
+import { Subscription, filter, skip } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
 import { ClearUserDetail, GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
@@ -32,6 +32,8 @@ export class UserDetailComponent {
   currentUserID!: string;
   userErrors: Error[] = [];
   userActivityList: Activity[] = [];
+  loadingErrors: boolean = true;
+  loadingActivity: boolean = true;
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -57,9 +59,10 @@ export class UserDetailComponent {
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.userErrors)
-        .pipe(filter((userErrors) => userErrors !== null))
+        .pipe(skip(1), filter((userErrors) => userErrors !== null))
         .subscribe((userErrors) => {
           this.userErrors = userErrors;
+          this.loadingErrors = false;
         })
     );
 
@@ -67,11 +70,16 @@ export class UserDetailComponent {
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.userActivityList)
-        .pipe(filter((userActivityList) => userActivityList !== null))
+        .pipe(skip(1), filter((userActivityList) => userActivityList !== null))
         .subscribe((userActivityList) => {
           this.userActivityList = userActivityList;
+          this.loadingActivity = false;
         })
     );
+  }
+
+  openError(error: Error) {
+    this.router.navigate(['/error-detail', error.itemID]);
   }
 
   back() {

@@ -94,7 +94,7 @@ namespace AdvancedAnalyticsAPI.Controllers
             var query = @"
                 pageViews 
                 | where timestamp >= startofday(ago(30d))
-                | where duration > 0 and url == '" + PageURL + @"'
+                | where duration > 0 and customDimensions.Page has '" + PageURL + @"'
                 | summarize AverageLoadTime = round(avg(duration), 0) / 1000
                 | project AverageLoadTime
                 ";
