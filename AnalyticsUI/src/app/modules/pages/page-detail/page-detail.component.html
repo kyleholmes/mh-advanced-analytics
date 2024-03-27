@@ -7,7 +7,8 @@
             </div>
             <div *ngIf="!loadingLoadTime">
                 <div *ngIf="pageAverageLoadTime === ''">Not enough data available</div>
-                <div *ngIf="pageAverageLoadTime !== ''">{{pageAverageLoadTime + ' seconds'}}</div>
+                <div *ngIf="pageAverageLoadTime !== ''" class="big-number" [style]="pageAverageLoadTime > '2' ? 'color: red;': 'color: green;'">{{pageAverageLoadTime + ' '}}</div>
+                <div style="display: inline-block;">seconds</div>
             </div>
         </div>
 
