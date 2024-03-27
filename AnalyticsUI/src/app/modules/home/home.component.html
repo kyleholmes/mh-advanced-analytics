@@ -4,6 +4,17 @@
     </div>
     
     <div class="body">
+        <div style="width: 100%; text-align: center;">
+            <div class="card-full" style="width: 700px; margin: auto; height: 170px;">
+                <div class="card-header">Alerts!</div>
+                <div>
+                    <div class="card-full error-item-center" style="margin: 0; width: 500px;" (click)="openErrors()">Recurring Error: Stack Overflow - Frequent on 340B Monitor</div><br>
+                    <div class="card-full click-step" style="margin: 0; width: 500px;" (click)="openPages()">Slow running page: Order Builder</div><br>
+                    <div class="card-full app-change-step" style="margin: 0; width: 500px;" (click)="openUsers()">Unusual Activity: John Doe</div>
+                </div>
+            </div>
+        </div>
+
         <div class="card" (click)="openPages()">
             <div class="card-header">Pages</div>
             <div *ngIf="loading1" class="loading-holder">
@@ -31,15 +42,6 @@
             </div>
             <div class="canvas-holder">
                 <canvas id="errors"></canvas>
-            </div>
-        </div>
-
-        <div class="card-full">
-            <div class="card-header">Suggestions</div>
-            <div>
-                <span>Recurring Error: </span><span style="color: #DC3545;">Stack Overflow</span><span> - Frequent on </span><span style="color: #005489;">340B Monitor</span><br>
-                <span>Slow running page: </span><span style="color: #DC3545;">Order Builder</span><br>
-                <span>Unusual Activity: </span><span style="color: #DC3545;">John Doe</span>
             </div>
         </div>
     </div>
