@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, filter } from 'rxjs';
-import { ClearErrorDetail, GetErrorDetail, SetPageTitle } from 'src/app/store/analytics.actions';
+import { ClearErrorDetail, GetErrorDetail, GetLastWeekErrorsFull, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorDetail } from 'src/app/models/error-detail';
+import { Error } from 'src/app/models/error';
 
 @Component({
   selector: 'error-detail',
@@ -16,6 +17,7 @@ export class ErrorDetailComponent {
   currentError!: ErrorDetail;
   currentErrorID!: string;
   loading = true;
+  lastWeekErrorsFull!: Error[];
   
   constructor(
     public store: Store<{ analyticsState: AnalyticsState }>,
@@ -40,6 +42,23 @@ export class ErrorDetailComponent {
           }
         })
     );
+
+    this.store.dispatch(GetLastWeekErrorsFull());
+    this.subscriptions.add(
+      this.store
+        .select((store) => store.analyticsState.lastWeekErrorsFull)
+        .pipe(filter((lastWeekErrorsFull) => lastWeekErrorsFull !== null))
+        .subscribe((lastWeekErrorsFull) => {
+          if (lastWeekErrorsFull.length > 0) {
+            this.lastWeekErrorsFull = lastWeekErrorsFull;
+            this.loading = false;
+          }
+        })
+    );
+  }
+
+  openError(error: Error) {
+    this.store.dispatch(GetErrorDetail({ itemID: error.itemID }));
   }
 
   extractFromJson(obj: string) {

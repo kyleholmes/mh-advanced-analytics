@@ -27,6 +27,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { RecentActivityComponent } from './modules/recent-activity/recent-activity.component';
 import { ComparisonComponent } from './modules/comparison/comparison.component';
 import { MatButtonModule } from '@angular/material/button';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { MatButtonModule } from '@angular/material/button';
         MatStepperModule,
         MatExpansionModule,
         MatButtonModule,
+        MatChipsModule,
     ],
     providers: [Store],
     bootstrap: [AppComponent],

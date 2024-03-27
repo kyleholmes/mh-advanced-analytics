@@ -2,14 +2,9 @@
     <div class="body">
 
         <div class="card-50">
-            <div class="card-header" (click)="openRecentActivity();">
+            <div class="card-header">
                 {{this.currentUser.firstName + ' ' + this.currentUser.lastName}}
-                <button mat-stroked-button style="margin-left: 10px;" (click)="$event.stopPropagation();">Change User</button>
-                <mat-icon (click)="toggleMenu(); $event.stopPropagation();" class="menu-icon">more_vert</mat-icon>
-                <div *ngIf="showMenu" class="mini-menu">
-                    <div class="mini-menu-item" (click)="$event.stopPropagation();">Compare</div>
-                    <div class="mini-menu-item" (click)="$event.stopPropagation();">Export</div>
-                </div>
+                <button mat-stroked-button style="margin-left: 10px;">Change User</button>
             </div>
             <div *ngIf="loadingActivity" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
@@ -99,14 +94,9 @@
         </div>
 
         <div class="card-50">
-            <div class="card-header" (click)="openRecentActivity();">
+            <div class="card-header">
                 Daniel Benjamin
-                <button mat-stroked-button style="margin-left: 10px;" (click)="$event.stopPropagation();">Change User</button>
-                <mat-icon (click)="toggleMenu(); $event.stopPropagation();" class="menu-icon">more_vert</mat-icon>
-                <div *ngIf="showMenu" class="mini-menu">
-                    <div class="mini-menu-item" (click)="$event.stopPropagation();">Compare</div>
-                    <div class="mini-menu-item" (click)="$event.stopPropagation();">Export</div>
-                </div>
+                <button mat-stroked-button style="margin-left: 10px;">Change User</button>
             </div>
             <div *ngIf="loadingActivity" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>

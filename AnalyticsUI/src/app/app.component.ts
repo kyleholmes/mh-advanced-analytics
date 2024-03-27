@@ -17,6 +17,10 @@ export class AppComponent {
   currentPageTitle: string = '';
 
   constructor(private router: Router, public store: Store<{ analyticsState: AnalyticsState }>) {
+    
+  }
+
+  ngAfterContentInit (): void {
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.currentPageTitle)

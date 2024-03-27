@@ -395,3 +395,10 @@ tr.mat-mdc-header-row {
   margin: 8px;
   cursor: pointer;
 }
+
+.big-number{
+  font-size: 80px;
+    margin-top: 95px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
