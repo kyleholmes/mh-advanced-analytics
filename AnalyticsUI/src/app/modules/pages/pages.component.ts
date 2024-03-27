@@ -173,14 +173,14 @@ export class PagesComponent {
           labels: ['Sep','Oct','Nov','Dec','Jan', 'Feb', 'Mar'],
           datasets: [
             {
-              label: 'Drug Catalog',
-              data: [226,253,180,277,278,458,670],
+              label: 'Drug Catalog (+17%)',
+              data: [226,253,180,277,278,458,610],
               yAxisID: 'y',
             },
             {
-              label: 'NDCA Dashboard',
-              data: [752,600,650,401,124,212,129],
-              yAxisID: 'y1',
+              label: 'NDCA Dashboard (-9%)',
+              data: [752,600,650,401,424,212,329],
+              yAxisID: 'y',
             }
           ]
         },
@@ -205,17 +205,7 @@ export class PagesComponent {
               type: 'linear',
               display: true,
               position: 'left',
-            },
-            y1: {
-              type: 'linear',
-              display: true,
-              position: 'right',
-
-              // grid line settings
-              grid: {
-                drawOnChartArea: false, // only want the grid lines for one axis to show up
-              },
-            },
+            }
           }
         },
       }
