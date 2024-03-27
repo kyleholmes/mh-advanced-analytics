@@ -88,4 +88,9 @@ export class AnalyticsService {
   public getErrorDetail(itemID: string) {
     return this.http.get('https://localhost:44397/Exceptions/GetErrorDetails?ItemID=' + itemID).pipe(map((response: any) => response));
   }
+
+  public getBrowserActivity() {
+    return this.http.get('https://localhost:44397/Events/GetBrowserActivity').pipe(map((response: any) => response));
+  }
+  
 }

@@ -97,7 +97,7 @@ button.primary {
 .user-item{
   cursor: pointer;
   color: white;
-  background-color: #F15A24;
+  background-color: #ff8929;
   border-radius: 5px;
   padding: 5px;
   margin: 10px;
@@ -109,7 +109,7 @@ button.primary {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 29%;
+  width: 20%;
   height: 150px;
   display: inline-block;
   text-align: center;
@@ -343,11 +343,11 @@ tr.mat-mdc-header-row {
 .click-step{
   cursor: pointer;
   color: white !important;
-  background-color: #0a92b8 !important;
+  background-color: #36a2eb !important;
 }
 
 .click-step:hover{
-  background-color: #25aed4 !important;
+  background-color: #70bef3 !important;
 }
 
 .click-step:active{
@@ -363,11 +363,11 @@ tr.mat-mdc-header-row {
 .app-change-step{
   cursor: pointer;
   color: white !important;
-  background-color: #f15a24 !important;
+  background-color: #ff8929 !important;
 }
 
 .app-change-step:hover{
-  background-color: #f58056 !important;
+  background-color: #ffa358 !important;
 }
 
 .app-change-step:active{

@@ -2,7 +2,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of as observableOf } from 'rxjs';
-import { GetAllLoadTimes, GetAllLoadTimesError, GetAllLoadTimesResults, GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetErrorDetail, GetErrorDetailError, GetErrorDetailResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsFull, GetLastWeekErrorsFullError, GetLastWeekErrorsFullResults, GetLastWeekErrorsResults, GetPage, GetPageActivity, GetPageActivityError, GetPageActivityResults, GetPageAverageLoadTime, GetPageAverageLoadTimeError, GetPageAverageLoadTimeResults, GetPageError, GetPageErrors, GetPageErrorsError, GetPageErrorsResults, GetPageFavoritedBy, GetPageFavoritedByError, GetPageFavoritedByResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPageResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUser, GetUserActivity, GetUserActivityError, GetUserActivityResults, GetUserError, GetUserErrors, GetUserErrorsError, GetUserErrorsResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults, GetUserResults } from "./analytics.actions";
+import { GetAllLoadTimes, GetAllLoadTimesError, GetAllLoadTimesResults, GetAllPages, GetAllPagesError, GetAllPagesResults, GetAllUsers, GetAllUsersError, GetAllUsersResults, GetBrowserActivity, GetBrowserActivityError, GetBrowserActivityResults, GetDeviceTypes, GetDeviceTypesError, GetDeviceTypesResults, GetErrorDetail, GetErrorDetailError, GetErrorDetailResults, GetLastWeekErrors, GetLastWeekErrorsError, GetLastWeekErrorsFull, GetLastWeekErrorsFullError, GetLastWeekErrorsFullResults, GetLastWeekErrorsResults, GetPage, GetPageActivity, GetPageActivityError, GetPageActivityResults, GetPageAverageLoadTime, GetPageAverageLoadTimeError, GetPageAverageLoadTimeResults, GetPageError, GetPageErrors, GetPageErrorsError, GetPageErrorsResults, GetPageFavoritedBy, GetPageFavoritedByError, GetPageFavoritedByResults, GetPageLoads, GetPageLoadsError, GetPageLoadsResults, GetPageResults, GetPowerUsers, GetPowerUsersError, GetPowerUsersResults, GetScreenSizes, GetScreenSizesError, GetScreenSizesResults, GetUser, GetUserActivity, GetUserActivityError, GetUserActivityResults, GetUserError, GetUserErrors, GetUserErrorsError, GetUserErrorsResults, GetUserLogins, GetUserLoginsError, GetUserLoginsResults, GetUserResults } from "./analytics.actions";
 import { AnalyticsService } from "../service/analytics.service";
 
 @Injectable()
@@ -329,6 +329,23 @@ export class AnalyticsStoreEffects {
           ),
           catchError(
             error => observableOf(GetErrorDetailError({ message: error }))
+          )
+        )
+    )
+  ));
+
+  GetBrowserActivityEffects$ = createEffect(() => this.actions$.pipe(
+    ofType(GetBrowserActivity),
+    switchMap(action =>
+      this.analyticsService.getBrowserActivity()
+        .pipe(
+          map(
+            data => {
+              return GetBrowserActivityResults({ browserActivity: data })
+            }
+          ),
+          catchError(
+            error => observableOf(GetBrowserActivityError({ message: error }))
           )
         )
     )
