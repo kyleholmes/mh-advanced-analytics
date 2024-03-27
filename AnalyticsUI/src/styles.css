@@ -343,7 +343,15 @@ tr.mat-mdc-header-row {
 .click-step{
   cursor: pointer;
   color: white !important;
-  background-color: #007c9e !important;
+  background-color: #0a92b8 !important;
+}
+
+.click-step:hover{
+  background-color: #25aed4 !important;
+}
+
+.click-step:active{
+  background-color: #66d4f3 !important;
 }
 
 .menu-step{
@@ -355,7 +363,15 @@ tr.mat-mdc-header-row {
 .app-change-step{
   cursor: pointer;
   color: white !important;
-  background-color: #F15A24 !important;
+  background-color: #f15a24 !important;
+}
+
+.app-change-step:hover{
+  background-color: #f58056 !important;
+}
+
+.app-change-step:active{
+  background-color: #f7bea9 !important;
 }
 
 .error-item{
@@ -368,8 +384,16 @@ tr.mat-mdc-header-row {
 .error-item-center{
   cursor: pointer;
   color: white !important;
-  background-color: #57211F !important;
+  background-color: #f12c26 !important;
   text-align: center;
+}
+
+.error-item-center:hover{
+  background-color: #fc645f !important;
+}
+
+.error-item-center:active{
+  background-color: #f88581 !important;
 }
 
 .menu-icon{

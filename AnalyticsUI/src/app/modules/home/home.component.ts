@@ -108,9 +108,25 @@ export class HomeComponent {
           datasets: [
             {
               label: 'User Logins',
-              data: this.userLoginsList.map(row => row.count)
+              data: this.userLoginsList.map(row => row.count),
+              borderColor: 'rgb(250, 178, 136)'
             }
           ]
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              title: {
+                display: true,
+                text: 'User Logins'
+              }
+            }
+          }
         }
       }
     );
@@ -130,6 +146,21 @@ export class HomeComponent {
               backgroundColor: '#DC3545',
             }
           ]
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              title: {
+                display: true,
+                text: 'Error Count'
+              }
+            }
+          }
         }
       }
     );
