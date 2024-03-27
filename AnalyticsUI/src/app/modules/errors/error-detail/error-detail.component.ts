@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, filter } from 'rxjs';
-import { ClearErrorDetail, GetErrorDetail } from 'src/app/store/analytics.actions';
+import { ClearErrorDetail, GetErrorDetail, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorDetail } from 'src/app/models/error-detail';
@@ -28,6 +28,7 @@ export class ErrorDetailComponent {
   }
   
   ngOnInit(): void {
+    this.store.dispatch(SetPageTitle({ title: 'Error Detail' }));
     this.subscriptions.add(
       this.store
         .select((store) => store.analyticsState.errorDetail)

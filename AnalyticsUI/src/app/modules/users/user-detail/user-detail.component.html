@@ -1,9 +1,4 @@
 <div>
-    <div class="header">
-        <mat-icon class="back-button" (click)="back()">arrow_back</mat-icon>
-        <span class="page-header">{{currentUser.firstName + ' ' + currentUser.lastName + ' Analytics'}}</span>
-    </div>
-    
     <div class="body">
         <div class="card-tall">
             <div class="card-header">Recent Errors</div>
@@ -21,8 +16,8 @@
             </div>
         </div>
 
-        <div class="card-tall-hover" (click)="openRecentActivity()">
-            <div class="card-header">Recent Activity</div>
+        <div class="card-tall-hover">
+            <div class="card-header" (click)="openRecentActivity();">Recent Activity</div>
             <div *ngIf="loadingActivity" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
             </div>

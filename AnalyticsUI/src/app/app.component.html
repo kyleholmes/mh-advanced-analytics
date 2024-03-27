@@ -11,6 +11,57 @@
       </div>
   </div>
   <section class="content">
+    <div style="text-align: center; right: -100px; position: relative; margin-bottom: 20px;">
+      <span class="page-header">{{ currentPageTitle ? currentPageTitle: '' }}</span><br>
+
+      <div class="filter-wrapper" style="margin-top: 10px;">
+        <span class="mh-label">
+          Date Range
+        </span>
+        <input type="date" class="mh-date-input">
+      </div>
+
+      <div class="filter-wrapper">
+        <span class="mh-label">
+          Release
+        </span>
+        <select class="mh-dropdown-selected">
+          <option>All</option>
+          <option>February 2024</option>
+          <option>January 2024</option>
+          <option>December 2023</option>
+          <option>November 2023</option>
+          <option>October 2023</option>
+          <option>September 2023</option>
+          <option>August 2023</option>
+        </select>
+      </div>
+
+      <div class="filter-wrapper">
+        <span class="mh-label">
+          Application
+        </span>
+        <select class="mh-dropdown-selected">
+          <option>All</option>
+          <option>340B Architect</option>
+          <option>Macro Manager</option>
+          <option>340B Impact</option>
+          <option>340B Gateway</option>
+          <option>NDC Architect</option>
+        </select>
+      </div>
+
+      <div class="filter-wrapper">
+        <span class="mh-label">
+          Feature
+        </span>
+        <select class="mh-dropdown-selected">
+          <option>All</option>
+          <option>Gateway Dashboards</option>
+          <option>Dispense Fee Management</option>
+        </select>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </section>
 </main>

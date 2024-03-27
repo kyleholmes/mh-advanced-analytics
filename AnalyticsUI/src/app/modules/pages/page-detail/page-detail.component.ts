@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { Subscription, filter, skip } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { ClearPageDetail, GetAllUsers, GetDeviceTypes, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageAverageLoadTimeCleanup, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
+import { ClearPageDetail, GetAllUsers, GetDeviceTypes, GetPage, GetPageActivity, GetPageAverageLoadTime, GetPageAverageLoadTimeCleanup, GetPageErrors, GetPageFavoritedBy, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -49,6 +49,7 @@ export class PageDetailComponent {
         .pipe(filter((currentPage) => currentPage !== null))
         .subscribe((currentPage) => {
           this.currentPage = currentPage;
+          this.store.dispatch(SetPageTitle({ title: this.currentPage.pageName + ' Analytics' }));
           this.store.dispatch(GetPageAverageLoadTime({ pageUrl: this.currentPage.pageName }));
           this.store.dispatch(GetPageErrors({ pageUrl: this.currentPage.ngPageURL }));
           this.store.dispatch(GetPageActivity({ pageUrl: this.currentPage.pageName }));

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import Chart from 'chart.js/auto';
 import { Subscription, filter } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
-import { ClearHomeData, GetLastWeekErrors, GetPageLoads, GetUserLogins } from 'src/app/store/analytics.actions';
+import { ClearHomeData, GetLastWeekErrors, GetPageLoads, GetUserLogins, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 
 @Component({
@@ -27,6 +27,7 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(SetPageTitle({ title: 'Analytics Dashboard' }));
     this.store.dispatch(GetPageLoads());
     this.subscriptions.add(
       this.store

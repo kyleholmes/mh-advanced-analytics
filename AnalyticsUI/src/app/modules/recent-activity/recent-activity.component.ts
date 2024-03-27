@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { Subscription, filter, skip } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { ClearUserDetail, GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors } from 'src/app/store/analytics.actions';
+import { ClearUserDetail, GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes, GetUser, GetUserActivity, GetUserErrors, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -46,6 +46,7 @@ export class RecentActivityComponent {
         .pipe(filter((currentUser) => currentUser !== null))
         .subscribe((currentUser) => {
           this.currentUser = currentUser;
+          this.store.dispatch(SetPageTitle({ title: this.currentUser.firstName + ' ' + this.currentUser.lastName + ' Average Day' }));
         })
     );
   }

@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { Subscription, filter } from 'rxjs';
 import { SimpleCount } from 'src/app/models/simple-count';
 import { User } from 'src/app/models/user';
-import { ClearUserData, GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes } from 'src/app/store/analytics.actions';
+import { ClearUserData, GetAllUsers, GetDeviceTypes, GetPowerUsers, GetScreenSizes, SetPageTitle } from 'src/app/store/analytics.actions';
 import { AnalyticsState } from 'src/app/store/analytics.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -34,6 +34,7 @@ export class UsersComponent {
   }
   
   ngOnInit(): void {
+    this.store.dispatch(SetPageTitle({ title: 'Users' }));
     this.store.dispatch(GetScreenSizes());
     this.subscriptions.add(
       this.store
