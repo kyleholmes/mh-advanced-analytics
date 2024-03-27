@@ -25,6 +25,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { RecentActivityComponent } from './modules/recent-activity/recent-activity.component';
+import { ComparisonComponent } from './modules/comparison/comparison.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { RecentActivityComponent } from './modules/recent-activity/recent-activi
         UserDetailComponent,
         PageDetailComponent,
         ErrorDetailComponent,
-        RecentActivityComponent
+        RecentActivityComponent,
+        ComparisonComponent,
     ],
     imports: [
         BrowserModule,
@@ -60,6 +63,7 @@ import { RecentActivityComponent } from './modules/recent-activity/recent-activi
         GoogleMapsModule,
         MatStepperModule,
         MatExpansionModule,
+        MatButtonModule,
     ],
     providers: [Store],
     bootstrap: [AppComponent],

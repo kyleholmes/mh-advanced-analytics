@@ -17,7 +17,14 @@
         </div>
 
         <div class="card-tall-hover">
-            <div class="card-header" (click)="openRecentActivity();">Recent Activity</div>
+            <div class="card-header" (click)="openRecentActivity();">
+                Recent Activity
+                <mat-icon (click)="toggleMenu(); $event.stopPropagation();" class="menu-icon">more_vert</mat-icon>
+                <div *ngIf="showMenu" class="mini-menu">
+                    <div class="mini-menu-item" (click)="openComparison(); $event.stopPropagation();">Compare</div>
+                    <div class="mini-menu-item" (click)="$event.stopPropagation();">Export</div>
+                </div>
+            </div>
             <div *ngIf="loadingActivity" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
             </div>

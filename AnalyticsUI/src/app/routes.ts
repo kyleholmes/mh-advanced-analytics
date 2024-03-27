@@ -8,6 +8,7 @@ import { UserDetailComponent } from './modules/users/user-detail/user-detail.com
 import { PageDetailComponent } from './modules/pages/page-detail/page-detail.component';
 import { ErrorDetailComponent } from './modules/errors/error-detail/error-detail.component';
 import { RecentActivityComponent } from './modules/recent-activity/recent-activity.component';
+import { ComparisonComponent } from './modules/comparison/comparison.component';
 const routeConfig: Routes = [
   {
     path: '',
@@ -48,6 +49,11 @@ const routeConfig: Routes = [
     path: 'recent-activity/:id',
     component: RecentActivityComponent,
     title: 'Recent Activity'
+  },
+  {
+    path: 'comparison/:id',
+    component: ComparisonComponent,
+    title: 'Comparison'
   },
 ];
 

@@ -27,11 +27,6 @@ button.primary {
   text-align: center;
 }
 
-.header{
-  width: 100%;
-  text-align: center;
-}
-
 .body{
   clear: both;
   padding-top: 10px;
@@ -192,6 +187,7 @@ button.primary {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .card-body{
@@ -362,4 +358,28 @@ tr.mat-mdc-header-row {
   color: white !important;
   background-color: #57211F !important;
   text-align: center;
+}
+
+.menu-icon{
+  float: right;
+}
+
+.mini-menu{
+  position: absolute;
+  background: white;
+  width: 100px;
+  text-align: right;
+  border: 1px solid black;
+  padding: 2px;
+  box-shadow: 1px 1px 5px 0px;
+  cursor: default;
+  z-index: 10;
+  right: 0;
+  top: 30px;
+}
+
+.mini-menu-item{
+  font-weight: normal;
+  margin: 8px;
+  cursor: pointer;
 }
