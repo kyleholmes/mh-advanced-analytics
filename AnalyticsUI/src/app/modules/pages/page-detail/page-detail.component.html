@@ -7,7 +7,7 @@
             </div>
             <div *ngIf="!loadingLoadTime">
                 <div *ngIf="pageAverageLoadTime === ''">Not enough data available</div>
-                <div *ngIf="pageAverageLoadTime !== ''" class="big-number" [style]="pageAverageLoadTime > '2' ? 'color: red;': 'color: green;'">{{pageAverageLoadTime + ' '}}</div>
+                <div *ngIf="pageAverageLoadTime !== ''" class="big-number" [style]="pageAverageLoadTime > '3' ? 'color: red;': 'color: green;'">{{pageAverageLoadTime + ' '}}</div>
                 <div style="display: inline-block;">seconds</div>
             </div>
         </div>
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="card-no-hover">
+        <div class="card-no-hover" style="overflow-y: scroll;">
             <div class="card-header">Favorited By</div>
             <div *ngIf="loadingFavorites" class="loading-holder">
                 <div class="lds-facebook"><div></div><div></div><div></div></div>
